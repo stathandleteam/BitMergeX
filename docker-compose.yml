@@ -1,0 +1,34 @@
+services:
+  # Node.js Application Service
+  login-service:
+    build:
+      context: .
+      dockerfile: ./login-service/Dockerfile.dev
+    ports:
+      - '5000:5000' # Map container port to localhost
+    # networks:
+    #   - app-tier
+    volumes:
+      - .:/login-service
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/userdb
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - mongo
+
+  # MongoDB Service
+  mongo:
+    image: mongo:6.0.6
+    container_name: mongodb
+    ports:
+      - '27017:27017' # Expose MongoDB port
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongo-data:/data/db # Persist MongoDB data
+
+# Volumes for persistent storage
+volumes:
+  mongo-data:
