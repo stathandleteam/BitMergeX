@@ -1,0 +1,13 @@
+FROM node:16-alpine
+
+LABEL version="1.0"
+LABEL description="This is the base docker image for the login-service API."
+LABEL maintainer = ["adetola013@gmail.com"]
+
+WORKDIR /app
+COPY /login-service/package*.json ./
+RUN npm install
+COPY /login-service/ .
+EXPOSE 5000
+
+CMD ["npm", "run", "dev"]
