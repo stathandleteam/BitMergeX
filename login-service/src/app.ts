@@ -1,18 +1,27 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { logger as requestLogger } from './middleware/log.middleware';
-import request from 'supertest';
+import routeModules from "./routes";
+
+
 
 dotenv.config();
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import errorHandler from './middleware/error.middleware';
+import passport from "./middleware/passport";
+import httpLogger from "./middleware/http-logger";
+import cookieParser from "cookie-parser";
+
+import { errorHandler } from "./helpers/errorHandler";
+import { loadConfigVariables } from "./config";
+
+// LOAD ENVIRONMENT VARIABLES
+loadConfigVariables();
 
 const app: Express = express();
 
 // Custom Middleware logger
-app.use(requestLogger);
+app.use(httpLogger);
 
 // Middleware
 app.use(cors());
@@ -20,11 +29,12 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 
-// Routes
+app.use(cookieParser());
 
-app.get('/', (_req, res) => {
-  res.send('it works');
-});
+// passport middleware
+app.use(passport);
+
+routeModules(app);
 
 // Global error handling middleware
 app.use(errorHandler);

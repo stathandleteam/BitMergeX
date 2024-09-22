@@ -14,8 +14,10 @@ services:
       - PORT=5000
       - MONGO_URI=mongodb://mongo:27017/userdb
       - JWT_SECRET=your_jwt_secret_key
+    restart: always
     depends_on:
       - mongo
+      - redis
 
   # MongoDB Service
   mongo:
@@ -26,9 +28,20 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      # MONGO_INITDB_DATABASE: userdb
     volumes:
       - mongo-data:/data/db # Persist MongoDB data
+      - mongodb_config:/data/configdb
+      - ./dump:/dump
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
 # Volumes for persistent storage
 volumes:
   mongo-data:
+  mongodb_config:
