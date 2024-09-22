@@ -32,8 +32,8 @@ services:
     volumes:
       - mongo-data:/data/db # Persist MongoDB data
       - mongodb_config:/data/configdb
-      - ./dump:/dump
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      # - ./dump:/dump
+      # - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   redis:
     image: redis:7-alpine

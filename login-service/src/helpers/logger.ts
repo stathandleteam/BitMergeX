@@ -30,8 +30,6 @@ export const connectDB = async () => {
   }
 };
 
-
-
 const logger = createLogger({
   format: format.combine(
     format.colorize({ all: true }),
