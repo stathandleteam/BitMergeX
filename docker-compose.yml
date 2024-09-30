@@ -1,23 +1,52 @@
 services:
   # Node.js Application Service
-  login-service:
-    build:
-      context: .
-      dockerfile: ./login-service/Dockerfile.dev
-    ports:
-      - '5000:5000' # Map container port to localhost
-    # networks:
-    #   - app-tier
-    volumes:
-      - .:/login-service
-    environment:
-      - PORT=5000
-      - MONGO_URI=mongodb://mongo:27017/userdb
-      - JWT_SECRET=your_jwt_secret_key
-    restart: always
-    depends_on:
-      - mongo
-      - redis
+  # reverseproxy:
+  #   # image: reverseproxy
+  #   context: .
+  #   dockerfile: ./reverseproxy/Dockerfile
+  #   ports:
+  #       - 8080:8080
+  #   restart: always
+  #   depends_on:
+  #     - login-service
+  #     - stx-service
+  # login-service:
+  #   build:
+  #     context: .
+  #     dockerfile: ./login-service/Dockerfile.dev
+  #   ports:
+  #     - '5000:5000' # Map container port to localhost
+  #   # networks:
+  #   #   - app-tier
+  #   volumes:
+  #     - .:/login-service
+  #   environment:
+  #     - PORT=5000
+  #     - MONGO_URI=mongodb://mongo:27017/userdb
+  #     - JWT_SECRET=your_jwt_secret_key
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - rabbitmq
+
+  # stx-service:
+  #   build:
+  #     context: .
+  #     dockerfile: ./stx-service/Dockerfile.dev
+  #   ports:
+  #     - '5001:5001' # Map container port to localhost
+  #   volumes:
+  #     - .:/stx-service
+  #   environment:
+  #     - PORT=5000
+  #     - MONGO_URI=mongodb://mongo:27017/stxdb
+  #     - JWT_SECRET=your_jwt_secret_key
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #     - rabbitmq
+
 
   # MongoDB Service
   mongo:
@@ -41,7 +70,22 @@ services:
     restart: always
     ports:
       - 6379:6379
+
+  # RabbitMQ Service
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      
 # Volumes for persistent storage
 volumes:
   mongo-data:
   mongodb_config:
+  rabbitmq-data:
