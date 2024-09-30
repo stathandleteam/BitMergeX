@@ -1,11 +1,6 @@
 import { Response } from "express";
 import { Error } from "../types";
 
-// import { Error } from "../types";
-
-/*
- * Send http response
- */
 export const sendResponse = (res: Response, data: unknown, code = 200) =>
   res.status(code).json({
     success: true,

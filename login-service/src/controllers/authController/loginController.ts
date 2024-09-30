@@ -73,6 +73,7 @@ const loginController = asyncWrapper(async (req: Request|any, res: Response, nex
       res.clearCookie(config.refreshTokenName);
     }
 
+    
     // register the new refreshToken
     await userTokenService.create(user.id, newRefreshToken);
 
