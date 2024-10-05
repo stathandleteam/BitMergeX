@@ -1,5 +1,5 @@
 import { StacksDevnet } from "@stacks/network";
-import { generateWallet, getStxAddress, Wallet, generateNewAccount, Account, AllowedKeyEntropyBits } from '@stacks/wallet-sdk';
+import {  generateWallet, getStxAddress, Wallet, generateNewAccount, Account, AllowedKeyEntropyBits } from '@stacks/wallet-sdk';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import { AnchorMode, broadcastTransaction, Cl, ClarityValue, createStacksPrivateKey, getNonce, makeContractCall, Pc, PostConditionMode, privateKeyToString, pubKeyfromPrivKey, publicKeyToString, TransactionVersion, uintCV } from '@stacks/transactions';
 import { restoreWalletAccounts } from '@stacks/wallet-sdk';
@@ -53,46 +53,45 @@ export class StxWalletService {
         };
     }
 
-
- // Function to get balance from a deployed contract
- public async getBalance(address: string): Promise<any> {
-    
-    const OWNER_PRIVKEY = process.env.OWNER_PRIVKEY;
-
-    if (!OWNER_PRIVKEY) {
-        throw new Error('Failed to fetch balance');
-    }
-    try {
-
-        const nonce = await getNonce(address, this.network);
-
-        // Construct the contract call to 'get-balance' function
-
-        const functionArgs: ClarityValue[] = [Cl.principal(address),];
-        const transaction = await makeContractCall({
-            contractAddress: process.env.CONTRACT_ADDRESS || 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-            contractName: 'stx-wallet',
-            functionName: 'get-balance',
-            functionArgs,
-            fee: BigInt(300),
-            nonce: nonce,
-            network: this.network,
-            anchorMode: AnchorMode.OnChainOnly,
-            senderKey: OWNER_PRIVKEY,
-            postConditionMode: PostConditionMode.Deny,
-        });
-
-        // Broadcast the transaction
-        const result = await broadcastTransaction(transaction, this.network);
-        console.log('Balance Transaction Result:', result);
+    // Function to get balance from a deployed contract
+    public async getBalance(address: string): Promise<any> {
         
-        return result;
+        const OWNER_PRIVKEY = process.env.OWNER_PRIVKEY;
 
-    } catch (error) {
-        console.error('Error fetching balance:', error);
-        throw new Error('Failed to fetch balance');
+        if (!OWNER_PRIVKEY) {
+            throw new Error('Failed to fetch balance');
+        }
+        try {
+
+            const nonce = await getNonce(address, this.network);
+
+            // Construct the contract call to 'get-balance' function
+
+            const functionArgs: ClarityValue[] = [Cl.principal(address),];
+            const transaction = await makeContractCall({
+                contractAddress: process.env.CONTRACT_ADDRESS || 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+                contractName: 'stx-wallet',
+                functionName: 'get-balance',
+                functionArgs,
+                fee: BigInt(300),
+                nonce: nonce,
+                network: this.network,
+                anchorMode: AnchorMode.OnChainOnly,
+                senderKey: OWNER_PRIVKEY,
+                postConditionMode: PostConditionMode.Deny,
+            });
+
+            // Broadcast the transaction
+            const result = await broadcastTransaction(transaction, this.network);
+            console.log('Balance Transaction Result:', result);
+            
+            return result;
+
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+            throw new Error('Failed to fetch balance');
+        }
     }
-}
 
     // Function to send STX
     public async sendStx({senderAddress, privKey, recipientAddress, amount, memo}:{senderAddress: string, privKey: string, recipientAddress: string, amount: number, memo: string}): Promise<any> {
