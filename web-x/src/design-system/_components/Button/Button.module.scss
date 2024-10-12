@@ -1,0 +1,85 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+    // --accent-orange: #{$accent-orange-500};
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+}
+
+// Primary Button Styles
+.primary {
+  background-color: $accent-orange-500; // Your primary color from the design
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken($accent-orange-500, 5%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($accent-orange-500, 10%);
+  }
+
+  &:disabled {
+    background-color: #6B7280;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+// Secondary Button Styles
+.secondary {
+  background-color: transparent;
+  border: 2px solid $accent-orange-500;
+  color: $accent-orange-500;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($accent-orange-500, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba($accent-orange-500, 0.1);
+  }
+
+  &:disabled {
+    border-color: #6B7280;
+    color: #6B7280;
+  }
+}
+
+// Tertiary Button Styles
+.tertiary {
+  background-color: transparent;
+  color: $accent-orange-500;
+  padding: 0;
+  text-decoration: none;
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
+
+  &:active:not(:disabled) {
+    color: darken($accent-orange-500, 10%);
+  }
+
+  &:disabled {
+    color: #6B7280;
+  }
+}
