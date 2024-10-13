@@ -71,10 +71,9 @@ curl -X POST http://localhost:5000/api/v1/auth/login -H "Content-Type: applicati
 <!-- Off Chain Get Wallet -->
 ```
 curl -X GET "http://localhost:5001/api/v1/stx/wallet" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZmEzNTYyNGQ1NjQxZDg3YTFiNjkyZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI3Njc1MjM1LCJleHAiOjE3Mjc2NzU4MzV9.Zg-pU6GFWRhgNCQWuGrakRlkULwdwsyDYzx1cq2hoVY"
+
 {"success":true,"data":{"wallet":{"_id":"66fa35622197db0b18eb59b3","userId":"66fa35624d5641d87a1b692f","name":"Account 1","encryptedSeed":"ea360971050bfd340eb4a987e9d0e3ebb683c99603d8ba5a89af427d2b133cc059e69129b47300071d091250d63a0c9184eb8cdba60fe0efee1473f16567a0d280bd2fab6b5bab1edc1bce2d16653d8a4601167edb16ffc56333aecde3d5ddc6","primaryAddress":"ST3FR5WVC60HF43W88P9B37S7ACBSACA8SJ3RKKS1","accounts":[{"address":"ST3FR5WVC60HF43W88P9B37S7ACBSACA8SJ3RKKS1","accountId":0,"publicKey":"03cb5521a57bf0950fa1a9874ae196864167f1c29deb400e632872d1951857e56b","createdAt":"2024-09-30T05:21:38.853Z","balance":0,"_id":"66fa35622197db0b18eb59b6"}],"createdAt":"2024-09-30T05:21:38.841Z","__v":1}}}
 ```
-
-
 
 <!-- https://stacks.js.org/modules/_stacks_wallet_sdk -->
 <!-- // The transit public key is provided in an "authentication request"  -->
