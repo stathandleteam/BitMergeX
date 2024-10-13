@@ -9,7 +9,7 @@ interface RouterProviderProps {
 }
 
 export function RouterProvider({ children }: RouterProviderProps) {
-  const [currentRoute, setCurrentRoute] = useState<string>(ROUTES.AppUX);
+  const [currentRoute, setCurrentRoute] = useState<string>(ROUTES.HOME);
   const [params, setParams] = useState<RouteParams | undefined>();
 
   useEffect(() => {

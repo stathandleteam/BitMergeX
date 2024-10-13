@@ -22,7 +22,7 @@
     align-items: center;
     position: relative;
     .body{
-        height: rem(650);
+        height: rem(570);
         width: rem(350);
         background-color: var(--body-background);
         display: flex;
@@ -30,11 +30,16 @@
         // justify-content: center;
         align-items: center;
         position: relative;
+
+    }
+
+    .back-icon{
+        @extend %back-click;
     }
 
     .header{
 
-        margin-top: 5rem;
+        margin-top: 2rem;
         display: flex;
         flex-direction: column;
         justify-content: center;

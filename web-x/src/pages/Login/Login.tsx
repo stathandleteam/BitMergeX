@@ -4,23 +4,33 @@ import { Button } from '@/design-system/_components/Button/Button'
 import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
 import { InputField } from '@/design-system/_components/InputField/InputField'
+import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 
 interface Props {
   id?: string;
 }
+
+
+
 
 const Login = ({ id }: Props) => {
 
   const { navigate } = useRouter();
 
 
-  const handleNavigation = () => {
-    navigate(ROUTES.DASHBOARD, { id: '123' });
+  const handleNavigation = (route: string) => {
+    navigate(route, { id: '123' });
   };
 
   return (
     <div className={styles['home-page']}>
+      
       <div className={styles['body']}>
+
+          <div className={styles['back-icon']}>
+            <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} />
+          </div>
+          
           <Logo size={64} />
 
             
@@ -42,7 +52,7 @@ const Login = ({ id }: Props) => {
                 />
 
 
-                <Button variant="primary" style={{width: '100%'}} onClick={handleNavigation}>Unlock</Button>
+                <Button variant="primary" style={{width: '100%'}} onClick={()=>handleNavigation(ROUTES.LOGIN)}>Unlock</Button>
             </div>
 
           </div>

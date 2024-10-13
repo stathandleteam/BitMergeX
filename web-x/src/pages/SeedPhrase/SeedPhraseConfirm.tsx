@@ -7,10 +7,12 @@ import { ROUTES } from '@/routing/constants'
 import { useEffect, useState } from 'react'
 import { seedPhrases } from '@/routing/seed-phrase-example'
 import { shuffleArray } from '@/design-system/utils/utils'
+import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 
 
 const SeedPhraseConfirm = () => {
 
+  
     const { navigate } = useRouter();
 
     const handleSignUpNavigation = () => {
@@ -79,11 +81,19 @@ const SeedPhraseConfirm = () => {
         <PhraseBox value={value} isInput={true} name={key} onChange={onChange}/>
       )
     })
+
+    const handleNavigation = (route: string) => {
+      navigate(route, { id: '123' });
+    };
     
   return (
     <div className={styles['seed-phrase-create-page']}>
 
         <div className={styles['body']}>
+
+        <div className={styles['back-icon']}>
+            <BackIcon onClick={()=>handleNavigation(ROUTES.SEED_PHRASE_CREATE)} />
+          </div>
 
             <div className={styles['header']}>
                 <span className={styles['onboarding-title']}> 

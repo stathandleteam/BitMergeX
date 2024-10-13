@@ -13,7 +13,7 @@ const Home = ({ id }: Props) => {
   const { navigate } = useRouter();
 
   const handleSignUpNavigation = () => {
-    navigate(ROUTES.SIGNUP, { id: '123' });
+    navigate(ROUTES.SEED_PHRASE_CREATE, { id: '123' });
   };
 
   const handleSignInNavigation = () => {

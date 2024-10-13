@@ -4,7 +4,7 @@ import Logo from '@/design-system/_components/Logo/Logo'
 import { Button } from '@/design-system/_components/Button/Button'
 import useOutsideAlerter from '@/design-system/hooks/useOutsideAlerter'
 
-const PopUpCard = ({heading, body, handleSetReveal, cssStyles, buttonLabel, logoSize = 50, canTapOutside}: {heading: string, body: string, handleSetReveal: Dispatch<SetStateAction<boolean>>, cssStyles?: React.CSSProperties, buttonLabel?: string, logoSize?: number, canTapOutside?: boolean}) => {
+const PopUpCard = ({heading, body, handleSetReveal, onClick, cssStyles, buttonLabel, logoSize = 50, canTapOutside}: {heading: string, body: string, handleSetReveal: Dispatch<SetStateAction<boolean>>, cssStyles?: React.CSSProperties, buttonLabel?: string, logoSize?: number, canTapOutside?: boolean, onClick?: () => void}) => {
 
   const wrapperRef: any = useRef(null);
 
@@ -23,7 +23,10 @@ const PopUpCard = ({heading, body, handleSetReveal, cssStyles, buttonLabel, logo
 
 
             <Button style={{width: '100%'}} variant='primary'
-            onClick={() => handleSetReveal((reveal: boolean) => !reveal)}
+            onClick={() => {
+              handleSetReveal((reveal: boolean) => !reveal);
+              onClick && onClick()
+            }}
             >{buttonLabel}</Button>
     </div>
   )

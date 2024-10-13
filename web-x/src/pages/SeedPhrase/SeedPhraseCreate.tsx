@@ -6,6 +6,7 @@ import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
 import { useState } from 'react'
 import { seedPhrases } from '@/routing/seed-phrase-example'
+import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 
 
 const SeedPhraseCreate = () => {
@@ -27,11 +28,18 @@ const SeedPhraseCreate = () => {
       setManualBackup(true)
     }
 
+    const handleNavigation = (route: string) => {
+      navigate(route, { id: '123' });
+    };
+
   return (
     <div className={styles['seed-phrase-create-page']}>
 
         <div className={styles['body']}>
 
+        <div className={styles['back-icon']}>
+            <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} />
+        </div>
             <div className={styles['header']}>
                 <span className={styles['onboarding-title']}> 
                     Write down your secret recovery phrase
@@ -62,10 +70,11 @@ const SeedPhraseCreate = () => {
           buttonLabel='Download'
           logoSize = {30}
           canTapOutside = {true}
+          onClick = {()=>handleNavigation(ROUTES.SEED_PHRASE_CONFIRM)}
           />: null}
    
         <div className={styles['onboarding-buttons']}>
-                <Button variant="primary" style={{width: '100%'}} onClick={handleSignInNavigation} disabled = {!reveal}>Backup With Google Drive</Button>
+                <Button variant="primary" style={{width: '100%'}} disabled = {!reveal}>Backup With Google Drive</Button>
                 <Button variant="secondary" style={{width: '100%'}} onClick={handleBackupManually} disabled = {!reveal}>Backup manually</Button>
             </div>
 

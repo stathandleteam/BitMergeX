@@ -122,3 +122,15 @@
     margin-bottom: 8px;
 }
 
+
+%back-click {
+    position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        cursor: pointer;
+        z-index: 1;
+        color: $white;
+        &:hover{
+            color: var(--onboarding-subtitle-color);
+        }
+}
