@@ -22,7 +22,7 @@
     align-items: center;
     position: relative;
     .body{
-        height: rem(570);
+        height: rem(650);
         width: rem(350);
         background-color: var(--body-background);
         display: flex;
@@ -39,7 +39,7 @@
 
     .header{
 
-        margin-top: 2rem;
+        margin-top: 3rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -80,7 +80,7 @@
 
         position: absolute;
         // top: 0.8rem;
-        bottom: 3rem;
+        bottom: 5rem;
         left: 1.2rem;
         margin-left: auto;
         margin-right: auto;

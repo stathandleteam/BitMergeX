@@ -11,7 +11,7 @@
     flex-wrap: wrap; 
     width: 80%; 
     gap: 10px;
-    margin-top: 1.2rem;
+    margin-top: 2rem;
     justify-content: center;
 }
 
@@ -22,7 +22,7 @@
     align-items: center;
     position: relative;
     .body{
-        height: rem(570);
+        height: rem(650);
         width: rem(350);
         background-color: var(--body-background);
         display: flex;
@@ -79,7 +79,7 @@
 
         position: absolute;
         // top: 0.8rem;
-        bottom: 1.5rem;
+        bottom: 5rem;
         left: 1.2rem;
         margin-left: auto;
         margin-right: auto;
