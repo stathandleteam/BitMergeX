@@ -1,0 +1,57 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+    --body-background: #{$primary-black-500};
+    --onboarding-subtitle-color: #{$neutral-gray-500};
+}
+
+.home-page{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .body{
+        // padding-top: rem(200);
+        height: rem(650);
+        width: rem(350);
+        background-color: var(--body-background);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding-bottom: rem(0);
+
+    }
+
+    .onboarding-title{
+        @extend %h3-medium; //typography
+        color: $white;
+    }
+
+    .onboarding-subtitle{
+        @extend %body-2-regular;  //typography
+        text-align: center;
+        color: $white;
+        width: 80%;
+        color: var(--onboarding-subtitle-color);
+    }
+
+.onboarding-buttons{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        max-width: 90%;
+
+
+
+
+
+    }
+    
+}
+

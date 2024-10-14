@@ -1,0 +1,16 @@
+@import '@/design-system/globalStyles/index.global.scss';
+// design-system/globalstyles/index.global.scss
+.logo{
+    width: rem(132.27);
+    height: rem(132.27);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+
+    background-color: $accent-orange-500;
+    
+
+}
+
