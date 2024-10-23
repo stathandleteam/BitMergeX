@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@stacks/wallet-sdk": "^6.17.0",
     "@types/react-redux": "^7.1.33",
     "@types/react-router-dom": "^5.3.3",
+    "bip39": "^3.1.0",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
