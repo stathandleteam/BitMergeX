@@ -14,21 +14,24 @@
     height: 100vh;
 
     .body{
+        // padding-top: rem(200);
         height: rem(650);
         width: rem(350);
         background-color: var(--body-background);
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         gap: 2rem;
         padding-bottom: rem(0);
-        position: relative;
+
     }
 
     .onboarding-title{
         @extend %h3-medium; //typography
         color: $white;
     }
+    
 
     .onboarding-subtitle{
         @extend %body-2-regular;  //typography
@@ -36,19 +39,8 @@
         color: $white;
         width: 80%;
         color: var(--onboarding-subtitle-color);
-        font-size: small;
     }
 
-    .top-layer{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
-        margin-top: 70px
-    }
-    
 .onboarding-buttons{
         display: flex;
         flex-direction: column;
@@ -57,15 +49,22 @@
         gap: 1rem;
         width: 100%;
         max-width: 90%;
-        // margin-top: 15%;
+        margin-top: 20%;
 
 
-        position: absolute;
-        // top: 0.8rem;
-        bottom: 3rem;
 
 
     }
     
 }
 
+
+.top-layer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 70px
+}

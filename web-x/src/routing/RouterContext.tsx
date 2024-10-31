@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ROUTES } from './constants';
 import { RouterContextType, RouteParams } from './types';
+import { StxWalletService } from '@/app/services/stx-wallet-service';
 
 const RouterContext = createContext<RouterContextType | undefined>(undefined);
 
@@ -9,12 +10,25 @@ interface RouterProviderProps {
 }
 
 export function RouterProvider({ children }: RouterProviderProps) {
+
+
+  
+
   const [currentRoute, setCurrentRoute] = useState<string>(ROUTES.HOME);
   const [params, setParams] = useState<RouteParams | undefined>();
 
   useEffect(() => {
+
+    (async ()=>{
+      const check = await StxWalletService.checkSeedExist()
+      setCurrentRoute(check === true ?ROUTES.LOGIN:ROUTES.HOME)
+    })()
+
+  }, [])
+
+  useEffect(() => {
     // Load last route from storage when component mounts
-    chrome?.storage?.local.get(['lastRoute', 'routeParams'], (result) => {
+    chrome?.storage?.local?.get(['lastRoute', 'routeParams'], (result) => {
       if (result.lastRoute) {
         console.log("result", result)
         setCurrentRoute(result.lastRoute);
@@ -24,15 +38,16 @@ export function RouterProvider({ children }: RouterProviderProps) {
       }
     });
   }, []);
+  
 
   const navigate = (route: string, newParams?: RouteParams) => {
     setCurrentRoute(route);
-    setParams(newParams);
+    newParams? setParams(newParams): null;
     
     // Save route state to chrome storage
-    chrome.storage.local.set({ 
+    chrome?.storage?.local?.set({ 
       lastRoute: route,
-      routeParams: newParams 
+      routeParams: newParams ?? params
     });
   };
 

@@ -5,6 +5,8 @@ import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
 import { InputField } from '@/design-system/_components/InputField/InputField'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
+import { Input } from '@/design-system/_components/PasswordField/PasswordField'
+import usePassword from '../Password/usePassword'
 
 interface Props {
   id?: string;
@@ -21,6 +23,19 @@ const Login = ({ id }: Props) => {
   const handleNavigation = (route: string) => {
     navigate(route, { id: '123' });
   };
+  
+  const {
+    formData,  
+    handleInputChange,
+    errors,
+    showPassword, 
+    setShowPassword,
+    showConfirmPassword, 
+    setShowConfirmPassword,
+    handleSubmit,
+    setFormData
+  } = usePassword()
+
 
   return (
     <div className={styles['home-page']}>
@@ -31,6 +46,7 @@ const Login = ({ id }: Props) => {
             <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} />
           </div>
           
+          <div className={styles['top-layer']}>
           <Logo size={64} />
 
             
@@ -41,18 +57,45 @@ const Login = ({ id }: Props) => {
                 Login to Continue!
             </span>
 
+          </div>
+
             <div className={styles['onboarding-buttons']}>
                 {/* <Button variant="primary" style={{width: '100%'}} onClick={handleNavigation}>Login</Button> */}
-                <InputField 
+                {/* <InputField 
                   label="Password"
                   placeholder="Enter your Password"
                   helperText="" //This will be your display name
                   variant="secondary"
                   type='password'
+                /> */}
+                <Input
+                  label = "Password"
+                  type={ showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  value={ formData.password}
+                  onChange={ handleInputChange }
+                  error={ errors.password }
+                  showPasswordToggle
+                  showPassword={ showPassword }
+                  onTogglePassword={ () => setShowPassword(!showPassword) }
                 />
 
+                <Button 
+                  variant="primary" 
+                  style={{width: '100%'}} 
+                  onClick={()=>handleNavigation(ROUTES.LOGIN)}
+                >
+                    Unlock
+                </Button>
+                <Button 
+                  style={{width: '100%', fontSize:12}} 
+                  variant="tertiary" 
+                  onClick={()=>handleNavigation(ROUTES.SEED_PHRASE_RECOVER)}
+                >
+                  Forgot your password?
+                </Button>
 
-                <Button variant="primary" style={{width: '100%'}} onClick={()=>handleNavigation(ROUTES.LOGIN)}>Unlock</Button>
             </div>
 
           </div>

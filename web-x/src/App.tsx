@@ -1,14 +1,4 @@
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { lazy, useState } from 'react'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from './design-system/_components/Button/Button'
-import Logo from './design-system/_components/Logo/Logo'
-import { InputField } from './design-system/_components/InputField/InputField'
-import { Radio } from './design-system/_components/FormControls/Radio'
-import { Checkbox } from './design-system/_components/FormControls/Checkbox';
-import LayoutOutlet from './layout/LayoutOutlet';
-import ErrorPage from './error/ErrorPage';
 import { RouterProvider, useRouter } from './routing/RouterContext';
 import { ROUTES } from './routing/constants';
 import Home from './pages/Home/Home';
@@ -18,6 +8,14 @@ import SeedPhraseCreate from './pages/SeedPhrase/SeedPhraseCreate';
 import SeedPhraseRecover from './pages/SeedPhrase/SeedPhraseRecover';
 import SeedPhraseConfirm from './pages/SeedPhrase/SeedPhraseConfirm';
 import { AppUX } from './Misc';
+import Password from './pages/Password/Password';
+import WalletCreated from './pages/WalletCreated/WalletCreated';
+
+console.log = () => { };
+console.info = () => { };
+console.warn = () => { };                                                                                                                                                                                                                                      
+console.error = () => { };
+console.debug = () => { };
 
 
 function Router() {
@@ -32,10 +30,9 @@ function Router() {
     [ROUTES.SEED_PHRASE_CREATE]: <SeedPhraseCreate />,
     [ROUTES.SEED_PHRASE_RECOVER]: <SeedPhraseRecover />,
     [ROUTES.SEED_PHRASE_CONFIRM]: <SeedPhraseConfirm />,
-
+    [ROUTES.PASSWORD_SECURITY]: <Password />,
     [ROUTES.ONBOARDING]: <Home />,
- // [ROUTES.DASHBOARD]: <Home params={params} />,
-
+    [ROUTES.WALLET_CREATED]: <WalletCreated />,
   };
 
   return routes[currentRoute] || <div>404 Not Found</div>;

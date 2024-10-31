@@ -23,10 +23,10 @@ const PopUpCard = ({heading, body, handleSetReveal, onClick, cssStyles, buttonLa
 
 
             <Button style={{width: '100%'}} variant='primary'
-            onClick={() => {
-              handleSetReveal((reveal: boolean) => !reveal);
-              onClick && onClick()
-            }}
+              onClick={() => {
+                handleSetReveal((reveal: boolean) => !reveal);
+                onClick && onClick()
+              }}
             >{buttonLabel}</Button>
     </div>
   )

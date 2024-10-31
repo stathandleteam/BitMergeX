@@ -4,32 +4,39 @@ import PopUpCard from './_components/PopUpCard'
 import styles from './SeedPhraseCreate.module.scss'
 import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
-import { useState } from 'react'
-import { seedPhrases } from '@/routing/seed-phrase-example'
+import { useEffect, useState } from 'react'
+// import { seedPhrases } from '@/routing/seed-phrase-example'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
+import { SeedPhraseMap } from '@/routing/seed-phrase-example'
+import { StxWalletService } from '@/app/services/stx-wallet-service'
 
 
 const SeedPhraseCreate = () => {
 
-    const { navigate } = useRouter();
-
-    const handleSignUpNavigation = () => {
-      navigate(ROUTES.SIGNUP, { id: '123' });
-    };
+    const { navigate, params } = useRouter();
   
-    const handleSignInNavigation = () => {
-      navigate(ROUTES.LOGIN, { id: '123' });
+    const handleBackNavigation = (route: string) => {
+      navigate(route);
     };
 
     const [reveal, setReveal] = useState(false)
     const [manualBackup, setManualBackup] = useState(false)
+    const [seedPhrases, setSeedPhrase] = useState<SeedPhraseMap>({})
 
+    useEffect(() => {
+     (async ()=>{
+      const seedPhrase: any = params?.seedPhrase
+
+        setSeedPhrase(seedPhrase)
+      })();
+    }, [params?.seedPhrase])
+    
     const handleBackupManually = () => {
       setManualBackup(true)
     }
 
-    const handleNavigation = (route: string) => {
-      navigate(route, { id: '123' });
+    const handleNavigation = ({route}: {route: string}) => {
+      navigate(route);
     };
 
   return (
@@ -38,7 +45,11 @@ const SeedPhraseCreate = () => {
         <div className={styles['body']}>
 
         <div className={styles['back-icon']}>
-            <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} />
+            <BackIcon onClick={()=>handleBackNavigation(ROUTES.HOME)} />
+        </div>
+
+        <div className={styles['top-layer']}>
+          
         </div>
             <div className={styles['header']}>
                 <span className={styles['onboarding-title']}> 
@@ -47,12 +58,11 @@ const SeedPhraseCreate = () => {
                 <span className={styles['onboarding-subtitle']}>
                 Write down your recovery phrase and store it safely. You’ll confirm it in the next step.
                 </span>
-
             </div>
 
             <div className={styles['body']}>
-                <div className={styles['grid']} >
-                  {Array.from({ length: 12 }, (_, rowIndex) => <PhraseBox isInput = {true} value= {seedPhrases[rowIndex+1]} /> )}
+                <div className={styles['grid']}>
+                  {Array.from({ length: 12 }, (_, rowIndex) => <PhraseBox isInput = {true} value= {seedPhrases[rowIndex+1]} key={rowIndex} /> )}
                 </div>
 
         {!reveal ? <PopUpCard 
@@ -70,15 +80,19 @@ const SeedPhraseCreate = () => {
           buttonLabel='Download'
           logoSize = {30}
           canTapOutside = {true}
-          onClick = {()=>handleNavigation(ROUTES.SEED_PHRASE_CONFIRM)}
+          onClick = {()=>{
+            const seedPhraseText = Object.values(seedPhrases).join(',').replace(",", " ")
+            StxWalletService.downloadTxtFile(seedPhraseText)
+            setTimeout(()=>{
+              handleNavigation({route: ROUTES.SEED_PHRASE_CONFIRM})
+            }, 1000)
+          }}
           />: null}
    
-        <div className={styles['onboarding-buttons']}>
+        </div>
+            <div className={styles['onboarding-buttons']}>
                 <Button variant="primary" style={{width: '100%'}} disabled = {!reveal}>Backup With Google Drive</Button>
                 <Button variant="secondary" style={{width: '100%'}} onClick={handleBackupManually} disabled = {!reveal}>Backup manually</Button>
-            </div>
-
-
             </div>
 
             {manualBackup &&<div
