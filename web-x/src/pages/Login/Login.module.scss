@@ -12,8 +12,6 @@
     align-items: center;
     margin: auto 0;
     height: 100vh;
-
-       
 }
 
 .body{
@@ -23,10 +21,20 @@
     background-color: var(--body-background);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     gap: 0.5rem;
     position: relative;
+}
+
+.top-layer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 70px
 }
 
 .back-icon{
@@ -44,12 +52,12 @@
     color: $white;
     width: 80%;
     color: var(--onboarding-subtitle-color);
-
 }
 
 .onboarding-buttons{
-margin-top: 35%;
-
+    // margin-top: 20%;
+    position: absolute;
+    bottom: 8%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,10 +65,5 @@ margin-top: 35%;
     gap: 1rem;
     width: 100%;
     max-width: 90%;
-    position: relative;
-
-
-
-
-
+    // position: relative;
 }
