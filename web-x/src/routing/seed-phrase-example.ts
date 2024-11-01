@@ -1,4 +1,4 @@
-type SeedPhraseMap = {
+export type SeedPhraseMap = {
   [key: number]: string;
 };
 
