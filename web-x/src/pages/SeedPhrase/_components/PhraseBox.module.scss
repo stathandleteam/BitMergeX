@@ -3,7 +3,7 @@
 :root{
     --accent-orange: #{$accent-orange-500};
     --white-color: #{$white};
-    --neutral-grey: #{#D9D9D9};
+    --neutral-grey: #{$neutral-gray-500};
 }
 
 
@@ -43,6 +43,21 @@
 }
 
 
+
 .selected{
     background-color: var(--accent-orange);
 }
+
+
+.input-container{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+
+    .icon{
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+    }
+}
+
