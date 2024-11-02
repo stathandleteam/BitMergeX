@@ -3,7 +3,7 @@ import PhraseBox from './_components/PhraseBox'
 import styles from './SeedPhraseRecover.module.scss'
 import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { shuffleArray } from '@/design-system/utils/utils'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
@@ -17,13 +17,14 @@ const SeedPhraseRecover = () => {
   
     const { navigate, params } = useRouter();
 
-    // const seedPhrases: any = params?.seedPhrase
-
     const [cellSeedPhrase, setcellSeedPhrase]:any = useState<{key: string, value: string}>({key: '', value: ''})
     const [matchSeedPhrase, setmatchSeedPhrase]:any = useState<{key: string, value: boolean}>({key: '', value: false})
     const [reshuffledSeedPhrase, setreshuffledSeedPhrase]:any = useState<{key: string, value: string}[]>([])
     const [errors, setErrors] = useState<FormErrors>({});
 
+    const errRef: any = useRef<HTMLInputElement>(null);
+    const [errMsg, setErrMsg] = useState('');
+  
     const updateObjectImmutably = (obj: Record<string, any>, key: string, value: any) => {
       return { ...obj, [key]: value };
     };
@@ -89,16 +90,17 @@ const SeedPhraseRecover = () => {
     };
 
     const handleValidateSeedPhrase = async ()=>{
-     const seedPhrase:any = Object.values(cellSeedPhrase).reduce((curr, phrase, currentIndex) =>{
-      return  `${curr} ${phrase}`
-     }, '')
-    //  console.log('Object.values(cellSeedPhrase)', Object.values(cellSeedPhrase))
-
-    //  console.log('seedPhrase', seedPhrase.replace(/\s/g, " "))
-
-      if (await validateForm(seedPhrase.trim() || '')){
-          handleNavigation(ROUTES.PASSWORD_SECURITY, seedPhrase)
-        console.log("seedPhrase valid", seedPhrase.trim() || '')
+      try {
+        const seedPhrase:any = Object.values(cellSeedPhrase).reduce((curr, phrase, currentIndex) =>{
+          return  `${curr} ${phrase}`
+         }, '')
+    
+          if (await validateForm(seedPhrase.trim() || '')){
+              handleNavigation(ROUTES.PASSWORD_SECURITY, seedPhrase)
+          }
+            
+      } catch (error: any) {
+        setErrMsg(error.message)
       }
     }
 
@@ -118,6 +120,10 @@ const SeedPhraseRecover = () => {
               <span className={styles['onboarding-subtitle']}>
                   Enter your seedphrase to restore your wallet
             </span>
+            <span ref = {errRef} className={styles[errMsg?'error-label': '']}>
+          {errMsg}
+        </span>
+
             </div>
 
             <div className={styles['body']}>
