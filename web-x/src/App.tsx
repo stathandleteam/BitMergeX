@@ -11,11 +11,11 @@ import { AppUX } from './Misc';
 import Password from './pages/Password/Password';
 import WalletCreated from './pages/WalletCreated/WalletCreated';
 
-// console.log = () => { };
-// console.info = () => { };
-// console.warn = () => { };                                                                                                                                                                                                                                      
-// console.error = () => { };
-// console.debug = () => { };
+console.log = () => { };
+console.info = () => { };
+console.warn = () => { };                                                                                                                                                                                                                                      
+console.error = () => { };
+console.debug = () => { };
 
 
 function Router() {
