@@ -17,23 +17,13 @@ interface FormData {
   
 const usePassword = () => {
 
-//   const location =  useLocation()
-//   const from = location.state?.from?.pathname || '/';
-//   const {  showNotification } = useNotification();
-
   const userRef = useRef<HTMLInputElement>(null);
   const errRef: any = useRef<HTMLInputElement>(null);
-
   const [errMsg, setErrMsg] = useState('');
-//   const navigate = useNavigate();
 
   const formEmpty = {
-      firstName: '',
-      lastName: '',
-      email: '',
       password: '',
       confirmPassword: '',
-      acceptTerms: false,
   }
 
   const [formData, setFormData] = useState<FormData>(formEmpty);
@@ -59,8 +49,6 @@ const usePassword = () => {
     
         return Object.keys(newErrors).length === 0;
     };
-
-    //   const [register, {isLoading }] = useRegisterMutation();
 
     useEffect(() => {
         setErrMsg('');
@@ -137,12 +125,14 @@ const usePassword = () => {
         errMsg,
         userRef,
         errRef,
-        handleSubmit,
+        // handleSubmit,
         // isLoading,
         showConfirmPassword, 
         setShowConfirmPassword,
         handleCheckboxChange,
-        setFormData
+        setFormData,
+        validateForm,
+        setErrMsg,
     }
   
 }

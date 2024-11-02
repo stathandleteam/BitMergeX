@@ -27,56 +27,52 @@ const Password = ({ id }: Props) => {
     const seedPhrases: any = params?.seedPhrase
     const previousScreen: any = params?.previous_screen
 
+    const {
+      formData,  
+      handleInputChange,
+      errors,
+      showPassword, 
+      setShowPassword,
+      showConfirmPassword, 
+      setShowConfirmPassword,
+      // handleSubmit,
+      setFormData,
+      validateForm,
+      setErrMsg,
+      errMsg,
+      errRef
+    } = usePassword()
+  
 
   const handleNavigation = async (route: string) => {
-    let mainAddress;
 
-    console.log("previousScreen", previousScreen)
+    try {
+      if (!validateForm()) return;
     
-    if (previousScreen === ROUTES.SEED_PHRASE_RECOVER){
-      const {  address } = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
-
-      mainAddress = address;
-      console.log("mainAddress", mainAddress);
-
-    } else {
-      const seedPhrase:any = Object.values(seedPhrases).reduce((curr, phrase, currentIndex) =>{
-        return `${curr} ${phrase}`
-      }, '')
-      if (seedPhrase && formData.password){
-  
-        const {  address } = await stxWalletDbService.createWallet(formData.password, seedPhrase.trim() || '');
-        mainAddress = address
-        console.log("mainAddress", mainAddress);
-
+      console.log('seedPhrases', seedPhrases)
+      
+      let mainAddress;
+      
+      if (previousScreen === ROUTES.SEED_PHRASE_RECOVER){
+        const {  address } = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
+        mainAddress = address;
+      } else {
+        if (seedPhrases && formData.password){
+          const {  address } = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
+          mainAddress = address
+        }
       }
-
+  
+      if (mainAddress) navigate(route);
+      if (!mainAddress) console.log("Something went wrong");
+        
+    } catch (error:any) {
+      console.log("error", error)      
+      setErrMsg(error.message)
     }
-
-    if (mainAddress){
-      console.log("Account Successfully created");
-
-      navigate(route);
-    } else {
-
-      console.log("Something went wrong");
-
-    }
-
+  
   };
 
-
-  const {
-    formData,  
-    handleInputChange,
-    errors,
-    showPassword, 
-    setShowPassword,
-    showConfirmPassword, 
-    setShowConfirmPassword,
-    handleSubmit,
-    setFormData
-  } = usePassword()
 
   const {strength, strengthLabel, strengthColor} = usePasswordStrengthMeter(
     {password: formData.password,  
@@ -93,32 +89,27 @@ const Password = ({ id }: Props) => {
           </div>
           
 
-          <div className={styles['top-layer']}>
-          <Logo size={64} />
+      <div className={styles['top-layer']}>
+        <Logo size={64} />
 
-            
-<span className={styles['onboarding-title']}> 
-   {/* Welcome! */}
-   <PiPasswordDuotone size={24} />
+        <span className={styles['onboarding-title']}> 
+          {/* Welcome! */}
+          <PiPasswordDuotone size={24} />
+        </span>
 
-</span>
-<span className={styles['onboarding-subtitle']}>
-    Enter a Password to protect your wallet!
-</span>
+        <span className={styles['onboarding-subtitle']}>
+            Enter a Password to protect your wallet!
+        </span>
+
+        <span ref = {errRef} className={styles[errMsg?'error-label': '']}>
+          {errMsg}
+        </span>
+
           </div>
          
 
             <div className={styles['onboarding-buttons']}>
-                {/* <Button variant="primary" style={{width: '100%'}} onClick={handleNavigation}>Login</Button> */}
-
-                {/* <InputField 
-                  label="Password"
-                  placeholder="Enter your Password"
-                  helperText="" //This will be your display name
-                  variant="secondary"
-                  type='password'
-                /> */}
-
+                
                 <div className={styles['strength-meter']}>
                   <PasswordComponents strength={strength} strengthLabel={strengthLabel} strengthColor={strengthColor} />
                 </div>
@@ -135,19 +126,11 @@ const Password = ({ id }: Props) => {
                   showPassword={ showPassword }
                   onTogglePassword={ () => setShowPassword(!showPassword) }
                 />
-            <div className={styles['strength-meter-wrapper']}>
-              <Requirements password={formData.password} />
-            </div>
-                {/* <PasswordStrengthMeter password={formData.password} setPassword = {(password: string)=>setFormData({...formData, password})} /> */}
 
-                {/* <InputField 
-                  label="Confirm Password"
-                  placeholder="Enter your Password"
-                  helperText="" //This will be your display name
-                  variant="secondary"
-                  type='text'
-                /> */}
-
+              <div className={styles['strength-meter-wrapper']}>
+                <Requirements password={formData.password} />
+              </div>
+               
                 <Input
                   label = "Confirm Password"
                   type={ showConfirmPassword ? 'text' : 'password'}
