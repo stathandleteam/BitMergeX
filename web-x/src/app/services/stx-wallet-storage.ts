@@ -1,30 +1,3 @@
-// // Web Storage Strategy
-// class WebSecureStorage {
-//     // Use IndexedDB with encryption
-//     async storeSeed(encryptedSeed: string) {
-//         const db = await openIndexedDB('WalletDatabase');
-//         const transaction = db.transaction(['seeds'], 'readwrite');
-//         const store = transaction.objectStore('seeds');
-        
-//         // Encrypt again before storing
-//         const doubleEncryptedSeed = this.additionalEncryption(encryptedSeed);
-        
-//         store.put({
-//             id: 'primary_seed',
-//             seed: doubleEncryptedSeed,
-//             timestamp: Date.now()
-//         });
-//     }
-
-//     async retrieveSeed() {
-//         const db = await openIndexedDB('WalletDatabase');
-//         const transaction = db.transaction(['seeds'], 'readonly');
-//         const store = transaction.objectStore('seeds');
-        
-//         const seedEntry = await store.get('primary_seed');
-//         return this.decryptStoredSeed(seedEntry.seed);
-//     }
-// }
 // Define the structure of an encrypted seed
 interface EncryptedSeed {
     encrypted: string;   // The encrypted seed data

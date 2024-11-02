@@ -1,5 +1,5 @@
 import { StacksDevnet } from "@stacks/network";
-import {  generateWallet, getStxAddress, Wallet, generateNewAccount, Account, AllowedKeyEntropyBits } from '@stacks/wallet-sdk';
+import {  generateWallet, getStxAddress, Wallet, generateNewAccount, Account } from '@stacks/wallet-sdk';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import { AnchorMode, broadcastTransaction, Cl, ClarityValue, createStacksPrivateKey, getNonce, makeContractCall, Pc, PostConditionMode, privateKeyToString, pubKeyfromPrivKey, publicKeyToString, TransactionVersion, uintCV } from '@stacks/transactions';
 import { restoreWalletAccounts } from '@stacks/wallet-sdk';
@@ -23,7 +23,6 @@ export class StxWalletService {
     // group axis crush dust alert east merry increase beef uphold eye law
     static async getMnemonic(): Promise<string> {
         const mnemonic = generateMnemonic();
-        console.log("await StxWalletService.getMnemonic()", mnemonic)
         return mnemonic
     }
 
@@ -40,8 +39,6 @@ export class StxWalletService {
       };
 
     static async validateSeedPhrase (mnemonic: string){
-        console.log("mnemonic", mnemonic);
-        console.log(bip39.validateMnemonic(mnemonic))
         if (!bip39.validateMnemonic(mnemonic)) {
             return false
         }
@@ -49,14 +46,9 @@ export class StxWalletService {
     }
     async createWallet(password: string, mnemonic: string): Promise<{ mnemonic: string; address: string }> {
         
-        console.log(mnemonic)
-        
         if (!await StxWalletService.validateSeedPhrase(mnemonic)) {
             throw new Error('Invalid mnemonic');
         }
-        // const secretKey = generateMnemonic();
-
-        // const secretKey = await bip39.mnemonicToEntropy(mnemonic);
 
         const wallet = await generateWallet({
             secretKey: mnemonic,
@@ -167,7 +159,6 @@ export class StxWalletService {
 
             // Broadcast the transaction
             const result = await broadcastTransaction(transaction, this.network);
-            console.log('Balance Transaction Result:', result);
             
             return result;
 
@@ -201,8 +192,6 @@ export class StxWalletService {
 
             const result = await broadcastTransaction(transaction, this.network);
 
-            console.log('Send STX Transaction Result:', result);
-
             return result;
 
         } catch (error) {
@@ -218,14 +207,12 @@ export class StxWalletService {
             authTag: 'someAuthTag',
             salt: 'someSalt'
         });
-        // console.log('Storing encrypted seed:', encryptedSeed);
     }
 
     private async retrieveSeed() {
         try {
             // Retrieve the seed
             const retrievedSeed = await secureIndexedDBStorage.retrieveSeed();
-            console.log('Retrieved seed:', retrievedSeed);
             return retrievedSeed;
         } catch (error) {
             throw new Error('Not implemented');
@@ -235,7 +222,6 @@ export class StxWalletService {
     async unlockWallet(password: string): Promise<any> {
         const encryptedSeed = await this.retrieveSeed();
         const decryptedSeed: string = await decryptSeed(encryptedSeed, password);
-        console.log("encryptedSeed", decryptedSeed)
 
         const wallet: Wallet = await this.createOrGetBaseWallet(decryptedSeed, password);
         return wallet;
@@ -250,51 +236,17 @@ export class StxWalletService {
             
         }
     }
-}
 
-// Usage example
-async function main() {
 
-    const wallet = new StxWalletService();
-    // const mnemonic = await StxWalletService.getMnemonic()
-    // Create a new wallet
-    // const {  address } = await wallet.createWallet('strongPassword123', mnemonic);
-    // console.log('New wallet created:', { mnemonic, address });
-    const { mnemonic, address } = {mnemonic: 'bridge learn wish slim tragic dwarf nature satoshi enact outside manage road', address: 'ST1VGK6W827P09QAKESZQ8C6F8FG7S99V73XHKSCE'}
-    // Restore a wallet
-    const restoredWallet = await wallet.restoreWallet(mnemonic, 'strongPassword123');
-    console.log('Wallet restored:', restoredWallet);
-
-    // Check wallet exist
-    const check = await StxWalletService.checkSeedExist()
-    console.log(`Wallet ${check?"exist": "do not exist"}`);
-
-    // Unlock the wallet
-    const walletUnlocked = await wallet.unlockWallet('strongPassword123');
-    console.log('Wallet unlocked successfully', walletUnlocked);
-
-}
-
-main().catch(console.error);
-
-// Usage
-(async () => {
-    const stxWalletDbService = new StxWalletService()
-    const walletApp = new MainWalletApp();
-
-    const password = 'your_password';
-    const mnemonic = await StxWalletService.getMnemonic();
-
-    // const wallet = await walletApp.getWallet(password, mnemonic);
-    const wallet = await stxWalletDbService.unlockWallet('strongPassword123')
-
-    if (wallet) {
-        
-        // console.log("new account", await walletApp.addAccountToWallet(wallet));
-       const accountDetails = await walletApp.getWalletAccountDetails(wallet.accounts[0], TransactionVersion.Mainnet) ;
-       console.log("accountBalance", accountDetails ? await walletApp.getWalletBalance(accountDetails.address): "Balance is not available") ;
-        // await walletApp.sendStx(wallet.address, 'your_private_key', 'recipient_address', 100, 'Transaction memo');
+    static async resetWallet() {
+        try {
+            await secureIndexedDBStorage.clearSeed();  
+            return true;
+        } catch (error) {
+            console.log("error", error)
+            return false
+        }
     }
-})();
+}
 
 export const stxWalletDbService = new StxWalletService();

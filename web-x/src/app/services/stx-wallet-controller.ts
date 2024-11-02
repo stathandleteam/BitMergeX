@@ -13,7 +13,6 @@ export class MainWalletApp {
     async getWallet(password: string, mnemonic: string) {
         try {
             const wallet = await this.walletService.createWallet(password, mnemonic);
-            console.log("Wallet created with address:", wallet.address);
             return wallet;
         } catch (error) {
             console.error("Error creating wallet:", error);
@@ -23,7 +22,6 @@ export class MainWalletApp {
     async addAccountToWallet(wallet: Wallet) {
         try {
             const updatedWallet = await StxWalletService.addAccountsToWallet(wallet);
-            console.log("New account added to wallet");
             return updatedWallet;
         } catch (error) {
             console.error("Error adding account to wallet:", error);
@@ -33,7 +31,6 @@ export class MainWalletApp {
     async getWalletAccountDetails(account: Account, transactionVersion: TransactionVersion) {
         try {
             const details = await this.walletService.getAccountDetails(account, transactionVersion);
-            console.log("Wallet Account Details:", details);
             return details;
         } catch (error) {
             console.error("Error fetching account details:", error);
@@ -43,7 +40,6 @@ export class MainWalletApp {
     async getWalletBalance(address: string) {
         try {
             const balance = await this.walletService.getBalance(address);
-            console.log("Wallet balance fetched:", balance);
             return balance;
         } catch (error) {
             console.error("Error fetching wallet balance:", error);
@@ -53,7 +49,6 @@ export class MainWalletApp {
     async getOnChainAccountBalance(address: string) {
         try {
             const balance = await this.walletService.getBalance(address);
-            console.log("On-chain account balance:", balance);
             return balance;
         } catch (error) {
             console.error("Error fetching on-chain account balance:", error);
@@ -69,7 +64,6 @@ export class MainWalletApp {
                 amount,
                 memo,
             });
-            console.log("STX sent successfully:", transactionResult);
             return transactionResult;
         } catch (error) {
             console.error("Error sending STX:", error);
