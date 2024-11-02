@@ -4,7 +4,6 @@ import { Button } from '@/design-system/_components/Button/Button'
 import { useRouter } from '@/routing/RouterContext'
 import { ROUTES } from '@/routing/constants'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
-// import StxWalletService from '@/app/services/stx-wallet-service'
 
 interface Props {
   id?: string;
@@ -43,6 +42,7 @@ const Home = ({ id }: Props) => {
           <span className={styles['onboarding-title']}> 
             Welcome to BitmergeX
           </span>
+
 
           <span className={styles['onboarding-subtitle']}>
             Your secure, non-custodial wallet for reliable crypto management. Enjoy a smooth, user-friendly experience designed for the future of finance.

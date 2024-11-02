@@ -21,7 +21,7 @@ export function RouterProvider({ children }: RouterProviderProps) {
 
     (async ()=>{
       const check = await StxWalletService.checkSeedExist()
-      setCurrentRoute(check === true ?ROUTES.LOGIN:ROUTES.HOME)
+      setCurrentRoute(check === true?ROUTES.LOGIN:ROUTES.HOME)
     })()
 
   }, [])

@@ -11,16 +11,15 @@ import { AppUX } from './Misc';
 import Password from './pages/Password/Password';
 import WalletCreated from './pages/WalletCreated/WalletCreated';
 
-console.log = () => { };
-console.info = () => { };
-console.warn = () => { };                                                                                                                                                                                                                                      
-console.error = () => { };
-console.debug = () => { };
+// console.log = () => { };
+// console.info = () => { };
+// console.warn = () => { };                                                                                                                                                                                                                                      
+// console.error = () => { };
+// console.debug = () => { };
 
 
 function Router() {
   const { currentRoute, params } = useRouter();
-
   const routes:any = {
     [ROUTES.HOME]: <Home />,
     [ROUTES.AppUX]: <AppUX />,
@@ -34,7 +33,6 @@ function Router() {
     [ROUTES.ONBOARDING]: <Home />,
     [ROUTES.WALLET_CREATED]: <WalletCreated />,
   };
-
   return routes[currentRoute] || <div>404 Not Found</div>;
 }
 

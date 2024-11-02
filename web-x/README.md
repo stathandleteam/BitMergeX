@@ -8,7 +8,7 @@ src/
 ├── services/       # API services (RTK Query)
 ├── app/            # Redux store setup
 ├── App.tsx         # Root component
-└── index.tsx       # Entry point
+└── main.tsx       # Entry point
 
 
 Script Context

@@ -2,6 +2,7 @@ import { AllowedKeyEntropyBits, generateSecretKey } from '@stacks/wallet-sdk';
 import { getNonce, PostCondition, createSTXPostCondition, FungibleConditionCode } from "@stacks/transactions";
 import { StacksNetwork } from '@stacks/network';
 
+
 /**
  * Generates a BIP39 mnemonic for the given entropy.
  * If no entropy is specified, default is 128 bits.

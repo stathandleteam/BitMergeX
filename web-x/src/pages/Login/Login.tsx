@@ -7,6 +7,7 @@ import { InputField } from '@/design-system/_components/InputField/InputField'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 import { Input } from '@/design-system/_components/PasswordField/PasswordField'
 import usePassword from '../Password/usePassword'
+import { StxWalletService } from '@/app/services/stx-wallet-service'
 
 interface Props {
   id?: string;
@@ -19,9 +20,19 @@ const Login = ({ id }: Props) => {
 
   const { navigate } = useRouter();
 
+  const handleNavigation = async (route: string) => {
 
-  const handleNavigation = (route: string) => {
-    navigate(route, { id: '123' });
+
+    if (route === ROUTES.SEED_PHRASE_RECOVER ){
+      const walletReset =  await StxWalletService.resetWallet()
+
+      walletReset &&
+        navigate(route, { id: '123' });
+
+    } else {
+      navigate(route, { id: '123' });
+
+    }
   };
   
   const {
@@ -32,7 +43,6 @@ const Login = ({ id }: Props) => {
     setShowPassword,
     showConfirmPassword, 
     setShowConfirmPassword,
-    handleSubmit,
     setFormData
   } = usePassword()
 
@@ -43,7 +53,7 @@ const Login = ({ id }: Props) => {
       <div className={styles['body']}>
 
           <div className={styles['back-icon']}>
-            <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} />
+            {/* <BackIcon onClick={()=>handleNavigation(ROUTES.HOME)} /> */}
           </div>
           
           <div className={styles['top-layer']}>
