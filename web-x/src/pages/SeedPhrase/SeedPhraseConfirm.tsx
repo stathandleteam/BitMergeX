@@ -64,8 +64,10 @@ const SeedPhraseConfirm = () => {
       )
     })
 
-    const handleNavigation = (route: string) => {
-      navigate(route, { previous_screen: ROUTES.SEED_PHRASE_RECOVER });
+    const handleNavigation = (route: string, seedPhrase?: string) => {
+
+      seedPhrase ? navigate(route, { previous_screen: ROUTES.SEED_PHRASE_CONFIRM, seedPhrase })
+      : navigate(route, { previous_screen: ROUTES.SEED_PHRASE_CONFIRM });
     };
 
     const validateForm = async (seedPhrase: string) => {
@@ -90,7 +92,7 @@ const SeedPhraseConfirm = () => {
     //  console.log('seedPhrase', seedPhrase.replace(/\s/g, " "))
 
     if (await validateForm(seedPhrase)){
-        handleNavigation(ROUTES.PASSWORD_SECURITY)
+        handleNavigation(ROUTES.PASSWORD_SECURITY, seedPhrase)
      }
 
     }

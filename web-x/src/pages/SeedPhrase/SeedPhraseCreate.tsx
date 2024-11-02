@@ -81,7 +81,7 @@ const SeedPhraseCreate = () => {
           logoSize = {30}
           canTapOutside = {true}
           onClick = {()=>{
-            const seedPhraseText = Object.values(seedPhrases).join(',').replace(",", " ")
+            const seedPhraseText = (Object.values(seedPhrases).join(',')).replace(/,/g, " ")
             StxWalletService.downloadTxtFile(seedPhraseText)
             setTimeout(()=>{
               handleNavigation({route: ROUTES.SEED_PHRASE_CONFIRM})
