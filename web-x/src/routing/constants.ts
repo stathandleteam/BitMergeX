@@ -11,7 +11,9 @@ export const ROUTES = {
   SEED_PHRASE_CONFIRM: '/seed-phrase-confirm',
   PASSWORD_SECURITY: '/password-security',
   WALLET_CREATED: '/wallet-created',
-  RECOVERY_STEP_ONE: '/recovery_step_one'
+  RECOVERY_STEP_ONE: '/recovery-step-one',
+  ACCOUNT_LIST: '/account-list'
+  
 } as const;
 
 export type RouteKeys = keyof typeof ROUTES;

@@ -57,9 +57,8 @@ const Login = ({ id }: Props) => {
           </div>
           
           <div className={styles['top-layer']}>
-          <Logo size={64} />
+            <Logo size={64} />
 
-            
             <span className={styles['onboarding-title']}> 
                Welcome!
             </span>
@@ -94,7 +93,10 @@ const Login = ({ id }: Props) => {
                 <Button 
                   variant="primary" 
                   style={{width: '100%'}} 
-                  onClick={()=>handleNavigation(ROUTES.LOGIN)}
+                  onClick={()=>handleNavigation(
+                    ROUTES.DASHBOARD
+                    // ROUTES.LOGIN
+                  )}
                 >
                     Unlock
                 </Button>
