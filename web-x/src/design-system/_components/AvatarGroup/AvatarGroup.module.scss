@@ -1,0 +1,78 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+  --more-background-color: #4CAF50; 
+}
+
+.avatarGroupContainer {
+    // position: absolute;
+    // height: 0rem;
+    left: 0;
+    // padding-left: 2rem;
+    // margin-top: 1rem;
+  }
+  
+  .avatarGroup {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      > * {
+        position: relative;
+        margin-left: -0.5rem; // Overlap the avatars
+        border: 0.5px solid #fff;
+        z-index: 1; // Default stacking order
+      }
+    
+      
+      // margin-left:5rem;
+      // margin-top:4rem;
+      // width: 10rem;
+      // background-color: salmon;
+      
+      > * {
+          // left: 0;
+          border: 0.5px solid #fff;
+          z-index: 1; // Default stacking order
+        }
+      
+        
+        // Ensure proper stacking order - earlier circles on top
+        // Dynamically set z-index for each avatar
+        // @for $i from 1 through 10 {
+        //   > *:nth-child(#{$i}) {
+        //     z-index: $i; // Higher z-index for each subsequent avatar
+        //     position: absolute;
+        //             right: $i * 1.5rem; // Overlap the avatars
+  
+        //   }
+        // }
+  
+    
+      .more {
+        width: rem(35);
+        height: rem(35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5e6e1;
+        border-radius: 50%;
+        border: 0.05rem solid white;
+        transition: all 0.3s ease;
+        background-color: var(--more-background-color);
+      //   font-size: 1rem;
+        color: #333;
+  
+        &:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          right: -0.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 0.5rem;
+          height: 2px;
+          background-color: rgba(255, 255, 255, 0.2);
+          z-index: 0;
+        }
+      }
+    }
+    
