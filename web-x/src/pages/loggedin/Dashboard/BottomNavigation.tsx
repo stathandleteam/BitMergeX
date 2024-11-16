@@ -1,0 +1,105 @@
+// BottomNavigation.tsx
+import React, { useState } from 'react';
+import { 
+  BiWallet, 
+  BiChart, 
+  BiGlobe, 
+  BiUser 
+} from 'react-icons/bi';
+import { FaEthereum } from 'react-icons/fa';
+import styles from './BottomNavigation.module.scss';
+
+// Import previously created components
+import WalletCard from './WalletCard';
+import WalletNavigation from './WalletNavigation';
+import TokenBalance from './TokenBalance';
+import SwitchAccount from './SwitchAccount/SwitchAccount';
+
+type NavigationTab = 'wallet' | 'market' | 'browser' | 'profile';
+
+interface NavItemProps {
+  icon: React.ReactNode;
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ icon, label, isActive, onClick }) => (
+  <button 
+    className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+    onClick={onClick}
+  >
+    <div className={styles.iconWrapper}>
+      {icon}
+    </div>
+    <span className={styles.label}>{label}</span>
+  </button>
+);
+
+const WalletSection: React.FC = () => (
+  <div className={styles.walletSection}>
+    <SwitchAccount accountType="Testnet" accountName="Account Name" />
+    <WalletCard />
+    <WalletNavigation />
+    <div className={styles.tokenList}>
+      <TokenBalance
+        symbol="STX"
+        name="Stacks"
+        balance={1000}
+        fiatValue={3000}
+        icon={<FaEthereum />}
+      />
+      <TokenBalance
+        symbol="BTC"
+        name="Bitcoin"
+        balance={0.001416}
+        fiatValue={5.42}
+        icon={<FaEthereum />}
+      />
+    </div>
+  </div>
+);
+
+const BottomNavigation: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<NavigationTab>('wallet');
+
+  return (
+    <div className={styles.containerr}>
+      <main className={styles.content}>
+        {activeTab === 'wallet' && <WalletSection />}
+        {activeTab === 'market' && <div>Market Content</div>}
+        {activeTab === 'browser' && <div>Browser Content</div>}
+        {activeTab === 'profile' && <div>Profile Content</div>}
+      </main>
+      
+      <nav className={styles.navigation}>
+      <NavItem
+          icon={<BiWallet />}
+          label="Wallet"
+          isActive={activeTab === 'wallet'}
+          onClick={() => setActiveTab('wallet')}
+        />
+        <NavItem
+          icon={<BiChart />}
+          label="Market"
+          isActive={activeTab === 'market'}
+          onClick={() => setActiveTab('market')}
+        />
+        <NavItem
+          icon={<BiGlobe />}
+          label="Browser"
+          isActive={activeTab === 'browser'}
+          onClick={() => setActiveTab('browser')}
+        />
+        <NavItem
+          icon={<BiUser />}
+          label="My Profile"
+          isActive={activeTab === 'profile'}
+          onClick={() => setActiveTab('profile')}
+        />
+      </nav>
+    </div>
+  );
+};
+
+export default BottomNavigation;

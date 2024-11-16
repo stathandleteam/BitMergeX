@@ -1,0 +1,155 @@
+
+// WalletCard.module.scss
+.card {
+    width: 100%;
+    // max-width: 28rem;
+    width: 90%;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #1C1C1C; //linear-gradient(to right, #3b82f6, #60a5fa)
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      // margin-bottom: 1rem;
+      width: 100%;
+
+
+      .totalBalanceContainer{
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 100%;
+        align-items: flex-start;
+
+
+        .totalBalance{
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #6b7280;
+        }
+      }
+    }
+    
+    .balance {
+      font-size: 1.875rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      color: white;
+    }
+    
+
+    .swipeAddressContainer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .arrowButton {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+      background-color: #6b7280;
+      cursor: pointer;
+
+      &:hover {
+        background-color: white;
+
+        svg{
+          color: #FE5630;
+        }
+      }
+      
+      
+      svg {
+        width: 1rem;
+        height: 0.6rem;
+        color: #ffffff;
+
+       
+      }
+    }
+    
+    .addressContainer{
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+
+      .address {
+        font-family: ui-monospace, monospace;
+        // font-size: 0.875rem;
+        color: #B1A7C7;
+        // margin-bottom: 1rem;
+      }
+
+      .copyIcon {
+        // padding: 0.5rem;
+        // border-radius: 9999px;
+        // transition: background-color 0.2s;
+        width: fit-content;
+        height: fit-content;
+        padding-bottom: 1rem;
+        cursor: pointer;
+        &:hover {
+          svg {
+            color: #6b7280;
+          }
+
+        }
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+          color: #B1A7C7;
+        }
+      }
+  
+    }
+    
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color:#FE5630; //rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      align-self: flex-start;
+      font-size: 0.875rem;
+      font-weight: 500;
+      flex:0.5;
+
+      transition: all 0.3s ease-in-out;
+  
+      &.animating {
+        transform: translateX(1rem);
+        opacity: 0.5;
+      }
+    
+      &:hover {
+        background-color: darken(#ff5733, 5%);
+      }
+    }
+    
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      
+    }
+    
+    // Media queries for responsiveness
+    @media (max-width: 640px) {
+      .card {
+        padding: 1rem;
+      }
+      
+      .balance {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  

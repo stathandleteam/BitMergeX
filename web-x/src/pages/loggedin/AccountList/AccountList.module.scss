@@ -1,0 +1,83 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+    --body-background: #{$primary-black-500};
+    --onboarding-subtitle-color: #{$neutral-gray-500};
+}
+
+.home-page{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0;
+    height: 100vh;
+}
+
+
+
+.body{
+    // padding-top: rem(200);
+    height: rem(650);
+    width: rem(350);
+    background-color: var(--body-background);
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.top-layer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 70px
+}
+
+.back-icon{
+    @extend %back-click;
+}
+
+.tokenList {
+    // background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;  
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #1C1C1C; //linear-gradient(to right, #3b82f6, #60a5fa)
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    padding: 0.5rem;
+    // padding-top: 0.5rem;
+}
+
+.title{
+    // @extend %h1-bold;
+    color: #636b76;
+    font-size: large;
+    text-decoration: solid;
+    // padding-top: 1rem;
+    margin-top: 2rem;
+
+}
+.onboarding-buttons{
+    position: absolute;
+    bottom: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 90%;
+}
