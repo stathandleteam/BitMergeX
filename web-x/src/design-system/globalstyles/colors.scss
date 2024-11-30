@@ -1,0 +1,134 @@
+//== Main Color system==//
+$font-family-poppins: 'Poppins';
+;
+
+// == Primary Black
+$cool-gray: #999999;
+$white: #fff !default;
+$primary-black-100: #D0D0D0 !default;
+$primary-black-200: #A1A1A1 !default;
+$primary-black-300: #727272 !default; //updated
+$primary-black-400: #434343 !default;
+$primary-black-500: #141414 !default;
+$primary-black-600: #101010 !default;
+$primary-black-700: #0C0C0C !default;
+$primary-black-800: #080808 !default;
+$primary-black-900: #040404 !default;
+$black: #000 !default;
+
+// == Secondary Purple
+$secondary-purple-100: #E4DAF9 !default;
+$secondary-purple-200: #C9B5F3 !default;
+$secondary-purple-300: #AD8FEC !default; //updated
+$secondary-purple-400: #926AE6 !default;
+$secondary-purple-500: #7745E0 !default;
+$secondary-purple-600: #5F37B3 !default;
+$secondary-purple-700: #472986 !default;
+$secondary-purple-800: #301C5A !default;
+$secondary-purple-900: #180E2D !default;
+
+// == Secondary Orange
+$accent-orange-100: #FFDDD6 !default;
+$accent-orange-200: #FFBBAC !default;
+$accent-orange-300: #FE9A83 !default; //updated 
+$accent-orange-400: #FE7859 !default;
+$accent-orange-500: #FE5630 !default;
+$accent-orange-600: #CB4526 !default;
+$accent-orange-700: #98341D !default;
+$accent-orange-800: #662213 !default;
+$accent-orange-900: #33110A !default;
+
+// Sematic Colors
+
+// == Success Green
+$success-green-100: #D3F0E6 !default;
+$success-green-200: #A7E0CD !default;
+$success-green-300: #7BD1B3 !default; //updated 
+$success-green-400: #4FC19A !default;
+$success-green-500: #23B281 !default;
+$success-green-600: #1C8E67 !default;
+$success-green-700: #156B4D !default;
+$success-green-800: #0E4734 !default;
+$success-green-900: #07241A !default;
+
+// == Warning Yellow
+$success-green-100: #FFEDCC !default;
+$success-green-200: #FFDB99 !default;
+$success-green-300: #FFC966 !default; //updated 
+$success-green-400: #FFB733 !default;
+$success-green-500: #FFA500 !default;
+$success-green-600: #CC8400 !default;
+$success-green-700: #996300 !default;
+$success-green-800: #664200 !default;
+$success-green-900: #332100 !default;
+
+// == Error Red
+$success-green-100: #FFD1D1 !default;
+$success-green-200: #FFA3A3 !default;
+$success-green-300: #FF7676 !default; 
+$success-green-400: #FF4848 !default;
+$success-green-500: #FF1A1A !default;
+$success-green-600: #CC1515 !default;
+$success-green-700: #991010 !default;
+$success-green-800: #660A0A !default;
+$success-green-900: #330505 !default;
+
+
+
+// Neutral Colours
+
+// == Neutral Dark
+$neutral-dark-100: #D2D2D2 !default;
+$neutral-dark-200: #A4A4A4 !default;
+$neutral-dark-300: #777777 !default;
+$neutral-dark-400: #494949 !default;
+$neutral-dark-500: #1C1C1C !default;
+$neutral-dark-600: #161616 !default;
+$neutral-dark-700: #111111 !default;
+$neutral-dark-800: #0B0B0B !default;
+$neutral-dark-900: #060606 !default;
+
+// == Neutral Gray
+$neutral-gray-100: #EFEDF4 !default;
+$neutral-gray-200: #E0DCE9 !default;
+$neutral-gray-300: #D0CADD !default;
+$neutral-gray-400: #C1B9D2 !default;
+$neutral-gray-500: #B1A7C7 !default;
+$neutral-gray-600: #8E869F !default;
+$neutral-gray-700: #6A6477 !default;
+$neutral-gray-800: #474350 !default;
+$neutral-gray-900: #232128 !default;
+
+// == Neutral Light
+$neutral-light-100: #F9F9F9 !default;
+$neutral-light-200: #F3F3F3 !default;
+$neutral-light-300: #ECECEC !default;
+$neutral-light-400: #E6E6E6 !default;
+$neutral-light-500: #E0E0E0 !default;
+$neutral-light-600: #B3B3B3 !default;
+$neutral-light-700: #868686 !default;
+$neutral-light-800: #5A5A5A !default;
+$neutral-light-900: #2D2D2D !default;
+
+// == Primary Text Color Light
+$primary-text-color-100: #FFFFFF !default;
+$primary-text-color-200: #FFFFFF !default;
+$primary-text-color-300: #FFFFFF !default;
+$primary-text-color-400: #FFFFFF !default;
+$primary-text-color-500: #FFFFFF !default;
+$primary-text-color-600: #CCCCCC !default;
+$primary-text-color-700: #999999 !default;
+$primary-text-color-800: #666666 !default;
+$primary-text-color-900: #333333 !default;
+
+// == Neutral Light GRAY 
+$neural-light-gray-100: #FCFCFC !default;
+$neural-light-gray-200: #F9F9F9 !default;
+$neural-light-gray-300: #F6F6F6 !default;
+$neural-light-gray-400: #F3F3F3 !default;
+$neural-light-gray-500: #F0F0F0 !default;
+$neural-light-gray-600: #C0C0C0 !default;
+$neural-light-gray-700: #909090 !default;
+$neural-light-gray-800: #606060 !default;
+$neural-light-gray-900: #303030 !default;
+

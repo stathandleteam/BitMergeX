@@ -39,7 +39,6 @@ export const userService = {
       password: hashPassword,
       role,
     });
-
     return convertUserDocToUser(userDoc);
   },
 
@@ -69,12 +68,12 @@ export const userService = {
     return convertUserDocToUser(userDoc);
   },
 
-  findAndUpdateUserById: async (
+  findAndUpdateUserById: async ({id, name, password, photo, aboutMe}:{
     id: string,
-    name: string | undefined,
-    password: string | undefined,
-    photo: string | undefined,
-    aboutMe: string | undefined,
+    name?: string,
+    password?: string,
+    photo?: string,
+    aboutMe?: string},
   ) => {
     const updateData: { [key: string]: string } = {};
 

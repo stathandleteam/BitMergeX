@@ -2,8 +2,6 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import routeModules from "./routes";
 
-
-
 dotenv.config();
 import cors from 'cors';
 import helmet from 'helmet';

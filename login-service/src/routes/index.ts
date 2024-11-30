@@ -16,7 +16,7 @@ const routes = (app: Application) => {
   app.use(apiPrefix, helloRoutes);
 
 //   // authentication routes
-  app.use(apiPrefix, authRoutes);
+  app.use(`${apiPrefix}/auth`, authRoutes);
 
 //   // protected routes
 //   app.use(apiPrefix, protectedRoutes);

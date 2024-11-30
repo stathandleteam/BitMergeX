@@ -1,0 +1,52 @@
+// media queries vars
+$mobile-m: 375px;
+$tablet-m: 576px;
+$tablet: 665px;
+$tablet-l: 992px;
+$tablet-w: 876px;
+$desktop: 1024px;
+$wide-s: 1096px;
+$wide: 1256px;
+$wide-m: 1366px;
+$wide-l: 1440px;
+
+// @extends
+
+// hide scrollbar
+%hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Horizontal line
+%horizontal-bottom-line {
+  border-bottom: 0.5px solid #dadce0;
+}
+
+// max width
+%row-max-width{
+  max-width: 1200px;
+  margin: 0 auto;
+  // width: 100%;
+  
+}
+
+%transparent-button{
+  border: none;
+  //  background-color: #0088cc;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 0rem;
+}
+
+%text-overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

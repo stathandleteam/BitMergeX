@@ -1,0 +1,30 @@
+name: Build and test
+
+on:
+  push:
+    paths-ignore:
+      - "*.md"
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build the Docker image
+        run: JWT_SECRET=secret JWT_SECRET=secret docker compose up --build -d
+        env:
+          JWT_SECRET: SECRET_PASSWORD
+      - name: Set Up Db And Migration
+        run: sh setupDb/nodeV1.sh
+      - name: Run end-to-end tests
+        run: npm run test
+        env:
+          APP_URL: http://localhost:5000
