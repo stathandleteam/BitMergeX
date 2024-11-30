@@ -1,0 +1,131 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+//   height: 100%;
+}
+
+.amount {
+  border: rgba($primary-black-400, 0.5) 1px solid;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .token-container{
+    display: flex;
+    justify-content: space-between;
+
+    .token-value{
+        display: block;
+        text-align: right;
+        font-size: 0.875rem;
+
+        
+    }
+
+    .token-name{
+        color: white;
+        // font-size: 1rem;
+        display: flex;
+        gap: 0.2rem;
+        font-size: 0.7rem;
+
+    }
+  }
+
+  .value {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $neutral-light-500;
+  }
+
+  .usd {
+    // font-size: 0.8rem;
+    color: $neutral-gray-500;
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.3rem;
+  }
+}
+
+.recipient {
+//   background-color: rgba($primary-black-400, 0.5);
+  border-radius: 0.5rem;
+//   padding: 1rem;
+//   margin-bottom: 1.2rem;
+
+  .label {
+    font-size: 0.875rem;
+    color: $neutral-gray-500;
+    margin-bottom: 0.5rem;
+  }
+
+  .address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $neutral-light-500;
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+
+      .iconButton {
+        background: none;
+        border: none;
+        padding: 0.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: $neutral-gray-500;
+      }
+    }
+  }
+}
+
+.fee-container {
+    border-radius: 0.5rem; // Rounded corners for the container
+    margin-bottom: 1.2rem; // Spacing from adjacent components
+    display: flex;
+    justify-content: space-between; // Align label and details on opposite sides
+  
+    .fee-label {
+      font-size: 0.875rem; // Equivalent to 14px
+      color: $neutral-gray-500; // Generic color variable
+      margin-bottom: 0.5rem;
+    }
+  
+    .fee-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .fee-values {
+      display: flex;
+      flex-direction: column; // Align fee amounts vertically
+      text-align: right;
+      .fee-primary {
+        color: $neutral-light-500; // Main fee color
+        font-size: 1rem; // Equivalent to 16px
+        margin-bottom: 0.25rem;
+      }
+  
+      .fee-secondary {
+        color: $neutral-gray-500; // Secondary fee color
+        font-size: 0.65rem; // Equivalent to 10.4px
+      }
+    }
+  }
+  

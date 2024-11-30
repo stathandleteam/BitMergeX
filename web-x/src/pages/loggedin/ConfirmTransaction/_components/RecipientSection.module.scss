@@ -1,0 +1,78 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+  .review-section {
+    margin-bottom: 1.2rem;
+  
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  
+    .address-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+  
+      .review-address {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: $neutral-gray-500;
+      }
+    }
+  
+    .review-amount {
+      font-size: 0.875rem;
+      color: $neutral-gray-500;
+    }
+  
+    .fee-container {
+      .fee-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+  
+        .refresh-button {
+          background: none;
+          border: none;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-size: 0.875rem;
+          color: $neutral-gray-500;
+        }
+      }
+  
+      .fee-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        .fee-values {
+          display: flex;
+          flex-direction: column;
+  
+          .fee-primary {
+            color: $neutral-light-500;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+          }
+  
+          .fee-secondary {
+            color: $neutral-gray-500;
+            font-size: 0.65rem;
+          }
+        }
+  
+        .fastest-button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: $neutral-gray-500;
+        }
+      }
+    }
+  }
+  
