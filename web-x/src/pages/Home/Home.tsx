@@ -1,4 +1,4 @@
-import styles  from './Home.module.scss'
+import styles from './Home.module.scss'
 import Logo from '@/design-system/_components/Logo/Logo'
 import { Button } from '@/design-system/_components/Button/Button'
 import { useRouter } from '@/routing/RouterContext'
@@ -12,23 +12,22 @@ interface Props {
 const Home = ({ id }: Props) => {
 
   const { navigate } = useRouter();
-    
+
   const handleSignUpNavigation = async () => {
-    
+
     const seedPhrase = await StxWalletService.getMnemonic()
-    const result =  seedPhrase.split(/\s/g).reduce((curr: any, phrase: any, currentIndex: number)=>{
-      return {...curr, [currentIndex+1]: phrase}
+    const result = seedPhrase.split(/\s/g).reduce((curr: any, phrase: any, currentIndex: number) => {
+      return { ...curr, [currentIndex + 1]: phrase }
     }, {})
-   
-    navigate(
+
+    await navigate(
       ROUTES.SEED_PHRASE_CREATE
-      // ROUTES.PASSWORD_SECURITY
-      , { id: '123', seedPhrase:result });
+      , { id: '123', seedPhrase: result });
 
   };
 
-  const handleSignInNavigation = () => {
-    navigate(ROUTES.SEED_PHRASE_RECOVER, { id: '123' });
+  const handleSignInNavigation = async () => {
+    await navigate(ROUTES.SEED_PHRASE_RECOVER, { id: '123' });
   };
 
   return (
@@ -38,8 +37,8 @@ const Home = ({ id }: Props) => {
         <div className={styles['top-layer']}>
 
           <Logo size={64} />
-            
-          <span className={styles['onboarding-title']}> 
+
+          <span className={styles['onboarding-title']}>
             Welcome to BitmergeX
           </span>
 
@@ -47,12 +46,12 @@ const Home = ({ id }: Props) => {
           <span className={styles['onboarding-subtitle']}>
             Your secure, non-custodial wallet for reliable crypto management. Enjoy a smooth, user-friendly experience designed for the future of finance.
           </span>
-          </div>
+        </div>
 
-          <div className={styles['onboarding-buttons']}>
-            <Button variant="primary" style={{width: '100%'}} onClick={handleSignUpNavigation} >Create Account</Button>
-            <Button variant="secondary" style={{width: '100%'}} onClick={handleSignInNavigation}>Import Existing Wallet</Button>
-          </div>
+        <div className={styles['onboarding-buttons']}>
+          <Button variant="primary" style={{ width: '100%' }} onClick={handleSignUpNavigation} >Create Account</Button>
+          <Button variant="secondary" style={{ width: '100%' }} onClick={handleSignInNavigation}>Import Existing Wallet</Button>
+        </div>
       </div>
     </div>
   )

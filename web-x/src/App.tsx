@@ -11,16 +11,16 @@ import { AppUX } from './Misc';
 import Password from './pages/Password/Password';
 import WalletCreated from './pages/WalletCreated/WalletCreated';
 
-console.log = () => { };
-console.info = () => { };
-console.warn = () => { };                                                                                                                                                                                                                                      
-console.error = () => { };
-console.debug = () => { };
+// console.log = () => { };
+// console.info = () => { };
+// console.warn = () => { };                                                                                                                                                                                                                                      
+// console.error = () => { };
+// console.debug = () => { };
 
 
 function Router() {
   const { currentRoute, params } = useRouter();
-  const routes:any = {
+  const routes: any = {
     [ROUTES.HOME]: <Home />,
     [ROUTES.AppUX]: <AppUX />,
     [ROUTES.SIGNUP]: <SignUp />,
@@ -43,6 +43,6 @@ function App() {
     </RouterProvider>
   );
 
-} 
+}
 
 export default App
