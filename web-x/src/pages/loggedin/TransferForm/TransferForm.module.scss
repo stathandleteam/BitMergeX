@@ -1,0 +1,314 @@
+// TransferForm.module.scss
+@import '@/design-system/globalStyles/index.global.scss';
+
+
+
+:root{
+    --body-background: #{$primary-black-500};
+    --onboarding-subtitle-color: #{$neutral-gray-500};
+}
+
+.back-icon{
+  // @extend %back-click;
+  min-height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0 0rem 0;
+  padding: 0rem  0rem 0rem  0.2rem;
+  cursor: pointer;
+}
+
+.transferForm {
+  background-color: var(--body-background);
+  padding: 1.1rem  1.2rem 1rem  1.2rem;
+  width: 90%;
+  height: 100%;
+  // max-width: 28rem;
+  margin: 0 auto;
+}
+
+
+.section {
+  margin-bottom: 1.2rem;
+}
+
+.inputGroup {
+  position: relative;
+  width: 100%;
+}
+
+.addressActions {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: $neutral-gray-500;
+
+  &:first-child {
+    color: $accent-orange-500;
+  }
+}
+
+.addressBookButton {
+  background: none;
+  border: none;
+  color: $accent-orange-500;
+  font-size: 0.65rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.usdValue {
+  position: absolute;
+  right: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $neutral-gray-500;
+  font-size: 0.65rem;
+}
+
+.label {
+  display: block;
+  color: $neutral-gray-500;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.feeContainer {
+  background-color: rgba($primary-black-400, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.feeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: $neutral-gray-500;
+  font-size: 0.65rem;
+}
+
+.refreshButton {
+  background: none;
+  border: none;
+  color: $accent-orange-500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+
+.feeInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.feeAmount {
+  .feeUsd {
+    color: $neutral-light-500;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .feeEth {
+    color: $neutral-gray-500;
+    font-size: 0.65rem;
+  }
+}
+
+.fastestButton {
+  background: none;
+  border: none;
+  color: $accent-orange-500;
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+
+.feeAlert {
+  background-color: rgba($accent-orange-500, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: $accent-orange-500;
+  font-size: 0.65rem;
+
+  p {
+    margin: 0;
+    
+    &:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+.submitButton {
+  width: 90%;
+  background-color: $accent-orange-500;
+  color: $neutral-light-500;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+position: absolute;
+bottom: 2rem; 
+
+  &:hover {
+    background-color: darken($accent-orange-500, 5%);
+  }
+
+  &:disabled {
+    background-color: $neutral-gray-500;
+    cursor: not-allowed;
+  }
+}
+
+.switchAccountContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  align-items: center;
+
+  .accountType{
+      font-size: 0.5rem;
+      font-weight: 400;
+      color: #6b7280;
+  }
+
+  .accountName{
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #ffffff;
+  }
+
+}
+
+
+
+// Add these new styles to your existing TransferForm.module.scss file
+
+
+// Modify existing styles
+
+// .modalAddress {
+//   display: flex;
+//   gap: 1rem;
+//   padding: 0.75rem;
+//   border-bottom: 1px solid rgba($neutral-gray-500, 0.1);
+//   align-items: center;
+
+//   .addressIndex {
+//     min-width: 1.5rem;
+//     height: 1.5rem;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     background: rgba($accent-orange-500, 0.1);
+//     color: $accent-orange-500;
+//     border-radius: 50%;
+//     font-size: 0.75rem;
+//   }
+
+//   .addressValue {
+//     color: $neutral-light-500;
+//     font-size: 0.875rem;
+//     word-break: break-all;
+//     flex: 1;
+//   }
+
+//   &:last-child {
+//     border-bottom: none;
+//   }
+// }
+
+// .modalTotal {
+//   margin-top: 1rem;
+//   padding: 1rem;
+//   background: rgba($accent-orange-500, 0.1);
+//   border-radius: 0.5rem;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+
+//   span {
+//     &:first-child {
+//       color: $neutral-gray-500;
+//       font-size: 0.875rem;
+//     }
+
+//     &:last-child {
+//       color: $accent-orange-500;
+//       font-weight: 500;
+//       font-size: 0.875rem;
+//     }
+//   }
+// }
+
+// .reviewContainer {
+//   .reviewSection {
+//     margin-bottom: 1.5rem;
+
+//     h4 {
+//       color: $neutral-gray-500;
+//       font-size: 0.875rem;
+//       margin: 0 0 0.75rem 0;
+//     }
+//   }
+
+//   .reviewAddress {
+//     display: flex;
+//     gap: 0.75rem;
+//     padding: 0.75rem;
+//     background: rgba($primary-black-400, 0.5);
+//     border-radius: 0.5rem;
+//     margin-bottom: 0.5rem;
+
+//     span {
+//       &:first-child {
+//         color: $accent-orange-500;
+//         font-size: 0.875rem;
+//         min-width: 1.5rem;
+//       }
+
+//       &:last-child {
+//         color: $neutral-light-500;
+//         font-size: 0.875rem;
+//         word-break: break-all;
+//       }
+//     }
+//   }
+
+//   .reviewAmount {
+//     padding: 1rem;
+//     background: rgba($primary-black-400, 0.5);
+//     border-radius: 0.5rem;
+
+//     div {
+//       color: $neutral-light-500;
+//       font-size: 0.875rem;
+      
+//       &:not(:last-child) {
+//         margin-bottom: 0.5rem;
+//       }
+//     }
+//   }
+// }
+
