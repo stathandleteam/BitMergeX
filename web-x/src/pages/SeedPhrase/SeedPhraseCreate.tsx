@@ -25,8 +25,7 @@ const SeedPhraseCreate = () => {
 
     useEffect(() => {
      (async ()=>{
-      const seedPhrase: any = params?.seedPhrase
-
+        const seedPhrase: any = params?.seedPhrase
         setSeedPhrase(seedPhrase)
       })();
     }, [params?.seedPhrase])
