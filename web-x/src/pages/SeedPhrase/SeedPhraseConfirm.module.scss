@@ -1,27 +1,28 @@
-@import '@/design-system/globalStyles/index.global.scss';
+@import '@/design-system/globalstyles/index.global.scss';
 
-:root{
+:root {
     --body-background: #{$primary-black-500};
     --onboarding-subtitle-color: #{$neutral-gray-500};
 }
 
-.grid{
+.grid {
     gap: 1.5rem;
-    display: flex; 
-    flex-wrap: wrap; 
-    width: 80%; 
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
     gap: 10px;
     margin-top: 2rem;
     justify-content: center;
 }
 
-.seed-phrase-create-page{
+.seed-phrase-create-page {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    .body{
+
+    .body {
         height: rem(650);
         width: rem(350);
         background-color: var(--body-background);
@@ -32,12 +33,12 @@
         position: relative;
     }
 
-    .back-icon{
+    .back-icon {
         @extend %back-click;
     }
 
 
-    .header{
+    .header {
 
         margin-top: 2rem;
         display: flex;
@@ -46,16 +47,16 @@
         align-items: center;
         gap: 1rem;
 
-        .onboarding-title{
+        .onboarding-title {
             @extend %h4-medium; //typography
             color: $white;
             // font-size: 0.
             text-align: center;
             width: 80%;
         }
-    
-        .onboarding-subtitle{
-            @extend %body-2-regular;  //typography
+
+        .onboarding-subtitle {
+            @extend %body-2-regular; //typography
             text-align: center;
             color: $white;
             width: 80%;
@@ -63,11 +64,11 @@
             font-size: 12px;
         }
 
-    
+
     }
 
 
-    .onboarding-buttons{
+    .onboarding-buttons {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -75,7 +76,7 @@
         gap: 1rem;
         width: 100%;
         max-width: 90%;
-        
+
 
         position: absolute;
         // top: 0.8rem;
@@ -83,7 +84,7 @@
         left: 1.2rem;
         margin-left: auto;
         margin-right: auto;
-    
+
     }
 
 
@@ -99,5 +100,4 @@
     z-index: 0;
     top: 0;
     right: 0;
-  }
-  
+}

@@ -1,17 +1,17 @@
-@import '@/design-system/globalStyles/index.global.scss';
+@import '@/design-system/globalstyles/index.global.scss';
 
-:root{
+:root {
     --body-background: #{$primary-black-500};
     --onboarding-subtitle-color: #{$neutral-gray-500};
 }
 
-.home-page{
+.home-page {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    .body{
+    .body {
         // padding-top: rem(200);
         height: rem(650);
         width: rem(350);
@@ -24,17 +24,17 @@
         position: relative;
     }
 
-    .back-icon{
+    .back-icon {
         @extend %back-click;
     }
 
-    .onboarding-title{
+    .onboarding-title {
         @extend %h3-medium; //typography
         color: $white;
     }
 
-    .onboarding-subtitle{
-        @extend %body-2-regular;  //typography
+    .onboarding-subtitle {
+        @extend %body-2-regular; //typography
         text-align: center;
         color: $white;
         width: 80%;
@@ -42,8 +42,8 @@
 
     }
 
-.onboarding-buttons{
-    margin-top: 35%;
+    .onboarding-buttons {
+        margin-top: 35%;
 
         display: flex;
         flex-direction: column;
@@ -59,6 +59,5 @@
 
 
     }
-    
-}
 
+}
