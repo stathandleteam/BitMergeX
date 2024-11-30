@@ -12,16 +12,16 @@ interface RouterProviderProps {
 export function RouterProvider({ children }: RouterProviderProps) {
 
 
-  
+
 
   const [currentRoute, setCurrentRoute] = useState<string>(ROUTES.HOME);
   const [params, setParams] = useState<RouteParams | undefined>();
 
   useEffect(() => {
 
-    (async ()=>{
+    (async () => {
       const check = await StxWalletService.checkSeedExist()
-      setCurrentRoute(check === true?ROUTES.LOGIN:ROUTES.HOME)
+      setCurrentRoute(check === true ? ROUTES.LOGIN : ROUTES.HOME)
     })()
 
   }, [])
@@ -38,16 +38,16 @@ export function RouterProvider({ children }: RouterProviderProps) {
       }
     });
   }, []);
-  
+
 
   const navigate = (route: string, newParams?: RouteParams) => {
     setCurrentRoute(route);
-    newParams? setParams(newParams): null;
-    
+    setParams({ ...params, ...newParams });
+
     // Save route state to chrome storage
-    chrome?.storage?.local?.set({ 
+    chrome?.storage?.local?.set({
       lastRoute: route,
-      routeParams: newParams ?? params
+      routeParams: { ...params, ...newParams }
     });
   };
 
