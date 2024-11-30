@@ -1,9 +1,4 @@
-// import useNotification from '@/design-system/globalhook/useNotification';
-// import { useLoginMutation, useRegisterMutation } from '@/redux/authentication/features/authApiSlice';
-// import { setCredentials } from '@/redux/authentication/features/authSlice';
 import {useRef, useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useLocation, useNavigate } from 'react-router-dom';
 
 interface FormData {
     password: string;
