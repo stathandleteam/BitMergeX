@@ -12,7 +12,10 @@ export const ROUTES = {
   PASSWORD_SECURITY: '/password-security',
   WALLET_CREATED: '/wallet-created',
   RECOVERY_STEP_ONE: '/recovery-step-one',
-  ACCOUNT_LIST: '/account-list'
+  ACCOUNT_LIST: '/account-list',
+  STX_DETAILS: '/stx-details-and-history',
+  BTC_DETAILS: '/btc-details-and-history',
+  TRANSFER_STX: '/transfer-stx',
   
 } as const;
 
