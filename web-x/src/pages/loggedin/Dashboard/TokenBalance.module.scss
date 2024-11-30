@@ -1,21 +1,26 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
 // TokenBalance.module.scss
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1rem 1rem 0.5rem; 
-    background: #FE5630;
+    // background: #FE5630;
+    // background-color: rgba(254, 86, 48, 0.03);;
     border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
     &:hover {
-      background: white;//rgba(0, 0, 0, 0.02);
+      // background-color: darken(#ff5733, 5%);
 
       .name, .fiatValue {
-        color: #6b7280;
+        // color: #fff;
       }
 
       .iconWrapper {
         svg {
-          color: #6b7280;
+          // color: white;
         }
       }
   
@@ -40,7 +45,8 @@
     svg {
       width: 1.5rem;
       height: 1.5rem;
-      color: black;
+      // color: black;
+      color: white;
     }
   }
   
@@ -54,12 +60,14 @@
   
   .symbol {
     font-weight: 600;
-    color: #1f2937;
+    // color: #1f2937;
+    color:white;
+
     font-size: 1rem;
   }
   
   .name {
-    color: white;
+    color: #6b7280;
     font-size: 0.875rem;
 
   }
@@ -72,12 +80,16 @@
   
   .balance {
     font-weight: 600;
-    color: #1f2937;
+    // color: #1f2937;
     font-size: 1rem;
+    color:white;
+
   }
   
   .fiatValue {
-    color: white;
+    // color: white;
+    color: #6b7280;
+
     font-size: 0.875rem;
   }
   

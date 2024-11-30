@@ -8,6 +8,7 @@ interface TokenBalanceProps {
   balance: number;
   fiatValue: number;
   icon?: React.ReactNode;
+  onClick: () => void
 }
 
 const TokenBalance: React.FC<TokenBalanceProps> = ({
@@ -15,10 +16,11 @@ const TokenBalance: React.FC<TokenBalanceProps> = ({
   name,
   balance,
   fiatValue,
-  icon
+  icon,
+  onClick
 }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles.leftSection}>
         <div className={styles.iconWrapper}>
           {icon}

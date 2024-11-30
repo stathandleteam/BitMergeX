@@ -3,10 +3,10 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    background:   #1C1C1C;
+    // background:   #1C1C1C;
   
     border-radius: 1rem;
-    margin-top: 1rem;
+    margin-top: 0rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     width: 90%;
     margin-left: auto;
@@ -23,9 +23,11 @@
     
     min-width: 4rem;
     transition: all 0.2s ease;
-    background-color: rgba(254, 86, 48, 0.05);;
+    // background-color: rgba(254, 86, 48, 0.05);;
     border: none;
     cursor: pointer;
+    background-color: transparent;
+    
     &:active {
       transform: translateY(0);
     }

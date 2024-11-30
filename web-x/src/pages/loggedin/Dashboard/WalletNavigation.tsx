@@ -1,5 +1,5 @@
 // WalletNavigation.tsx
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { 
   BiTransfer, 
   BiHistory 
@@ -15,11 +15,11 @@ import styles from './WalletNavigation.module.scss';
 interface NavItemProps {
   icon: React.ReactNode;
   label: string;
-  onClick?: () => void;
+  onClick: (label: string) => void;
 }
 
 export const NavItem: React.FC<NavItemProps> = ({ icon, label, onClick }) => (
-  <button className={styles.navItem} onClick={onClick}>
+  <button className={styles.navItem} onClick={()=>onClick(label)}>
     <div className={styles.iconWrapper}>
       {icon}
     </div>
@@ -27,24 +27,32 @@ export const NavItem: React.FC<NavItemProps> = ({ icon, label, onClick }) => (
   </button>
 );
 
-const WalletNavigation: React.FC = () => {
+interface WalletNavigationProps {
+  onClick: (label: string) => void;
+}
+
+const WalletNavigation: React.FC<WalletNavigationProps> = ({onClick}) => {
   return (
     <div className={styles.navigation}>
       <NavItem 
         icon={<BiTransfer />}
         label="Transfer"
+        onClick = {onClick}
       />
       <NavItem 
         icon={<RiQrCodeLine />}
         label="Receive"
+        onClick = {onClick}
       />
       <NavItem 
         icon={<BiHistory />}
         label="Activity"
+        onClick = {onClick}
       />
       <NavItem 
         icon={<FaDiamondTurnRight />}
         label="Stake"
+        onClick = {onClick}
       />
     </div>
   );
