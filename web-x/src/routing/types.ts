@@ -4,6 +4,7 @@ export interface RouteParams {
 
 export interface RouterContextType {
     currentRoute: string;
+    previousRoute?: string | null;
     params?: RouteParams;
     navigate: (route: string, params?: RouteParams) => void;
 }
