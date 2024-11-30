@@ -17,7 +17,7 @@ interface FormErrors {
 const SeedPhraseConfirm = () => {
 
   
-    const { navigate, params } = useRouter();
+    const {previousRoute, navigate, params } = useRouter();
 
     const seedPhrases: any = params?.seedPhrase
 
@@ -67,8 +67,10 @@ const SeedPhraseConfirm = () => {
     const handleNavigation = (route: string, seedPhrase?: string) => {
 
       seedPhrase ? navigate(route, { previous_screen: ROUTES.SEED_PHRASE_CONFIRM, seedPhrase })
+
       : navigate(route, { previous_screen: ROUTES.SEED_PHRASE_CONFIRM });
     };
+    
 
     const validateForm = async (seedPhrase: string) => {
       const newErrors: FormErrors = {};
