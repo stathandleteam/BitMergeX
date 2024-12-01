@@ -1,6 +1,6 @@
-@import '@/design-system/globalStyles/index.global.scss';
+@import '@/design-system/globalstyles/index.global.scss';
 
-:root{
+:root {
     --body-background: #{$primary-black-500};
 }
 
@@ -26,18 +26,19 @@
     background-color: rgba($neutral-dark-500, 0.95);
     gap: 1rem;
 }
+
 .pop-up-card-title {
     // @extend %h5-semi-bold;
     color: $white;
     font-weight: 600;
     font-size: 12px;
-    align-self: flex-start ;
+    align-self: flex-start;
 }
 
 .pop-up-card-details {
     @extend %body-2-regular;
     color: $neutral-gray-500;
     font-size: 12px;
-    align-self: flex-start ;
+    align-self: flex-start;
 
 }

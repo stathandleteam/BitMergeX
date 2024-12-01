@@ -1,10 +1,10 @@
 export interface RouteParams {
-    [key: string]: string | number;
-  }
+  [key: string]: string | number;
+}
 
 export interface RouterContextType {
-    currentRoute: string;
-    previousRoute?: string | null;
-    params?: RouteParams;
-    navigate: (route: string, params?: RouteParams) => void;
+  previousRoute: string | null;
+  currentRoute: string;
+  params?: RouteParams | null;
+  navigate: (route: string, params?: RouteParams) => void;
 }

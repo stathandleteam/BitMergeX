@@ -1,13 +1,13 @@
-@import '@/design-system/globalStyles/index.global.scss';
+@import '@/design-system/globalstyles/index.global.scss';
 
-:root{
+:root {
     --accent-orange: #{$accent-orange-500};
     --white-color: #{$white};
     --neutral-grey: #{$neutral-gray-500};
 }
 
 
-.box{
+.box {
     display: flex;
     width: 56px;
     height: 50px;
@@ -22,13 +22,14 @@
     background-color: transparent;
     font-size: 0.65rem;
     text-align: center;
-    &:hover{
+
+    &:hover {
         border-color: var(--accent-orange);
     }
 }
 
 
-.box-is-not-input{
+.box-is-not-input {
     display: flex;
     width: 60px;
     height: 38px;
@@ -44,20 +45,19 @@
 
 
 
-.selected{
+.selected {
     background-color: var(--accent-orange);
 }
 
 
-.input-container{
+.input-container {
     width: fit-content;
     height: fit-content;
     position: relative;
 
-    .icon{
+    .icon {
         position: absolute;
         bottom: 4px;
         right: 4px;
     }
 }
-

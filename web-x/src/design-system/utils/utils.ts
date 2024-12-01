@@ -22,7 +22,16 @@ const shuffleArray = (arr: SeedPhraseObject[]): SeedPhraseObject[] => {
       };
     });
 
+    const prepareSeedPhrase = (cellSeedPhrase: any) => {
+      const seedPhrase: any = Object.values(cellSeedPhrase).reduce((curr, phrase, currentIndex) => {
+        return `${curr} ${phrase}`
+      }, '')
+    }
+    
   export {
     loadImg,
     shuffleArray,
+    prepareSeedPhrase
   }
+
+

@@ -1,4 +1,4 @@
-import styles  from './Login.module.scss'
+import styles from './Login.module.scss'
 import Logo from '@/design-system/_components/Logo/Logo'
 import { Button } from '@/design-system/_components/Button/Button'
 import { useRouter } from '@/routing/RouterContext'
@@ -23,25 +23,25 @@ const Login = ({ id }: Props) => {
   const handleNavigation = async (route: string) => {
 
 
-    if (route === ROUTES.SEED_PHRASE_RECOVER ){
-      const walletReset =  await StxWalletService.resetWallet()
+    if (route === ROUTES.SEED_PHRASE_RECOVER) {
+      const walletReset = await StxWalletService.resetWallet()
 
       walletReset &&
-        navigate(route, { id: '123' });
+        await navigate(route, { id: '123' });
 
     } else {
-      navigate(route, { id: '123' });
+      await navigate(route, { id: '123' });
 
     }
   };
-  
+
   const {
-    formData,  
+    formData,
     handleInputChange,
     errors,
-    showPassword, 
+    showPassword,
     setShowPassword,
-    showConfirmPassword, 
+    showConfirmPassword,
     setShowConfirmPassword,
     setFormData
   } = usePassword()
@@ -49,7 +49,7 @@ const Login = ({ id }: Props) => {
 
   return (
     <div className={styles['home-page']}>
-      
+
       <div className={styles['body']}>
 
           <div className={styles['back-icon']}>
@@ -59,36 +59,37 @@ const Login = ({ id }: Props) => {
           <div className={styles['top-layer']}>
             <Logo size={64} />
 
-            <span className={styles['onboarding-title']}> 
-               Welcome!
-            </span>
-            <span className={styles['onboarding-subtitle']}>
-                Login to Continue!
-            </span>
 
-          </div>
+          <span className={styles['onboarding-title']}>
+            Welcome!
+          </span>
+          <span className={styles['onboarding-subtitle']}>
+            Login to Continue!
+          </span>
 
-            <div className={styles['onboarding-buttons']}>
-                {/* <Button variant="primary" style={{width: '100%'}} onClick={handleNavigation}>Login</Button> */}
-                {/* <InputField 
+        </div>
+
+        <div className={styles['onboarding-buttons']}>
+          {/* <Button variant="primary" style={{width: '100%'}} onClick={handleNavigation}>Login</Button> */}
+          {/* <InputField 
                   label="Password"
                   placeholder="Enter your Password"
                   helperText="" //This will be your display name
                   variant="secondary"
                   type='password'
                 /> */}
-                <Input
-                  label = "Password"
-                  type={ showPassword ? 'text' : 'password'}
-                  name="password"
-                  placeholder="Password"
-                  value={ formData.password}
-                  onChange={ handleInputChange }
-                  error={ errors.password }
-                  showPasswordToggle
-                  showPassword={ showPassword }
-                  onTogglePassword={ () => setShowPassword(!showPassword) }
-                />
+          <Input
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleInputChange}
+            error={errors.password}
+            showPasswordToggle
+            showPassword={showPassword}
+            onTogglePassword={() => setShowPassword(!showPassword)}
+          />
 
                 <Button 
                   variant="primary" 
@@ -108,9 +109,9 @@ const Login = ({ id }: Props) => {
                   Forgot your password?
                 </Button>
 
-            </div>
+        </div>
 
-          </div>
+      </div>
     </div>
   )
 }

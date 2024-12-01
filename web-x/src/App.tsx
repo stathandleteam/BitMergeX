@@ -4,7 +4,6 @@ import { ROUTES } from './routing/constants';
 import LazyLoader from './design-system/_components/LazyLoader/LazyLoader';
 import LoadingScreen from './pages/LoadingScreen/LoadingScreen';
 
-
 // console.log = () => { };
 // console.info = () => { };
 // console.warn = () => { };                                                                                                                                                                                                                                      
@@ -140,6 +139,6 @@ function App() {
     </RouterProvider>
   );
 
-} 
+}
 
 export default App
