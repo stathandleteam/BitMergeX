@@ -3,7 +3,8 @@ import { RouterProvider, useRouter } from './routing/RouterContext';
 import { ROUTES } from './routing/constants';
 import LazyLoader from './design-system/_components/LazyLoader/LazyLoader';
 import LoadingScreen from './pages/LoadingScreen/LoadingScreen';
-
+import '@/app/services/stacks-transaction-manager';
+import '@/app/services/stx-transaction-history-retrieval';
 // console.log = () => { };
 // console.info = () => { };
 // console.warn = () => { };                                                                                                                                                                                                                                      

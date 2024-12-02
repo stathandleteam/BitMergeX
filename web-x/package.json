@@ -18,6 +18,7 @@
     "@stacks/wallet-sdk": "^6.17.0",
     "@types/react-redux": "^7.1.33",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.7.8",
     "bip39": "^3.1.0",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
