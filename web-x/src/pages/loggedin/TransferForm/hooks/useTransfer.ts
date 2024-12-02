@@ -38,16 +38,12 @@ const useTransfer = () => {
             memo: ''
         };        
 
-        if (!validateStxAddress(formData.address)) {
+        if (!formData.address) {
             
             newErrors.address = 'Address is required';
-        } 
-        // else if (formData.address.length < 8) {
-        //     newErrors.address = 'Address must be at least 8 characters';
-        // }
-
-        if (formData.address !== formData.amount) {
-            newErrors.amount = 'Address do not match';
+        }  
+        else if (!validateStxAddress(formData.address)) {
+            newErrors.address = 'Invalid Address';
         }
 
         setErrors(newErrors);
