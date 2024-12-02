@@ -1,22 +1,30 @@
+// https://api.testnet.hiro.so
+// ST2C3FB97P0FDRV7XCX9J7CPCVGEE6419D7PNX16Y
+
 import { StacksDevnet } from "@stacks/network";
 import {  generateWallet, getStxAddress, Wallet, generateNewAccount, Account } from '@stacks/wallet-sdk';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
-import { AnchorMode, broadcastTransaction, Cl, ClarityValue, createStacksPrivateKey, getNonce, makeContractCall, Pc, PostConditionMode, privateKeyToString, pubKeyfromPrivKey, publicKeyToString, TransactionVersion, uintCV } from '@stacks/transactions';
+import { AnchorMode, broadcastTransaction, Cl, ClarityValue, createStacksPrivateKey, getNonce, makeContractCall, makeSTXTokenTransfer, Pc, PostConditionMode, privateKeyToString, pubKeyfromPrivKey, publicKeyToString, TransactionVersion, uintCV } from '@stacks/transactions';
 import { restoreWalletAccounts } from '@stacks/wallet-sdk';
 import { createPostCondition, generateMnemonic, getNonceFromAddress } from "../helpers/generateKey";
 import { decryptSeed, encryptSeed } from "../helpers/encryption";
 import * as bip39 from 'bip39';
 import { VITE_API_KEY } from '@/api/secrets';
 import { secureIndexedDBStorage } from "./stx-wallet-storage";
+import { validateStacksAddress } from '@stacks/transactions';
+
 import { MainWalletApp } from "./stx-wallet-controller";
 
 export class StxWalletService {
+
+    
     private GAIA_HUB_URL = 'https://hub.stacks.co';
     private network: StacksMainnet | StacksTestnet  = new StacksTestnet();
 
     constructor() {
         this.network = new StacksDevnet({
             url: `https://api.platform.hiro.so/v1/ext/${VITE_API_KEY}/stacks-blockchain-api`,
+            // url: `https://api.testnet.hiro.so/v1/ext/${VITE_API_KEY}/stacks-blockchain-api`
         });
     }
 
@@ -44,7 +52,7 @@ export class StxWalletService {
         }
         return true
     }
-    async createWallet(password: string, mnemonic: string): Promise<{ mnemonic: string; address: string }> {
+    async createWallet(password: string, mnemonic: string): Promise<Wallet> {
         
         if (!await StxWalletService.validateSeedPhrase(mnemonic)) {
             throw new Error('Invalid mnemonic');
@@ -56,15 +64,23 @@ export class StxWalletService {
         });
 
         const encryptedSeed = await encryptSeed(mnemonic, password);
-       
-        const address = getStxAddress({ account: wallet.accounts[0] });
-
+        
         this.storeSeed(encryptedSeed);
 
-        return { mnemonic, address };
+
+        return wallet
 
     }
 
+
+    async getAccount(wallet: Wallet, index:number){
+        // if (index <= wallet.accounts.length - 1){
+            return getStxAddress({ account: wallet.accounts[index] });
+        // }
+
+        // throw new Error("Invalid account id");
+
+    }
     async restoreWallet(mnemonic: string, password: string): Promise<{ address: string }> {
         if (!await StxWalletService.validateSeedPhrase(mnemonic)) {
             throw new Error('Invalid mnemonic');
@@ -132,7 +148,7 @@ export class StxWalletService {
     // Function to get balance from a deployed contract
     public async getBalance(address: string): Promise<any> {
         
-        const OWNER_PRIVKEY = process.env.OWNER_PRIVKEY;
+        const OWNER_PRIVKEY = '753b7cc01a1a2e86221266a154af739463fce51219d97e4f856cd7200c3bd2a601';//process.env.OWNER_PRIVKEY;
 
         if (!OWNER_PRIVKEY) {
             throw new Error('Failed to fetch balance');
@@ -145,8 +161,8 @@ export class StxWalletService {
 
             const functionArgs: ClarityValue[] = [Cl.principal(address),];
             const transaction = await makeContractCall({
-                contractAddress: process.env.CONTRACT_ADDRESS || 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-                contractName: 'stx-wallet',
+                contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+                contractName: 'stx-wallet-test',
                 functionName: 'get-balance',
                 functionArgs,
                 fee: BigInt(300),
@@ -174,31 +190,99 @@ export class StxWalletService {
             
             const nonce = await getNonceFromAddress(senderAddress, this.network);
             const amountToSend = Cl.uint(amount); // Convert to microstacks
+
             const postCondition_1 = createPostCondition(senderAddress, amount);
+            console.log("postCondition_1", postCondition_1)
 
-            const transaction = await makeContractCall({
-                contractAddress: process.env.CONTRACT_ADDRESS || 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-                contractName: 'stx-wallet',
-                functionName: 'send-stx',
-                functionArgs: [amountToSend, Cl.principal(senderAddress), Cl.principal(recipientAddress), Cl.bufferFromAscii(memo)],
-                fee: BigInt(300),
-                nonce: nonce,
-                network: this.network,
-                anchorMode: AnchorMode.OnChainOnly,
+            // const transaction = await makeContractCall({
+            //     contractAddress:
+            //     //  process.env.CONTRACT_ADDRESS || 
+            //     'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+            //     contractName: 'stx-wallet-test',
+            //     functionName: 'send-stx',
+            //     functionArgs: [amountToSend, Cl.principal(senderAddress), Cl.principal(recipientAddress), Cl.bufferFromAscii(memo)],
+            //     fee: BigInt(300),
+            //     nonce: nonce,
+            //     network: this.network,
+            //     anchorMode: AnchorMode.OnChainOnly,
+            //     senderKey: privKey,
+            //     postConditions: [postCondition_1],
+            //     postConditionMode: PostConditionMode.Deny,
+            // });
+
+            const transaction = await makeSTXTokenTransfer({
+                recipient: recipientAddress,
+                amount: BigInt(Math.round(0.0001 * 1_000_000)),
                 senderKey: privKey,
-                postConditions: [postCondition_1],
-                postConditionMode: PostConditionMode.Deny,
-            });
-
+                network: this.network,
+                anchorMode: AnchorMode.Any,
+                fee: BigInt(300),
+                memo: 'App transaction fee'
+              });
+        
+              console.log("transaction", transaction);
             const result = await broadcastTransaction(transaction, this.network);
 
             return result;
 
-        } catch (error) {
-            console.error('Error sending STX:', error);
+        } catch (error:any) {
+            console.error('Error sending STX:', error.message);
             throw new Error('Failed to send STX');
         }
     }
+
+    // public async sendStx({ senderAddress, privKey, recipientAddress, amount, memo }: { 
+    //     senderAddress: string; 
+    //     privKey: string; 
+    //     recipientAddress: string; 
+    //     amount: number; 
+    //     memo: string; 
+    //   }): Promise<any> {
+    //     try {
+
+    //         console.log("senderAddress", senderAddress);
+    //       // Validate addresses
+    //       if (!validateStacksAddress(senderAddress)) {
+    //         throw new Error('Invalid sender address');
+    //       }
+    //       if (!validateStacksAddress(recipientAddress)) {
+    //         throw new Error('Invalid recipient address');
+    //       }
+      
+    //       // Ensure network matches address type
+    //       const transactionVersion = senderAddress.startsWith('ST') ? TransactionVersion.Testnet : TransactionVersion.Mainnet;
+      
+    //       const nonce = await getNonceFromAddress(senderAddress, this.network);
+    //       const amountToSend = Cl.uint(amount); // Convert to microstacks
+    //       const postCondition_1 = createPostCondition(senderAddress, amount);
+      
+    //       const transaction = await makeContractCall({
+    //         contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+    //         contractName: 'stx-wallet-test',
+    //         functionName: 'send-stx',
+    //         functionArgs: [
+    //           amountToSend,
+    //           Cl.principal(senderAddress),
+    //           Cl.principal(recipientAddress),
+    //           Cl.bufferFromAscii(memo),
+    //         ],
+    //         fee: BigInt(300),
+    //         nonce: nonce,
+    //         network: this.network,
+    //         anchorMode: AnchorMode.OnChainOnly,
+    //         senderKey: privKey,
+    //         postConditions: [postCondition_1],
+    //         postConditionMode: PostConditionMode.Deny,
+    //       });
+      
+    //       const result = await broadcastTransaction(transaction, this.network);
+      
+    //       return result;
+    //     } catch (error) {
+    //       console.error('Error sending STX:', error);
+    //       throw new Error('Failed to send STX');
+    //     }
+    //   }
 
      private async storeSeed(encryptedSeed: any) {
         await secureIndexedDBStorage.storeSeed({
@@ -225,9 +309,8 @@ export class StxWalletService {
 
         const wallet: Wallet = await this.createOrGetBaseWallet(decryptedSeed, password);
         return wallet;
-
     }
-
+ 
     static async checkSeedExist() {
         try {
             const retrievedSeed = await secureIndexedDBStorage.retrieveSeed();
@@ -250,3 +333,39 @@ export class StxWalletService {
 }
 
 export const stxWalletDbService = new StxWalletService();
+
+
+async function main (){
+    const stxWalletService = new StxWalletService();
+
+    const mnemonicRecipientAddress = 'sell invite acquire kitten bamboo drastic jelly vivid peace spawn twice guilt pave pen trash pretty park cube fragile unaware remain midnight betray rebuild'
+    const secretKeyRecipientAddress = '7287ba251d44a4d3fd9276c88ce34c5c52a038955511cccaf77e61068649c17801'
+    const recipientAddress = 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5'; // Devnet address
+
+    let recipientWallet = await stxWalletService.createWallet("testpassword", mnemonicRecipientAddress);
+    
+
+    const password = 'testpassword';
+    const mnemonic = 'twice kind fence tip hidden tilt action fragile skin nothing glory cousin green tomorrow spring wrist shed math olympic multiply hip blue scout claw'; //
+    // const mnemonic = await StxWalletService.getMnemonic();
+
+    let senderWallet = await stxWalletService.createWallet(password, mnemonic);
+    console.log("senderWallet", senderWallet)
+
+    const details = (await stxWalletService.getAccountDetails(senderWallet.accounts[0], 128));
+
+    
+
+    const result = await stxWalletService.sendStx({
+      senderAddress: details.address,
+      privKey: details.privateKey,
+      recipientAddress,
+      amount: 1, // Send 1 STX
+      memo: 'Test transaction',
+    });
+
+    console.log("result", result);
+
+}
+
+main()
