@@ -29,6 +29,9 @@ const RenderStepContent = ({
         setAddress: Dispatch<SetStateAction<any>>
     }) => {
 
+        const stxToOnedollar = 2 //usd;
+
+
         const addNewAddress = () => {
             const newAddress = { id: Date.now().toString(), value: '' }
             setAddresses((prev:any) => [...prev, newAddress]);
@@ -196,7 +199,7 @@ const RenderStepContent = ({
                 
                 {formData.amount && (
                   <div className={styles.usdValue}>
-                   {` ${(parseFloat(formData.amount) * 2).toFixed(2)}`}
+                   {`$ ${(parseFloat(formData.amount) * stxToOnedollar).toFixed(2)}`}
                   </div>
                 )}
               </div>

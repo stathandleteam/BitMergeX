@@ -47,6 +47,9 @@ const ConfirmTransaction: React.FC<ConfirmTransactionProps> = ({
     totalTransferAmount,
     tokenShortName
 }) => {
+
+    const stxToOnedollar = 2 //usd;
+
   return (
       
       <div className={styles.content}>
@@ -55,7 +58,7 @@ const ConfirmTransaction: React.FC<ConfirmTransactionProps> = ({
                 <div className={styles.value}> {tokenShortName}</div>
                 <div className={styles.usd}> 
                     <span className={styles['token-value']}>
-                        ${(parseFloat(amount)).toFixed(2)}
+                        ${(parseFloat(amount)*stxToOnedollar).toFixed(2)}
                     </span>
                     <span className={styles['token-name']}>
                         {parseFloat(amount).toFixed(2)}<span>{tokenShortName}</span>
