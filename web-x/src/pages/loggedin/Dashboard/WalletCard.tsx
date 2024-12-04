@@ -38,7 +38,7 @@ const WalletCard: React.FC = () => {
       <div className={styles.header}>
         <div className={styles.totalBalanceContainer}>
           <span className={styles.totalBalance}>Total Balance</span>
-          <div className={styles.balance}>$ 295.50</div>
+          <div className={styles.balance}>$ 0.00</div>
         </div>
        
       </div>

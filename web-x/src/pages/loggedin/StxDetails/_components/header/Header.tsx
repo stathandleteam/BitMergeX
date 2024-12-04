@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Header.module.scss'
-import STXLogo from '@/assets/images/stx-logo.webp'
+import STXLogo from '@/assets/images/stx-logo.webp';
+
 const Header = () => {
   return (
     <div className={styles.card}>

@@ -147,11 +147,7 @@
 
 
 import React, { useState } from 'react';
-import { IoIosArrowDown, IoMdPerson, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { MdContentCopy, MdAdd, MdClose, MdCheck } from 'react-icons/md';
-import { IoRefreshCircleOutline } from 'react-icons/io5';
 import styles from './TransferForm.module.scss';
-import { Input } from '@/design-system/_components/PasswordField/PasswordField';
 import ScreenWrapper from '@/pages/ScreenWrapper/ScreenWrapper';
 import { ROUTES } from '@/routing/constants';
 import { useRouter } from '@/routing/RouterContext';

@@ -8,6 +8,8 @@ import {
 } from 'react-icons/bi';
 import { FaEthereum } from 'react-icons/fa';
 import styles from './BottomNavigation.module.scss';
+import STXLogo from '@/assets/images/stx-logo.webp'
+import BTCLogo from '@/assets/images/btc.png'
 
 // Import previously created components
 import WalletCard from './WalletCard';
@@ -62,17 +64,17 @@ const WalletSection: React.FC<WalletSectionProps> = ({onClick}) => {
         <TokenBalance
           symbol="STX"
           name="Stacks"
-          balance={1000}
-          fiatValue={3000}
-          icon={<FaEthereum />}
+          balance={0.00}
+          fiatValue={0.00}
+          icon={<img className={styles.logo} src={STXLogo} alt="" />}
           onClick={()=>handleNavigation('/stx-details-and-history')}  
         />
         <TokenBalance
           symbol="BTC"
           name="Bitcoin"
-          balance={0.001416}
-          fiatValue={5.42}
-          icon={<FaEthereum />}
+          balance={0.00}
+          fiatValue={0.00}
+          icon={<img className={styles.logo} src={BTCLogo} alt='btc' />}
           onClick={()=>handleNavigation('/btc-details-and-history')}
         />
       </div>
