@@ -1,8 +1,8 @@
 import styles from './Home.module.scss'
 import Logo from '@/design-system/_components/Logo/Logo'
 import { Button } from '@/design-system/_components/Button/Button'
-import { useRouter } from '@/routing/RouterContext'
-import { ROUTES } from '@/routing/constants'
+import { useRouter } from '@/context/routing/RouterContext'
+import { ROUTES } from '@/context/routing/constants'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
 
 interface Props {

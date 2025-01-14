@@ -1,8 +1,8 @@
 import { Button } from '@/design-system/_components/Button/Button';
 import styles from './WalletCreated.module.scss'
 import { CiCircleCheck } from "react-icons/ci";
-import { useRouter } from '@/routing/RouterContext';
-import { ROUTES } from '@/routing/constants';
+import { useRouter } from '@/context/routing/RouterContext';
+import { ROUTES } from '@/context/routing/constants';
 import { useEffect, useState } from 'react';
 
 const WalletCreated = () => {

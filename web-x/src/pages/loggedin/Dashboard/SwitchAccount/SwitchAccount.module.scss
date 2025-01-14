@@ -4,8 +4,16 @@
     gap: 0.2rem;
     width: 100%;
     align-items: center;
+    position: relative;
 
 
+    .rightSection {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      
+    
     .accountType{
         font-size: 0.5rem;
         font-weight: 400;

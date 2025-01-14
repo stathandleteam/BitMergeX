@@ -1,5 +1,7 @@
 @import '@/design-system/globalStyles/index.global.scss';
 
+
+
 :root{
     --body-background: #{$primary-black-500};
     --onboarding-subtitle-color: #{$neutral-gray-500};
@@ -10,19 +12,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // margin: auto 0;
+    margin: auto 0;
     // height: 100vh;
-    max-height: 650px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden;
+    height: 600px;
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
 }
 
 .body{
     // padding-top: rem(200);
-    height: rem(650);
+    height: rem(600);
     width: rem(350);
     background-color: var(--body-background);
     display: flex;
@@ -31,7 +32,28 @@
     align-items: center;
     gap: 0.5rem;
     position: relative;
+        overflow: hidden;
 }
+
+// :root{
+//     --body-background: #{$primary-black-500};
+//     --onboarding-subtitle-color: #{$neutral-gray-500};
+// }
+
+
+
+// .body{
+//     // padding-top: rem(200);
+//     height: rem(600);
+//     width: rem(350);
+//     background-color: var(--body-background);
+//     display: flex;
+//     flex-direction: column;
+//     // justify-content: center;
+//     align-items: center;
+//     gap: 0.5rem;
+//     position: relative;
+// }
 
 .top-layer{
     display: flex;

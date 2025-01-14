@@ -29,6 +29,14 @@ export default {
   "modulePaths": [
     "<rootDir>/src"
   ],
+  // modulePathIgnorePatterns: [
+  //   '<rootDir>/content-script/',
+  //   '<rootDir>/node_modules/',
+  // ],
+
+  // moduleNameMapper: {
+  //   '^@/(.*)$': '<rootDir>/src/$1', // Match the path alias from tsconfig.json
+  // },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
 

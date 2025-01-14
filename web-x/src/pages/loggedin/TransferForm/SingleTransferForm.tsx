@@ -5,8 +5,8 @@ import { IoRefreshCircleOutline } from 'react-icons/io5';
 import styles from './TransferForm.module.scss';
 import { Input } from '@/design-system/_components/PasswordField/PasswordField';
 import ScreenWrapper from '@/pages/ScreenWrapper/ScreenWrapper';
-import { ROUTES } from '@/routing/constants';
-import { useRouter } from '@/routing/RouterContext';
+import { ROUTES } from '@/context/routing/constants';
+import { useRouter } from '@/context/routing/RouterContext';
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon';
 
 interface TransferFormProps {

@@ -1,5 +1,6 @@
 import { IoRefreshCircleOutline } from "react-icons/io5";
 import styles  from './RecipientSection.module.scss'
+import { FeeComponent } from "../ConfirmTransaction";
 
 export const RecipientSection: React.FC<{ recipients: string[] }> = ({ recipients }) => (
     <div className={styles["review-section"]}>
@@ -18,11 +19,6 @@ export const RecipientSection: React.FC<{ recipients: string[] }> = ({ recipient
  
   export const AmountSection: React.FC<{ amount: string; isBulkMode: boolean; total: number }> = ({ amount, isBulkMode, total }) => (
     <div className={styles["review-section"]}>
-      <h4>Amount</h4>
-      <div className={styles["review-amount"]}>
-        <div>Per Address: {amount} STX</div>
-        {isBulkMode && <div>Total: {total.toFixed(2)} STX</div>}
-      </div>
     </div>
   );
 

@@ -1,8 +1,10 @@
 // WalletCard.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEthereum, FaRegCopy } from 'react-icons/fa';
 import { IoIosArrowForward } from 'react-icons/io';
 import styles from './WalletCard.module.scss';
+import { useGetAddressBalanceQuery, useLazyGetAddressBalanceQuery } from '@/services/stxTransactionHistoryApi';
+import { AccountBalanceProps, useAccount } from '@/context/stxfetch/AccountContext';
 
 interface Slide {
   id: number;
@@ -16,10 +18,14 @@ const slides: Slide[] = [
   { id: 2, icon: "💎", text: "Bitcoin", tokenAddress: '0x3ee3425d...4D220ew332a18' },
  ];
 
-const WalletCard: React.FC = () => {
+ interface Props {
+  accountBalance: AccountBalanceProps;
+ }
+const WalletCard = ({accountBalance}: Props) => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
 
   const handleNext = () => {
     if (isAnimating) return;
@@ -38,7 +44,7 @@ const WalletCard: React.FC = () => {
       <div className={styles.header}>
         <div className={styles.totalBalanceContainer}>
           <span className={styles.totalBalance}>Total Balance</span>
-          <div className={styles.balance}>$ 0.00</div>
+         { <div className={styles.balance}>{`$ ${accountBalance?.usdBalance.toFixed(2) || 0}`}</div>}
         </div>
        
       </div>

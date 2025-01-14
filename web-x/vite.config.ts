@@ -1,34 +1,54 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react-swc";
 import path from 'path'
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
-// https://vitejs.dev/config/
+
+import tsconfigPaths from "vite-tsconfig-paths";
+
+import { ManifestV3Export, crx } from "@crxjs/vite-plugin";
+
+import manifestJson from "./manifest.json";
+
+const manifest = manifestJson as ManifestV3Export;
+
 export default defineConfig({
-  plugins: [react(),
 
-    
+  plugins: [
+    tsconfigPaths(),
+    react(),
+    crx({ manifest }),
+    nodePolyfills({
+      // Whether to polyfill `node:` protocol imports.
+      protocolImports: true,
+      globals: {
+        Buffer: true,
+        global: true,
+        process: true,
+      }
+    })
   ],
   base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      // Add additional aliases for critical modules if needed
+      // 'crypto-js': 'crypto-js/core',
+      'crypto-js': path.resolve(__dirname, 'node_modules/crypto-js')
+
     },
-},
-optimizeDeps: {
-  esbuildOptions: {
-      // Node.js global to browser globalThis
+  },
+  optimizeDeps: {
+    esbuildOptions: {
       define: {
-          global: 'globalThis'
+        global: 'globalThis',
+        'globalThis.process': 'undefined',
       },
       // Enable esbuild polyfill plugins
       plugins: [
-          NodeGlobalsPolyfillPlugin({
-              buffer: true
-          })
+       
       ]
+    }
   }
-}
+
 })
-
-

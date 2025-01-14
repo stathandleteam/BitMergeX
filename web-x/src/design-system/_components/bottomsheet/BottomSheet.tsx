@@ -12,7 +12,7 @@ type Props = {
 
 const BottomSheet = ({children, isOpen, setIsOpen, defaultHeight = 80, style}: Props) => {
 
-    const sliderRef = useRef<HTMLDivElement>(null); // Ref for the slider pane
+  const sliderRef = useRef<HTMLDivElement>(null); // Ref for the slider pane
 
   useEffect(() => {
     if (isOpen) {
@@ -37,8 +37,6 @@ const BottomSheet = ({children, isOpen, setIsOpen, defaultHeight = 80, style}: P
         // If the user has dragged down by at least 50px, close the slider pane
         // Call a function to close the slider pane
         // Example: handleClose();
-
-        console.log("close", 'dragged');
         isOpen && setIsOpen(false)
       }
     };

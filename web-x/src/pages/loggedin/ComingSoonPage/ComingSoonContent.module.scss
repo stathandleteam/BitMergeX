@@ -1,0 +1,67 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+// src/pages/NetworkSettingsPage.module.scss
+$primary-black-500: #141414 !default;
+$text-primary: #ffffff;
+$text-secondary: #6b7280;
+$border-color: #2c2c2c;
+$hover-background: #1e1e1e;
+$accent-color: #4a90e2;
+
+.networkSettingsContainer {
+  background-color: $primary-black-500;
+  // min-height: 80vh;
+  color: $text-primary;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  .headerIcon {
+    font-size: 24px;
+    margin-right: 15px;
+    color: $text-secondary;
+  }
+
+  .h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    padding-left: 0.5rem;
+    padding-top: 0.1rem;
+  }
+}
+
+.back-icon{
+    @extend %back-click;
+}
+
+.top-layer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 50%;
+  // margin: auto;
+}
+
+
+.onboarding-title {
+  @extend %h6-medium; //typography
+  color: $white;
+}
+
+.onboarding-subtitle {
+  @extend %body-2-regular; //typography
+  font-size: 0.6rem;
+  text-align: center;
+  color: $white;
+  width: 80%;
+  color: var(--onboarding-subtitle-color);
+}

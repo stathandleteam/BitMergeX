@@ -1,5 +1,8 @@
 @import '@/design-system/globalStyles/index.global.scss';
 
+$hover-background: #1e1e1e;
+// $accent-color:  $accent-orange-500;
+
 // TokenBalance.module.scss
 .avatarGroupContainer{
   position: relative;
@@ -32,6 +35,15 @@
     //   }
   
     // }
+
+    &:hover {
+      background-color: $hover-background;
+    }
+  
+    &.accountSelected {
+      border-color: $accent-orange-500;
+      background-color: $accent-orange-500;
+    }
 
   }
   

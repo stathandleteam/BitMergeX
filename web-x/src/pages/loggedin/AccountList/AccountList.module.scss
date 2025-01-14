@@ -16,7 +16,7 @@
 
 .body{
     // padding-top: rem(200);
-    height: rem(650);
+    height: rem(600);
     width: rem(350);
     background-color: var(--body-background);
     display: flex;
@@ -79,3 +79,10 @@
     width: 100%;
     max-width: 90%;
 }
+
+.rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  

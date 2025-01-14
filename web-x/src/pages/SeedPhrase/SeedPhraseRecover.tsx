@@ -1,10 +1,9 @@
 import { Button } from '@/design-system/_components/Button/Button'
 import PhraseBox from './_components/PhraseBox'
 import styles from './SeedPhraseRecover.module.scss'
-import { useRouter } from '@/routing/RouterContext'
-import { ROUTES } from '@/routing/constants'
+import { useRouter } from '@/context/routing/RouterContext'
+import { ROUTES } from '@/context/routing/constants'
 import { useEffect, useRef, useState } from 'react'
-import { shuffleArray } from '@/design-system/utils/utils'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
 // import StxWalletService from '@/app/services/stx-wallet-service'
@@ -15,7 +14,7 @@ interface FormErrors {
 
 const SeedPhraseRecover = () => {
 
-  const { navigate, params } = useRouter();
+  const { navigate, previousRoute } = useRouter();
 
   const [cellSeedPhrase, setcellSeedPhrase]: any = useState<{ key: string, value: string }>({ key: '', value: '' })
   const [matchSeedPhrase, setmatchSeedPhrase]: any = useState<{ key: string, value: boolean }>({ key: '', value: false })
@@ -43,8 +42,6 @@ const SeedPhraseRecover = () => {
     })
 
     setcellSeedPhrase(trackSeedsPopulate)
-
-    // setreshuffledSeedPhrase(shuffleArray(seedPhrasesActual))
 
   }, [])
 
@@ -109,7 +106,7 @@ const SeedPhraseRecover = () => {
       <div className={styles['body']}>
 
         <div className={styles['back-icon']}>
-          <BackIcon onClick={() => handleBackNavigation(ROUTES.LOGIN)} />
+          <BackIcon onClick={() => handleBackNavigation(previousRoute || ROUTES.LOGIN)} />
         </div>
 
         <div className={styles['header']}>

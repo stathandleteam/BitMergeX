@@ -1,8 +1,12 @@
 import './App.css'
-import { RouterProvider, useRouter } from './routing/RouterContext';
-import { ROUTES } from './routing/constants';
+import { AuthProvider } from './context/auth/AuthContext';
+import { RouterProvider, useRouter } from './context/routing/RouterContext';
+import { ROUTES } from './context/routing/constants';
+import { AccountProvider } from './context/stxfetch/AccountContext';
+import { STXTransactionProvider } from './context/stxtransaction/STXTransactionContext';
 import LazyLoader from './design-system/_components/LazyLoader/LazyLoader';
 import LoadingScreen from './pages/LoadingScreen/LoadingScreen';
+// import './app/services/stacks-transaction-manager-duplicate';
 // import '@/app/services/stacks-transaction-manager';
 // import '@/app/services/stx-transaction-history-retrieval';
 console.log = () => { };
@@ -109,9 +113,47 @@ const TransferForm = (
   />
 )
 
+const NetworkSettingsPage = (
+  <LazyLoader
+    importFunc={() => import('./pages/loggedin/settings/settingpages/NetworkSettingsPage/NetworkSettingsPage')}
+    fallback={<LoadingScreen />}
+  />
+)
+
+const TransactionSentScreen = (
+  <LazyLoader
+    importFunc={() => import('./pages/loggedin/TransactionSentScreen/TransactionSentScreenContainer')}
+    fallback={<LoadingScreen />}
+  />
+)
+
+const ComingSoonPage = (
+  <LazyLoader
+    importFunc={() => import('./pages/loggedin/TransactionSentScreen/TransactionSentScreenContainer')}
+    fallback={<LoadingScreen />}
+  />
+)
+
+const PrivateKeyManagementPage = (
+  <LazyLoader
+  importFunc={() => import('./pages/loggedin/settings/settingpages/PrivateKeyManagementPage/PrivateKeyManagementPage')}
+  fallback={<LoadingScreen />}
+  />
+)
+
+const HelpAndSupportPage = (
+  <LazyLoader
+  importFunc={() => import('./pages/loggedin/settings/settingpages/HelpAndSupport/HelpAndSupport')}
+  fallback={<LoadingScreen />}
+  />
+)
+
 
 function Router() {
+  
+  // const { currentRoute, params } = useRouter();
   const { currentRoute, params } = useRouter();
+
   const routes:any = {
     [ROUTES.HOME]:  Home,
     [ROUTES.AppUX]: AppUX,
@@ -128,7 +170,11 @@ function Router() {
     [ROUTES.ACCOUNT_LIST]: AccountList,
     [ROUTES.STX_DETAILS]: StxDetails,
     [ROUTES.BTC_DETAILS]: BtcDetails,
-    [ROUTES.TRANSFER_STX]: TransferForm
+    [ROUTES.TRANSFER_STX]: TransferForm,
+    [ROUTES.NETWORK_SETTINGS_SCREEN]: NetworkSettingsPage,
+    [ROUTES.PRIVATE_KEY_SCREEN]: PrivateKeyManagementPage,
+    [ROUTES.HELP_SUPPORT_SETTINGS_SCREEN]: HelpAndSupportPage,
+    [ROUTES.TRANSACTION_SENT_SCREEN]: TransactionSentScreen,
   };
   return routes[currentRoute] || <div>404 Not Found</div>;
 }
@@ -136,7 +182,15 @@ function Router() {
 function App() {
   return (
     <RouterProvider>
-      <Router />
+      <AuthProvider>
+      <AccountProvider>
+          <STXTransactionProvider>
+
+          <Router />
+        </STXTransactionProvider>
+
+        </AccountProvider>
+      </AuthProvider>
     </RouterProvider>
   );
 

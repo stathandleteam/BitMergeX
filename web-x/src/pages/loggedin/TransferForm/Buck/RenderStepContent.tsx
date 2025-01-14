@@ -1,13 +1,16 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import React, { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react'
 import { STEPS } from '../TransferForm';
 import styles from  "./RenderStepContent.module.scss";
-import { Input } from '@/design-system/_components/PasswordField/PasswordField';
+import { TextAreaField } from '@/design-system/_components/PasswordField/TextAreaField';
+import { Input } from '@/design-system/_components/PasswordField/PasswordField'
 import { MdAdd, MdClose, MdContentCopy } from 'react-icons/md';
 import { IoMdPerson } from 'react-icons/io';
 import { IoRefreshCircleOutline } from 'react-icons/io5';
-import ConfirmTransactionPage from '../../ConfirmTransaction/ConfirmTransactionPage';
 import ConfirmTransaction from '../../ConfirmTransaction/ConfirmTransaction';
 import useTransfer from '../hooks/useTransfer';
+import { useSTXTransaction } from '@/context/stxtransaction/STXTransactionContext';
+import { useAccount } from '@/context/stxfetch/AccountContext';
+import { shortenAddress, shortenToken } from '@/design-system/utils/utils';
 
 const AddressPreview: React.FC<{ address: string, }> = ({ address }) => {
     const abbreviated = `${address.slice(0, 4)}...${address.slice(-4)}`;
@@ -29,47 +32,73 @@ const RenderStepContent = ({
         setAddress: Dispatch<SetStateAction<any>>
     }) => {
 
-        const stxToOnedollar = 2 //usd;
+      const [dollarToOneStx, setdollarToOneStx] = useState(0);
+      const [accountAddress, setAccountAddress] = useState('');
+      const [minerFees, setMinerFees] = useState(1);
 
-
-        const addNewAddress = () => {
-            const newAddress = { id: Date.now().toString(), value: '' }
-            setAddresses((prev:any) => [...prev, newAddress]);
-            setAddress(newAddress)
-          };
-    
-        const removeAddress = (id: string) => {
-            if (addresses.length > 1) {
-                setAddresses((prev:any) => prev.filter((addr:any) => addr.id !== id));
-                setAddress( addresses[addresses.length-1])
-            } else {
-                setAddress(addresses[0])
-            }
-        };
-    
-        const updateAddress = (id: string, value: string) => {
-            setAddresses((prev:any) => prev.map((addr: any) => 
-                addr.id === id ? { ...addr, value } : addr
-            ));
-            setAddress({id, value})
-
-        };
-    
         const {
-            formData: formDataBackUp,  
-            handleInputChange,
-            errors,
-            setFormData:setFormDataBackUp,
-            validateForm,
-            setErrMsg,
-            errMsg,
-            errRef
-          } = useTransfer()
+          getStxPrice
+        } = useSTXTransaction();
+        
+        const {fetchAccountDetails, accountDetails} = useAccount()
 
-          useEffect(() => {
-            setFormDataBackUp(formData)
-          }, [formData])
+      useEffect(() => {
+        (async ()=>{
+         const stxPrice = await getStxPrice();
+         setdollarToOneStx(stxPrice.data || 0);
+        })()
+      }, [])
+
+      useEffect(() => {
+        if (accountDetails) {
+          setAccountAddress(accountDetails.data.address)
+        }
+      }, [accountDetails.data.address])
+      const addresRef = React.useRef<HTMLTextAreaElement>(null);
+
+      // const dollarToOneStx = 2 //usd;
+
+      const addNewAddress = () => {
+        const newAddress = { id: Date.now().toString(), value: '' }
+        setAddresses((prev:any) => [...prev, newAddress]);
+        setAddress(newAddress)
+      };
+  
+      const removeAddress = (id: string) => {
+        if (addresses.length > 1) {
+            setAddresses((prev:any) => prev.filter((addr:any) => addr.id !== id));
+            setAddress( addresses[addresses.length-1])
+        } else {
+            setAddress(addresses[0])
+        }
+      };
           
+      const updateAddress = async (id: string, value: string) => {
+        setAddresses((prev:any) => prev.map((addr: any) => 
+            addr.id === id ? { ...addr, value } : addr
+        ));
+        setAddress({id, value});
+      };
+  
+      const {
+          formData: formDataBackUp,  
+          handleInputChange,
+          errors,
+          setFormData:setFormDataBackUp,
+          validateForm,
+          setErrMsg,
+          errMsg,
+          errRef,
+          handleOnBlur,
+          handleOnFocus
+        } = useTransfer()
+
+        useEffect(() => {
+          setFormDataBackUp(formData)
+        }, [formData])
+        
+
+    
     switch (currentStep) {
       case STEPS.RECIPIENTS:
         return (
@@ -77,33 +106,41 @@ const RenderStepContent = ({
             <div className={styles.transferMode}>
               <button 
                 className={`${styles.modeButton} ${!isBulkMode ? styles.active : ''}`}
-                onClick={() => setIsBulkMode(false)}
+                onClick={() => {
+                  setIsBulkMode(false);                  
+                  addresRef?.current && addresRef.current?.focus()
+                }}
               >
                 Single
               </button>
               <button 
                 className={`${styles.modeButton} ${isBulkMode ? styles.active : ''}`}
-                onClick={() => setIsBulkMode(true)}
+                onClick={() => {
+                  setIsBulkMode(true)
+                  addresRef?.current && addresRef.current?.focus()
+                }}
               >
                 Bulk
               </button>
             </div>
 
-
-
             {/* {addresses.map((address, index) => ( */}
               <div key={address.id} className={styles.section}>
                 <div className={styles.inputGroup}>
-                  <Input
+                  <TextAreaField
+                    name={`${address.id}`}
+                    data-id = {"address"}
                     label={isBulkMode ? `Address ${
                         addresses.length
                         // address.id
                     }` : "To"}
-                    value={address.value}
+                    value={ address.value}
                     onChange={(e) => updateAddress(address.id, e.target.value)}
                     placeholder="Enter recipient address"
-                    error={errors?.address}
-
+                    error={errors[address.id]}
+                    ref = {addresRef}
+                    onFocus={handleOnFocus}
+                    onBlur={handleOnBlur}
                   />
                    
                   <div className={styles.addressActions}>
@@ -187,19 +224,23 @@ const RenderStepContent = ({
             <div className={styles.section}>
               <div className={styles.inputGroup}>
                 <Input
+                  data-id = {"amount"}
+                  name='amount'
                   label="Amount (per address)"
                   type="number"
                   value={formData.amount}
                   onChange={(e) => setFormData((prev:any) => ({ ...prev, amount: e.target.value }))}
                   placeholder="0.0"
-                //   error={validateStxAddress(formData.amount)?"Invalid"}
-                error={errors?.amount}
+                  //   error={validateStxAddress(formData.amount)?"Invalid"}
+                  error={errors?.amount}
+                  onFocus={handleOnFocus}
+                  onBlur={handleOnBlur}
                 />
 
                 
                 {formData.amount && (
                   <div className={styles.usdValue}>
-                   {`$ ${(parseFloat(formData.amount) * stxToOnedollar).toFixed(2)}`}
+                   {`$ ${(parseFloat(formData.amount) * dollarToOneStx).toFixed(2)}`}
                   </div>
                 )}
               </div>
@@ -274,8 +315,8 @@ const RenderStepContent = ({
             <ConfirmTransaction
                 amount={formData.amount}
                 // recipient={recipient}
-                fee={{stx:"0.8STX", usd: "$1.50" }}
-                walletAddress={'0x4269...DD60'}
+                fee={{stx:`${minerFees}STX`, usd: `${minerFees * dollarToOneStx}` }}
+                walletAddress={shortenAddress(accountAddress)}
                 network={'StackNetwork'}
                 onConfirm={() => {
                     // Perform the actual transfer transaction here
@@ -289,6 +330,7 @@ const RenderStepContent = ({
                 isBulkMode={isBulkMode} 
                 totalTransferAmount={totalTransferAmount}   
                 tokenShortName = {"STX"}
+                dollarToOneStx = {dollarToOneStx}
 
             />
         );

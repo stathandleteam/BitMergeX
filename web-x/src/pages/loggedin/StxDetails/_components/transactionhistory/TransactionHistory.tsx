@@ -224,7 +224,7 @@ const TransactionHistory: React.FC = ({limit = 2}: {limit?: number}) => {
           
           {/* Load more trigger */}
           <div 
-            ref={loadMoreTriggerRef} 
+            // ref={loadMoreTriggerRef} 
             className={styles.loadMoreTrigger}
           >
             {isLoading && (

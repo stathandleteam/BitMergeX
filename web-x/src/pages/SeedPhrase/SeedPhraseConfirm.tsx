@@ -1,13 +1,12 @@
 import { Button } from '@/design-system/_components/Button/Button'
 import PhraseBox from './_components/PhraseBox'
 import styles from './SeedPhraseConfirm.module.scss'
-import { useRouter } from '@/routing/RouterContext'
-import { ROUTES } from '@/routing/constants'
+import { useRouter } from '@/context/routing/RouterContext'
+import { ROUTES } from '@/context/routing/constants'
 import { useEffect, useState } from 'react'
 import { shuffleArray } from '@/design-system/utils/utils'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
-// import StxWalletService from '@/app/services/stx-wallet-service'
 
 
 interface FormErrors {

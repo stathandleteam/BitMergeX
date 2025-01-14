@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  // "include": ["vite.config.ts", 
+  // "vite.chrome.background.config.ts", "vite.content.config.ts"
+// ],
+  // "exclude": ["node_modules", "dist", "background", "content-script"]
+}

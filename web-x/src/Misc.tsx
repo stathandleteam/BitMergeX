@@ -4,8 +4,8 @@ import { Checkbox } from "./design-system/_components/FormControls/Checkbox";
 import { Radio } from "./design-system/_components/FormControls/Radio";
 import { InputField } from "./design-system/_components/InputField/InputField";
 import Logo from "./design-system/_components/Logo/Logo";
-import { ROUTES } from "./routing/constants";
-import { useRouter } from "./routing/RouterContext";
+import { ROUTES } from "./context/routing/constants";
+import { useRouter } from "./context/routing/RouterContext";
 
 export const ExampleComponent: React.FC = () => {
   return (

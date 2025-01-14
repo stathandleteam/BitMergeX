@@ -146,14 +146,15 @@
 // export default TransferForm;
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './TransferForm.module.scss';
 import ScreenWrapper from '@/pages/ScreenWrapper/ScreenWrapper';
-import { ROUTES } from '@/routing/constants';
-import { useRouter } from '@/routing/RouterContext';
+import { ROUTES } from '@/context/routing/constants';
+import { useRouter } from '@/context/routing/RouterContext';
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon';
 import AddressesModal from './Buck/AddressModel';
 import RenderStepContent from './Buck/RenderStepContent';
+import { useSTXTransaction } from '@/context/stxtransaction/STXTransactionContext';
 
 interface Address {
   id: string;
@@ -189,20 +190,68 @@ const TransferForm: React.FC<TransferFormProps> = ({ onSubmit }) => {
   const [showAddressesModal, setShowAddressesModal] = useState(false);
 
   const handleNavigation = async (route: string) => {
+    console.log("TRANSACTION_SENT_SCREEN", route)
+    
     navigate(route, { id: '123' });
+
+
   }
+  const { validateAddress, validateAmount, sendSTX } = useSTXTransaction();
+  const [stxTransferErrors, setstxTransferErrors] = useState<string[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit({
-      addresses: addresses.map(addr => addr.value),
-      ...formData
-    });
-  };
 
-  const totalTransferAmount = addresses.length * parseFloat(formData.amount || '0');
+    const totalTransferAmount = addresses.length * parseFloat(formData.amount || '0');
 
-  return (
+    const checkAddressIsValid = async (address:string)=>{
+      if (!address) return false;
+      const { success, errors:errs } = await validateAddress(address)
+      if (!success && errs?.length){
+        setstxTransferErrors(errs);
+        return false;
+
+      } else {
+        setstxTransferErrors([]);
+      }
+      return true;
+    }
+
+    const checkAmountIsValid = async (amount: string)=>{
+      if (!amount) return false;
+      const { success, errors:errs } = await validateAmount(parseInt(amount))
+      if (!success && errs?.length){
+        setstxTransferErrors(errs);
+        return false;
+      } else {
+        setstxTransferErrors([]);
+      }
+      return true;
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      const addressIsValid = await checkAddressIsValid(address.value)
+      const amountIsValid = await checkAmountIsValid(formData.amount)
+      if (addressIsValid && amountIsValid){
+        await sendSTX(address.value, parseInt(formData.amount), formData.memo)
+        handleNavigation(ROUTES.TRANSACTION_SENT_SCREEN)  
+      } else {
+        console.log("something when wrong")
+      }
+    };
+  
+    useEffect(() => {
+      (checkAddressIsValid)(address.value)
+    }, [address.value])
+
+    useEffect(() => {
+      (checkAmountIsValid)(formData.amount)
+    }, [formData.amount])
+
+    const isEmpty = stxTransferErrors.every(value => value === undefined || value === null || value === '');  
+      
+    // const { success, errors:errs } =  validateAddress(address.value)
+
+    return (
     <ScreenWrapper>
       <div className={styles.transferForm}>
         <div className={styles['back-icon']}>
@@ -240,9 +289,9 @@ const TransferForm: React.FC<TransferFormProps> = ({ onSubmit }) => {
         {/* </div> */}
 
         <button
-          onClick={() => {
+          onClick={(e:any) => {
             if (currentStep === STEPS.REVIEW) {
-              handleSubmit
+              handleSubmit(e)
             } else {
               setCurrentStep(prev => prev + 1)
             }
@@ -250,7 +299,8 @@ const TransferForm: React.FC<TransferFormProps> = ({ onSubmit }) => {
           className={styles.submitButton}
           disabled={
             (currentStep === STEPS.RECIPIENTS && addresses.some(addr => !addr.value)) ||
-            (currentStep === STEPS.AMOUNT && !formData.amount)
+            (currentStep === STEPS.AMOUNT && !formData.amount) ||
+            !isEmpty
           }
         >
           {currentStep === STEPS.REVIEW ? 'Confirm Transfer' : 'Continue'}

@@ -1,8 +1,8 @@
 import styles from './Password.module.scss'
 import Logo from '@/design-system/_components/Logo/Logo'
 import { Button } from '@/design-system/_components/Button/Button'
-import { useRouter } from '@/routing/RouterContext'
-import { ROUTES } from '@/routing/constants'
+import { useRouter } from '@/context/routing/RouterContext'
+import { ROUTES } from '@/context/routing/constants'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
 import { PiPasswordDuotone } from "react-icons/pi";
 import { Input } from '@/design-system/_components/PasswordField/PasswordField'
@@ -51,23 +51,24 @@ const Password = ({ id }: Props) => {
   const handleNavigation = async (route: string) => {
 
     try {
-      if (!validateForm()) return;
+      if (!validateForm({shouldConfirmPassword: false})) return;
 
-      let mainAddress;
+      let walletInstance;
 
       if (previousRoute === ROUTES.SEED_PHRASE_RECOVER) {
 
-        const { address } = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
-        mainAddress = address;
+        const wallet = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
+        walletInstance = wallet;
+        
       } else {
         if (seedPhrases && formData.password) {
-          const { address } = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
-          mainAddress = address
+          const wallet = await stxWalletDbService.createWallet(formData.password, seedPhrases.trim() || '');
+          walletInstance = wallet
         }
       }
 
-      if (mainAddress) await navigate(route);
-      if (!mainAddress) console.log("Something went wrong");
+      if (walletInstance) await navigate(route);
+      if (!walletInstance) console.log("Something went wrong");
 
     } catch (error: any) {
       console.log("error", error)

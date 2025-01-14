@@ -13,6 +13,8 @@ interface AccountCardProps {
   balance: number;
   fiatValue: number;
   icon?: React.ReactNode;
+  onClick: () => void;
+  selected:boolean;
 }
 
 const avatars = [
@@ -32,13 +34,15 @@ const AccountCard: React.FC<AccountCardProps> = ({
   name,
   balance,
   fiatValue,
-  icon
+  icon,
+  onClick,
+  selected
 }) => {
   const [startEditting, setStartEditting] = useState(false);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.leftSection}>
+    <div className={`${styles.container} ${selected? styles.accountSelected : ''}`}>
+      <div className={styles.leftSection} onClick={onClick}>
         <div className={styles.iconWrapper}>
           {icon}
         </div>
@@ -52,7 +56,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
             <AvatarGroup avatars={avatars} maxCount={2} />
         </div>
       </div>
-      <div className={styles.rightSection}>
+      <div className={styles.rightSection} >
         <span className={styles.balance} >
           <CustomDropdown
               items={viewOptions}

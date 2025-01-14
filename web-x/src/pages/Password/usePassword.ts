@@ -27,7 +27,7 @@ const usePassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const validateForm = (): boolean => {
+    const validateForm = (option = {shouldConfirmPassword: true}): boolean => {
         const newErrors: FormErrors = {};
 
         if (!formData.password) {
@@ -36,7 +36,7 @@ const usePassword = () => {
             newErrors.password = 'Password must be at least 8 characters';
         }
 
-        if (formData.password !== formData.confirmPassword) {
+        if (option?.shouldConfirmPassword && formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = 'Passwords do not match';
         }
 
@@ -59,11 +59,9 @@ const usePassword = () => {
 
         if (validateForm()) {
 
-            console.log('Form submitted:', formData);
             // Handle form submission here
             try {
                 //   const userData = await register({...formData}).unwrap();
-                //   console.log("userData", userData);
                 setFormData(formEmpty);
 
                 //   showNotification(userData.data.message, 'top-right', 'default', 100000);
@@ -72,7 +70,6 @@ const usePassword = () => {
                 // await navigate(from, {replace: true});
 
             } catch (err: any) {
-                console.log("err", err)
                 if ('errors' in err.data) {
                     if (err?.data?.errors?.length > 0) {
                         //   err.data.errors.map((data: { message: string; }, index: any)=>

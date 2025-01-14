@@ -2,12 +2,12 @@ import { Button } from '@/design-system/_components/Button/Button'
 import PhraseBox from './_components/PhraseBox'
 import PopUpCard from './_components/PopUpCard'
 import styles from './SeedPhraseCreate.module.scss'
-import { useRouter } from '@/routing/RouterContext'
-import { ROUTES } from '@/routing/constants'
-import { useEffect, useState } from 'react'
+import { useRouter } from '@/context/routing/RouterContext'
+import { ROUTES } from '@/context/routing/constants'
+import { ChangeEvent, useEffect, useState } from 'react'
 // import { seedPhrases } from '@/routing/seed-phrase-example'
 import BackIcon from '@/design-system/_components/BackIcon/BackIcon'
-import { SeedPhraseMap } from '@/routing/seed-phrase-example'
+import { SeedPhraseMap } from '@/context/routing/seed-phrase-example'
 import { StxWalletService } from '@/app/services/stx-wallet-service'
 
 
@@ -30,6 +30,14 @@ const SeedPhraseCreate = () => {
       setSeedPhrase(seedPhrase)
     })();
   }, [params?.seedPhrase])
+
+  // Add an onChange handler
+const handlePhraseChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  setSeedPhrase(prev => ({
+    ...prev,
+    [index + 1]: event.target.value
+  }));
+};
 
   const handleBackupManually = () => {
     setManualBackup(true)
@@ -62,7 +70,13 @@ const SeedPhraseCreate = () => {
 
         <div className={styles['body']}>
           <div className={styles['grid']}>
-            {Array.from({ length: 12 }, (_, rowIndex) => <PhraseBox isInput={true} value={seedPhrases[rowIndex + 1]} key={rowIndex} />)}
+            {Array.from({ length: 12 }, (_, rowIndex) => <PhraseBox isInput={true} 
+              // value={seedPhrases[rowIndex + 1]} 
+              value={seedPhrases[rowIndex + 1] || ''} // Provide default empty string
+              // onChange={handlePhraseChange(rowIndex)}
+              key={rowIndex}
+              readOnly = {true}
+            />)}
           </div>
 
           {!reveal ? <PopUpCard

@@ -1,10 +1,26 @@
 import { MdClose } from 'react-icons/md';
 import styles from './AddressesModal.module.scss';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useSTXTransaction } from '@/context/stxtransaction/STXTransactionContext';
 
 
 const AddressesModal = ({totalTransferAmount, setShowAddressesModal, addresses}
-    : {totalTransferAmount: number, setShowAddressesModal: Dispatch<SetStateAction<any>>, addresses: any}) => (
+    : {totalTransferAmount: number, setShowAddressesModal: Dispatch<SetStateAction<any>>, addresses: any}) => {
+      
+    const [dollarToOneStx, setdollarToOneStx] = useState(0);
+
+    const {
+      getStxPrice
+    } = useSTXTransaction();
+      
+    useEffect(() => {
+      (async ()=>{
+        const stxPrice = await getStxPrice();
+        setdollarToOneStx(stxPrice.data || 0);
+      })()
+    }, [])
+      
+      return (
     <div className={styles.modalOverlay} onClick={() => setShowAddressesModal(false)}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
@@ -22,12 +38,12 @@ const AddressesModal = ({totalTransferAmount, setShowAddressesModal, addresses}
           ))}
           <div className={styles.modalTotal}>
             <span>Total Amount:</span>
-            <span>{totalTransferAmount.toFixed(2)} STX (${(totalTransferAmount * 2).toFixed(2)})</span>
+            <span>{totalTransferAmount.toFixed(2)} STX (${(totalTransferAmount * dollarToOneStx).toFixed(2)})</span>
           </div>
         </div>
       </div>
     </div>
-  );
+  )};
 
 
 export default AddressesModal;

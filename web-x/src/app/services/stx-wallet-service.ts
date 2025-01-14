@@ -14,9 +14,9 @@ import { secureIndexedDBStorage } from "./stx-wallet-storage";
 import { validateStacksAddress } from '@stacks/transactions';
 
 import { MainWalletApp } from "./stx-wallet-controller";
+import { StxAccountManager } from "../dbmangers/StxAccountManager";
 
 export class StxWalletService {
-
     
     private GAIA_HUB_URL = 'https://hub.stacks.co';
     private network: StacksMainnet | StacksTestnet  = new StacksTestnet();
@@ -52,6 +52,7 @@ export class StxWalletService {
         }
         return true
     }
+
     async createWallet(password: string, mnemonic: string): Promise<Wallet> {
         
         if (!await StxWalletService.validateSeedPhrase(mnemonic)) {
@@ -66,7 +67,7 @@ export class StxWalletService {
         const encryptedSeed = await encryptSeed(mnemonic, password);
         
         this.storeSeed(encryptedSeed);
-
+        await StxAccountManager.storeStxAccountIndex(0);
 
         return wallet
 
@@ -94,6 +95,7 @@ export class StxWalletService {
         });
 
         const address = getStxAddress({ account: wallet.accounts[0] });
+        await StxAccountManager.storeStxAccountIndex(0);
 
         // Encrypt the seed for storage
         
@@ -188,11 +190,11 @@ export class StxWalletService {
     public async sendStx({senderAddress, privKey, recipientAddress, amount, memo}:{senderAddress: string, privKey: string, recipientAddress: string, amount: number, memo: string}): Promise<any> {
         try {
             
-            const nonce = await getNonceFromAddress(senderAddress, this.network);
-            const amountToSend = Cl.uint(amount); // Convert to microstacks
+            // const nonce = await getNonceFromAddress(senderAddress, this.network);
+            // const amountToSend = Cl.uint(amount); // Convert to microstacks
 
-            const postCondition_1 = createPostCondition(senderAddress, amount);
-            console.log("postCondition_1", postCondition_1)
+            // const postCondition_1 = createPostCondition(senderAddress, amount);
+            // console.log("postCondition_1", postCondition_1)
 
             // const transaction = await makeContractCall({
             //     contractAddress:
@@ -305,12 +307,15 @@ export class StxWalletService {
 
     async unlockWallet(password: string): Promise<any> {
         const encryptedSeed = await this.retrieveSeed();
-        const decryptedSeed: string = await decryptSeed(encryptedSeed, password);
-
+        const decryptedSeed: string|null = await decryptSeed(encryptedSeed, password);
+        
+        if (!decryptedSeed){
+            return null
+        }
         const wallet: Wallet = await this.createOrGetBaseWallet(decryptedSeed, password);
         return wallet;
     }
- 
+
     static async checkSeedExist() {
         try {
             const retrievedSeed = await secureIndexedDBStorage.retrieveSeed();
@@ -319,7 +324,6 @@ export class StxWalletService {
             
         }
     }
-
 
     static async resetWallet() {
         try {
@@ -333,7 +337,6 @@ export class StxWalletService {
 }
 
 export const stxWalletDbService = new StxWalletService();
-
 
 async function main (){
     const stxWalletService = new StxWalletService();
@@ -354,8 +357,6 @@ async function main (){
 
     const details = (await stxWalletService.getAccountDetails(senderWallet.accounts[0], 128));
 
-    
-
     const result = await stxWalletService.sendStx({
       senderAddress: details.address,
       privKey: details.privateKey,
@@ -368,4 +369,4 @@ async function main (){
 
 }
 
-main()
+// main()

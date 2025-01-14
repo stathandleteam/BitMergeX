@@ -1,15 +1,20 @@
 import React from 'react'
 import styles from './Header.module.scss'
 import STXLogo from '@/assets/images/stx-logo.webp';
+import { AccountBalanceProps } from '@/context/stxfetch/AccountContext';
 
-const Header = () => {
+ interface Props {
+  accountBalance: AccountBalanceProps;
+ }
+
+const Header = ({accountBalance}: Props) => {
   return (
     <div className={styles.card}>
         <img className={styles.logo} src={STXLogo} alt="" />
         <div className={styles.totalBalanceContainer}>
           <span className={styles.totalBalance}>Stacks Balance</span>
-            <div className={styles.balance}>0 STX</div>
-            <span className={styles.address}>$0 USD</span>
+            <div className={styles.balance}>{`${accountBalance.stxBalance} STX`}</div>
+            <span className={styles.address}>{`$${accountBalance.usdBalance.toFixed(2)} USD`}</span>
         </div>
     </div>
   )

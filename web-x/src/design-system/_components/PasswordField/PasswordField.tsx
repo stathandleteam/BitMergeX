@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, RefObject } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import styles from './PasswordField.module.scss';
 
@@ -8,9 +8,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   showPasswordToggle?: boolean;
   showPassword?: boolean;
   onTogglePassword?: () => void;
+  ref?: RefObject<HTMLInputElement>; // Add this line
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   label,
   error,
   showPasswordToggle,
@@ -18,13 +19,14 @@ export const Input: React.FC<InputProps> = ({
   onTogglePassword,
   className,
   ...props
-}) => {
+}, ref) => {
   return (
     <div className={styles.inputWrapper}>
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.inputContainer}>
         <input
           className={`${styles.input} ${error ? styles.error : ''} ${className || ''}`}
+          ref={ref} // Use the ref here
           {...props}
         />
         {showPasswordToggle && (
@@ -40,6 +42,7 @@ export const Input: React.FC<InputProps> = ({
       {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );
-};
+});
 
-
+// Set the display name for debugging purposes in React DevTools
+Input.displayName = 'Input';

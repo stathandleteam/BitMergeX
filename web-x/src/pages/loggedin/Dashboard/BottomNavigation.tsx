@@ -18,10 +18,14 @@ import TokenBalance from './TokenBalance';
 import SwitchAccount from './SwitchAccount/SwitchAccount';
 import BottomSheet from '@/design-system/_components/bottomsheet/BottomSheet';
 import SendBN from '../bottomsheet/SendBN/SendBN';
-import { useRouter } from '@/routing/RouterContext';
+import { useRouter } from '@/context/routing/RouterContext';
 import { TransactionProvider } from '../StxDetails/context/TransactionContext';
+import SettingsPage from '../settings/SettingsPage';
+import { ROUTES } from '@/context/routing/constants';
+import ComingSoonPage from '../ComingSoonPage/ComingSoonContent';
+import { useAccount } from '@/context/stxfetch/AccountContext';
 
-type NavigationTab = 'wallet' | 'market' | 'browser' | 'profile';
+type NavigationTab = 'wallet' | 'assets' | 'explore' | 'settings';
 
 interface NavItemProps {
   icon: React.ReactNode;
@@ -50,24 +54,42 @@ const WalletSection: React.FC<WalletSectionProps> = ({onClick}) => {
   
   const { navigate } = useRouter();
 
+
   const handleNavigation = async (route: string) => {
     navigate(route, { id: '123' });
   }
 
 
+  const {
+    accountDetails,
+    accountBalance,
+    transactionHistory,
+    fetchAccountDetails,
+    fetchAccountBalance,
+    fetchTransactionHistory,
+  } = useAccount();
+
+  useEffect(() => {
+    (async ()=>{
+      await fetchAccountDetails();
+      await fetchAccountBalance();
+      await fetchTransactionHistory();  
+    })()
+  }, []);
+  
   return (
     <div className={styles.walletSection}>
       <SwitchAccount accountType="Testnet" accountName="Account Name" />
-      <WalletCard />
+      <WalletCard accountBalance = {accountBalance} />
       <WalletNavigation onClick = {onClick} />
       <div className={styles.tokenList}>
         <TokenBalance
           symbol="STX"
           name="Stacks"
-          balance={0.00}
-          fiatValue={0.00}
+          balance={parseInt(accountBalance.stxBalance.toFixed(0))}
+          fiatValue={parseInt(accountBalance.usdBalance.toFixed(2))}
           icon={<img className={styles.logo} src={STXLogo} alt="" />}
-          onClick={()=>handleNavigation('/stx-details-and-history')}  
+          onClick={()=>handleNavigation(ROUTES.STX_DETAILS)}  
         />
         <TokenBalance
           symbol="BTC"
@@ -75,7 +97,7 @@ const WalletSection: React.FC<WalletSectionProps> = ({onClick}) => {
           balance={0.00}
           fiatValue={0.00}
           icon={<img className={styles.logo} src={BTCLogo} alt='btc' />}
-          onClick={()=>handleNavigation('/btc-details-and-history')}
+          onClick={()=>handleNavigation(ROUTES.BTC_DETAILS)}
         />
       </div>
       
@@ -87,30 +109,28 @@ const BottomNavigation: React.FC = () => {
   const [keyMenu, setKeyMenu] = useState('')
 
   const [activeTab, setActiveTab] = useState<NavigationTab>('wallet');
+
   const [postDrawerToggle, setPostDrawerStateClick] = useState(false);
 
-  const { navigate } = useRouter();
+  const { navigate, previousRoute } = useRouter();
 
   const handleNavigation = async (route: string) => {
     navigate(route, { id: '123' });
   }
 
-  
-
   const onStackClick = (label: any)=>{
     console.log('label', label)
   }
-
 
   const handleBottomSlider = (keyMenu:any)=>{
     const onTransferClick = (label: any)=>{
       console.log("label", label)
       switch (label) {
         case 'STX':
-          handleNavigation('/stx-details-and-history');
+          handleNavigation(ROUTES.STX_DETAILS);
           break;
         case 'BTC':
-          handleNavigation('/btc-details-and-history');
+          handleNavigation(ROUTES.BTC_DETAILS);
           break;
         default:
           break;
@@ -126,7 +146,7 @@ const BottomNavigation: React.FC = () => {
             balance={1000}
             fiatValue={3000}
             icon={<FaEthereum />}
-            onClick = {()=>handleNavigation('/stx-details-and-history')}
+            onClick = {()=>handleNavigation(ROUTES.STX_DETAILS)}
           />
           <TokenBalance
             symbol="BTC"
@@ -134,7 +154,7 @@ const BottomNavigation: React.FC = () => {
             balance={0.001416}
             fiatValue={5.42}
             icon={<FaEthereum />}
-            onClick = {()=>handleNavigation('/btc-details-and-history')}
+            onClick = {()=>handleNavigation(ROUTES.BTC_DETAILS)}
 
           />
         </SendBN>
@@ -151,7 +171,7 @@ const BottomNavigation: React.FC = () => {
           balance={1000}
           fiatValue={3000}
           icon={<FaEthereum />}
-          onClick = {()=>handleNavigation('/stx-details-and-history')}
+          onClick = {()=>handleNavigation(ROUTES.STX_DETAILS)}
       />
       <TokenBalance
         symbol="BTC"
@@ -159,7 +179,7 @@ const BottomNavigation: React.FC = () => {
         balance={0.001416}
         fiatValue={5.42}
         icon={<FaEthereum />}
-        onClick = {()=>handleNavigation('/btc-details-and-history')}
+        onClick = {()=>handleNavigation(ROUTES.BTC_DETAILS)}
 
       />
         </SendBN>
@@ -181,13 +201,27 @@ const BottomNavigation: React.FC = () => {
     setPostDrawerStateClick(true)
   }
 
+  useEffect(() => {
+    switch (previousRoute) {
+      case ROUTES.NETWORK_SETTINGS_SCREEN:
+      case ROUTES.PRIVATE_KEY_SCREEN:
+      case ROUTES.HELP_SUPPORT_SETTINGS_SCREEN:
+        setActiveTab("settings");
+        break;
+    
+      default:
+        break;
+    }
+  }, [])
+  
+
   return (
     <div className={styles.containerr}>
       <main className={styles.content}>
         {activeTab === 'wallet' && <WalletSection onClick={onClick} />}
-        {activeTab === 'market' && <div>Market Content</div>}
-        {activeTab === 'browser' && <div>Browser Content</div>}
-        {activeTab === 'profile' && <div>Profile Content</div>}
+        {activeTab === 'assets' && <ComingSoonPage pageHeading={'Assets'}  />}
+        {activeTab === 'explore' && <ComingSoonPage pageHeading={'Explore'}  />}
+        {activeTab === 'settings' && <SettingsPage/>}
       </main>
       
       <nav className={styles.navigation}>
@@ -199,21 +233,21 @@ const BottomNavigation: React.FC = () => {
         />
         <NavItem
           icon={<BiChart />}
-          label="Market"
-          isActive={activeTab === 'market'}
-          onClick={() => setActiveTab('market')}
+          label="Assets"
+          isActive={activeTab === 'assets'}
+          onClick={() => setActiveTab('assets')}
         />
         <NavItem
           icon={<BiGlobe />}
-          label="Browser"
-          isActive={activeTab === 'browser'}
-          onClick={() => setActiveTab('browser')}
+          label="Explore"
+          isActive={activeTab === 'explore'}
+          onClick={() => setActiveTab('explore')}
         />
         <NavItem
           icon={<BiUser />}
-          label="My Profile"
-          isActive={activeTab === 'profile'}
-          onClick={() => setActiveTab('profile')}
+          label="Settings"
+          isActive={activeTab === 'settings'}
+          onClick={() => setActiveTab('settings')}
         />
       </nav>
       

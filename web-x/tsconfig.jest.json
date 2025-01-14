@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "CommonJS",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "jsx": "react-jsx",
+      "types": ["jest", "@testing-library/jest-dom"]
+    },
+    "include": ["src/**/*", "tests/**/*"],
+    "exclude": ["node_modules", "dist", 
+    // "background", "content-script"
+  ]
+  }
+  
