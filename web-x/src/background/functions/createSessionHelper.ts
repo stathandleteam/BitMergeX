@@ -1,5 +1,7 @@
 import { StxAccountManager } from "@/app/dbmangers/StxAccountManager";
+import { decryptSeed } from "@/app/helpers/encryption";
 import { stxWalletDbService } from "@/app/services/stx-wallet-service";
+import { secureIndexedDBStorage } from "@/app/services/stx-wallet-storage";
 
 
 export const createSessionHelper = async (request: any, sender:any, sendResponse: any)=>{
@@ -7,14 +9,23 @@ export const createSessionHelper = async (request: any, sender:any, sendResponse
             switch (request.action) {
                 case 'login': // Create or Update
                 const unlockWallet = await stxWalletDbService.unlockWallet(request.password);
-                  const stxAccountIndex = await StxAccountManager.retrieveStxAccountIndex()
+
+                const stxAccountIndex = await StxAccountManager.retrieveStxAccountIndex()
                 console.log("stxAccountIndex", stxAccountIndex)
+                console.log("unlockWallet", unlockWallet)
+                const retrievedSeed = await secureIndexedDBStorage.retrieveSeed();
+                console.log("request.password", request.password)
+                console.log("retrievedSeed", retrievedSeed)
+                const decryptedSeed: string|null = await decryptSeed(retrievedSeed, request.password.trim());
+                
+                console.log("decryptedSeed", decryptedSeed)
+
                 if (unlockWallet) {
                   const session = {
                     isActive: true,
                     timestamp: new Date().getTime(),
                   };
-      
+
                   if (typeof chrome !== "undefined" && chrome?.storage?.local) {
                     await new Promise<void>((resolve, reject) => {
                       chrome?.storage?.local.set(

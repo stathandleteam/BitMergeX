@@ -95,13 +95,13 @@ export class StxWalletService {
         });
 
         const address = getStxAddress({ account: wallet.accounts[0] });
-        await StxAccountManager.storeStxAccountIndex(0);
 
         // Encrypt the seed for storage
         
         const encryptedSeed = await encryptSeed(mnemonic, password);
 
         this.storeSeed(encryptedSeed);
+        await StxAccountManager.storeStxAccountIndex(0);
 
         return { address };
     }

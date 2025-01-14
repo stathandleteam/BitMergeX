@@ -6,7 +6,8 @@ export class StxAccountManager {
     // Store or update the STX account index
     static async storeStxAccountIndex(index: number) {
         if (index < 0) {
-            throw new Error('Index cannot be negative');
+            // throw new Error('Index cannot be negative');
+            return false;
         }
         
         await secureIndexedDBStorage.storeData(this.STX_ACCOUNT_INDEX_ID, {

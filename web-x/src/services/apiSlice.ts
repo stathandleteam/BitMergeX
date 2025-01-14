@@ -6,12 +6,11 @@ import { dynamicBaseQuery } from './customBaseQuery';
 export const apiSlice = createApi({
   reducerPath: 'stacksApi',
   baseQuery: dynamicBaseQuery,
-
-  // reducerPath: 'apiSlice',
-  // baseQuery: fetchBaseQuery({ baseUrl: 'https://api.example.com/' }),
   endpoints: (builder) => ({
     // Define your endpoints here
   }),
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
 });
 
 // Export hooks for usage in functional components

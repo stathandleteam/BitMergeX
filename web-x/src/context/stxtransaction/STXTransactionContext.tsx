@@ -50,6 +50,8 @@ export const STXTransactionProvider = ({ children }: { children: React.ReactNode
   const sendSTX = async (recipient: string, amount: number, memo?: string, feeConfig?: FeeConfig) => {
     const transaction = await sendRequest('send-stx', { recipient, amount, memo, feeConfig });
     await setTransaction(transaction)
+    const response:any = await sendRequest('transaction-history');
+
     return transaction
   };
 

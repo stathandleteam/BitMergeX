@@ -54,7 +54,7 @@ export const stxTransactionHandler = async (request: any, sender: any, sendRespo
             }, feeConfig, details);
             
             console.log("sendSTXResult", sendSTXResult);
-            
+
             if (sendSTXResult.success) {
               sendResponse({ 
                 success: true, 
@@ -63,6 +63,7 @@ export const stxTransactionHandler = async (request: any, sender: any, sendRespo
                   fee: sendSTXResult.fee
                 }
               });
+             
             } else {
               sendResponse({ success: false, error: sendSTXResult.error });
             }

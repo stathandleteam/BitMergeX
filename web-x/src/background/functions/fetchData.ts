@@ -22,13 +22,14 @@ export const fetchHelper = async (request: any, sender:any, sendResponse: any) =
                   const indexChanged = await StxAccountManager.storeStxAccountIndex(request.accountIndex);
                   // sendResponse({ success: true, data: newAccount });
                   const retrieveStxAccountIndex = await StxAccountManager.retrieveStxAccountIndex();
-
+                  console.log("indexChanged", indexChanged)
                   console.log("retrieveStxAccountIndex", retrieveStxAccountIndex)
 
                   if (indexChanged) {
                     sendResponse({ success: true, data: retrieveStxAccountIndex });
-                  } else {
-                    sendResponse({ success: false, error: "Invalid password" });
+                  } 
+                  else {
+                    sendResponse({ success: false, error: "index not changed" });
                   }
                   
                 }
@@ -72,11 +73,13 @@ export const fetchHelper = async (request: any, sender:any, sendResponse: any) =
                       sendResponse({ success: false, error: "Not in a Chrome extension context" });
                     }
                   } else {
-                    sendResponse({ success: false, error: "Invalid password" });
+                    sendResponse({ success: false, error: "Wallet not updated" });
                   }
                 }
               })
               break;
+
+            
             case 'all-accounts-with-balances':
               chrome.storage.local.get(['session', 'walletInstance'], async (items) => {
                 if (chrome.runtime.lastError) {
@@ -86,6 +89,7 @@ export const fetchHelper = async (request: any, sender:any, sendResponse: any) =
                   // items.session.isActive &&
                   items.walletInstance 
                 ) {
+
                   console.log("items.walletInstance", items.walletInstance);
 
                   const noOfAccounts = items.walletInstance.accounts.length;
@@ -162,7 +166,8 @@ export const fetchHelper = async (request: any, sender:any, sendResponse: any) =
                 }
                 });
                 break;
-                
+            
+            
             case 'transaction-history':
                 chrome.storage.local.get(['walletInstance', 'stxAccountIndex'], async (items) => {
                   if (chrome.runtime.lastError) {
@@ -178,7 +183,7 @@ export const fetchHelper = async (request: any, sender:any, sendResponse: any) =
                         offset: 0
                       }
                    const transactionHistory = await dispatch(stxTransactionHistoryApi.endpoints.getTransactionHistory
-                    .initiate({ address: details.address, options}));
+                    .initiate({ address: details.address, options}, { forceRefetch: true }));
                     
                     sendResponse({ success: true, data: transactionHistory.data });
 
