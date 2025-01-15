@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
 
+interface Slide {
+  id: number;
+  icon: string;
+  text: string;
+  tokenAddress: string;
+}
+
 // Define the context type
 interface AccountContextType {
   accountDetails: any | null;
@@ -14,9 +21,12 @@ interface AccountContextType {
   setStxAccountIndex: Dispatch<SetStateAction<number>>;
   handleAddNewAccount: () => Promise<void>;
   handleSetStxAccountIndex: (index: number) => Promise<void>;
+  slides: Slide[];
 }
 
+
 import { StxAccountManager } from '@/app/dbmangers/StxAccountManager';
+import { shortenAddress } from '@/design-system/utils/utils';
 
 // Create the context
 const AccountContext = createContext<AccountContextType | null>(null);
@@ -28,7 +38,11 @@ export const AccountProvider = ({ children }: { children: React.ReactNode }) => 
   const [transactionHistory, setTransactionHistory] = useState<any | null>(null);
   const [walletAccounts, setWalletAccounts] = useState<any[] | null[]>([]);
   const [stxAccountIndex, setStxAccountIndex] = useState<number>(0);
-  
+  const [slides, setSlides] = useState<Slide[]>([
+        { id: 1, icon: "⚡", text: "Stacks", tokenAddress: '0xxxxxxxxx...xxxxxxxxxxxx' },
+        { id: 2, icon: "💎", text: "Bitcoin", tokenAddress: '0xxxxxxxxx...xxxxxxxxxxxx' },
+  ]);
+
   useEffect(()=>{
     (async () => {
       const accountIndex = await StxAccountManager.retrieveStxAccountIndex()
@@ -76,6 +90,14 @@ export const AccountProvider = ({ children }: { children: React.ReactNode }) => 
     try {
       const details = await sendRequest('account-details');
       setAccountDetails(details);
+
+      const accountAddress = details.data.address;
+    const s = [
+      { id: 1, icon: "⚡", text: "Stacks", tokenAddress: shortenAddress(accountAddress, 10) },
+      { id: 2, icon: "💎", text: "Bitcoin", tokenAddress: '0xxxxxxxxx...xxxxxxxxxxxx' },
+  ]
+      // Update slides with fetched data
+      setSlides([...s]);
     } catch (error) {
       console.error('Failed to fetch account details:', error);
     }
@@ -135,7 +157,8 @@ export const AccountProvider = ({ children }: { children: React.ReactNode }) => 
         stxAccountIndex, 
         setStxAccountIndex,
 
-        handleAddNewAccount
+        handleAddNewAccount,
+        slides
 
       }}
     >

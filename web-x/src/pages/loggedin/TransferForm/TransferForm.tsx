@@ -189,12 +189,10 @@ const TransferForm: React.FC<TransferFormProps> = ({ onSubmit }) => {
 
   const [showAddressesModal, setShowAddressesModal] = useState(false);
 
-  const handleNavigation = async (route: string) => {
-    console.log("TRANSACTION_SENT_SCREEN", route)
-    
-    navigate(route, { id: '123' });
 
-
+  const handleNavigation = async (route: string,result?:any) => {
+    console.log("TRANSACTION_SENT_SCREEN", route)    
+    navigate(route, { [route]: result });
   }
   const { validateAddress, validateAmount, sendSTX } = useSTXTransaction();
   const [stxTransferErrors, setstxTransferErrors] = useState<string[]>([]);
@@ -232,8 +230,8 @@ const TransferForm: React.FC<TransferFormProps> = ({ onSubmit }) => {
       const addressIsValid = await checkAddressIsValid(address.value)
       const amountIsValid = await checkAmountIsValid(formData.amount)
       if (addressIsValid && amountIsValid){
-        await sendSTX(address.value, parseInt(formData.amount), formData.memo)
-        handleNavigation(ROUTES.TRANSACTION_SENT_SCREEN)  
+       const transactionx = await sendSTX(address.value, parseInt(formData.amount), formData.memo);
+       await handleNavigation(ROUTES.TRANSACTION_SENT_SCREEN, transactionx)  
       } else {
         console.log("something when wrong")
       }

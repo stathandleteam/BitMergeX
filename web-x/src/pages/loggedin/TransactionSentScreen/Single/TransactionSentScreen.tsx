@@ -4,6 +4,7 @@ import styles from './TransactionSentScreen.module.scss';
 import ScreenWrapper from '@/pages/ScreenWrapper/ScreenWrapper';
 import { shortenToken } from '@/design-system/utils/utils';
 import { useSTXTransaction } from '@/context/stxtransaction/STXTransactionContext';
+import { networkStore } from '@/services/networkStore';
 
 interface TransactionDetails {
   txId: string;
@@ -48,11 +49,11 @@ const TransactionSentScreen: React.FC<TransactionSentScreenProps> = ({
 
   const openExplorer = () => {
     if (data?.transactionId) {
-        const explorerUrl = `https://explorer.stacks.co/txid/${data?.transactionId}`;
+        const explorerUrl = `https://explorer.stacks.co/txid/${data?.transactionId}?chain=${networkStore.networkType}`;
         window.open(explorerUrl, '_blank', 'noopener,noreferrer');    
     }
   };
-
+  
 
   return (
     <ScreenWrapper>

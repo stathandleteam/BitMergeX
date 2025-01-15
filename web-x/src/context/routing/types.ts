@@ -1,5 +1,5 @@
 export interface RouteParams {
-  [key: string]: string | number;
+  [key: string]: string | number | any;
 }
 
 export interface RouterContextType {

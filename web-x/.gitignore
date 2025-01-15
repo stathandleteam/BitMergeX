@@ -25,4 +25,5 @@ dist-ssr
 
 src/app/test
 src/app/services/stacks-transaction-manager-duplicate.ts
+src/app/services/stx-wallet-service-duplicate.ts
 .env

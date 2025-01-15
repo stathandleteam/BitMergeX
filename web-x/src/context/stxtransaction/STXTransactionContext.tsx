@@ -1,5 +1,6 @@
 import { FormErrorsType, stxFormEmpty } from '@/pages/loggedin/TransferForm/hooks/useTransfer';
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
+import { ROUTES } from '../routing/constants';
 
 interface STXTransactionContextType {
   validateAmount: (amount: number) => Promise<{ success: boolean; errors?: string[] }>;
@@ -8,7 +9,8 @@ interface STXTransactionContextType {
   stxTransferErrors:  string[];
   setstxTransferErrors: Dispatch<SetStateAction<string[]>>;
   getStxPrice: () => Promise<{ success: boolean; data?: number; error?: string }>;
-  transaction: { success: boolean; data?: { transactionId: string, fee: number }; error?: string };
+  transaction: { success: boolean; data?: { transactionId: string, fee: number, recipient: string, amount: number }; error?: string };
+  fetchTransaction: () => Promise<void>;
 }
 
 type FeeConfig = {
@@ -42,24 +44,40 @@ const STXTransactionContext = createContext<STXTransactionContextType | null>(nu
 export const STXTransactionProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [stxTransferErrors, setstxTransferErrors] = useState<string[]>(stxFormEmpty);
-  const [transaction, setTransaction] = useState({ success: false, data: { transactionId: '', fee: 0 }, error: '' });
+  const [transaction, setTransaction] = useState({ success: false, data: { transactionId: '', fee: 0, recipient: '', amount: 0 }, error: '' });
 
   // Exposed methods for the context using sendRequest
   const validateAmount = (amount: number) => sendRequest('validate-amount', { amount });
   const validateAddress = (address: string) => sendRequest('validate-address', { address });
   const sendSTX = async (recipient: string, amount: number, memo?: string, feeConfig?: FeeConfig) => {
-    const transaction = await sendRequest('send-stx', { recipient, amount, memo, feeConfig });
+    const transactionx = await sendRequest('send-stx', { recipient, amount, memo, feeConfig });
     await setTransaction(transaction)
-    const response:any = await sendRequest('transaction-history');
 
-    return transaction
+    setTimeout(async ()=>{
+      await sendRequest('transaction-history');
+    }, 1000)
+
+    return transactionx
   };
 
   const getStxPrice = () => sendRequest('get-stx-price');
 
+  const fetchTransaction = async () => {
+    try {
+      const response =  await sendRequest('getLastRoute', { payload: 'testing' });
+      if (response?.success) {
+        if (response.routeParams) {
+          setTransaction(response.routeParams[ROUTES.TRANSACTION_SENT_SCREEN] || { success: false, data: { transactionId: '', fee: 0, recipient: '', amount: 0 }, error: '' });
+        }
+      }
+    } catch(error){
+        console.log("working")
+    }
+
+  }
   // Provide the context
   return (
-    <STXTransactionContext.Provider value={{ validateAmount, validateAddress, sendSTX, stxTransferErrors, setstxTransferErrors, getStxPrice, transaction }}>
+    <STXTransactionContext.Provider value={{fetchTransaction, validateAmount, validateAddress, sendSTX, stxTransferErrors, setstxTransferErrors, getStxPrice, transaction }}>
       {children}
     </STXTransactionContext.Provider>
   );

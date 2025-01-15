@@ -11,6 +11,7 @@ export const apiSlice = createApi({
   }),
   refetchOnFocus: true,
   refetchOnReconnect: true,
+  tagTypes: ['TransactionHistory']
 });
 
 // Export hooks for usage in functional components

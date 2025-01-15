@@ -13,6 +13,9 @@ export const routerHelper = async (request:any, sender:any, sendResponse:any)=>{
                   if (chrome.runtime.lastError) {
                     sendResponse({ success: false, error: chrome.runtime.lastError.message });
                   } else {
+
+                    console.log("request.payload", request.payload, result.routeParams)
+
                     sendResponse({
                       success: true,
                       lastRoute: result.lastRoute || null,
