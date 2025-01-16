@@ -38,6 +38,7 @@ export const stxTransactionHistoryApi = apiSlice.injectEndpoints({
         //   offset: options?.offset || 0,
         // },
       }),
+      keepUnusedDataFor: 300, // Keeps data in cache for 5 minutes
       transformResponse: (response: any) =>
         response.results.map((tx: any) => ({
           txId: tx.tx_id,
