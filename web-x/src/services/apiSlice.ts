@@ -9,8 +9,8 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     // Define your endpoints here
   }),
-  refetchOnFocus: true,
-  refetchOnReconnect: true,
+  // refetchOnFocus: true,
+  // refetchOnReconnect: true,
   tagTypes: ['TransactionHistory']
 });
 

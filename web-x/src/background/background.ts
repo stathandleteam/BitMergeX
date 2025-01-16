@@ -17,7 +17,6 @@ console.debug = () => { };
 
 const registerEventListeners = () => {
 
-
 chrome.runtime.onMessage.addListener((msg) => {
   console.log('message received from content script: ', msg);
   return true;
@@ -71,63 +70,6 @@ chrome.runtime.onMessage.addListener((msg) => {
   
   });
   
-  // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-
-  //   if (request.action === 'login') {
-
-  //       // Make the listener callback async
-  //       (async () => {
-  //           try {
-  //               // Await the unlockWallet promise
-  //               const unlockWallet = await stxWalletDbService.unlockWallet(request.password);
-                
-  //               if (unlockWallet) {
-  //                   const session = {
-  //                       isActive: true,
-  //                       timestamp: new Date().getTime()
-  //                   };
-                    
-  //                 // Check if running in a Chrome extension context
-  //                 if (typeof chrome !== "undefined" && chrome?.storage?.local) {
-
-  //                   // Use a Promise-based approach for chrome?.storage?.local.set
-  //                   await new Promise<void>((resolve, reject) => {
-  //                       chrome?.storage?.local.set({ 
-  //                           'session': session, 
-  //                           'walletInstance': unlockWallet 
-  //                       }, () => {
-  //                           if (chrome.runtime.lastError) {
-  //                               reject(chrome.runtime.lastError);
-  //                           } else {
-  //                               resolve();
-  //                           }
-  //                       });
-  //                   });
-
-  //                   // Send successful response
-  //                   sendResponse({ success: true, walletInstance: unlockWallet });
-
-  //                 } else {
-
-  //                   console.error("Not in a Chrome extension context");
-  //                   sendResponse({ success: false, error: "Not in a Chrome extension context" });
-
-  //                 }
-    
-  //               } else {
-  //                   sendResponse({ success: false, error: 'Invalid password' });
-  //               }
-  //           } catch (error:any) {
-  //               console.error('Login error:', error);
-  //               sendResponse({ success: false, error: error.message });
-  //           }
-  //     })();
-
-  //     // Important: Always return true for async listeners
-  //     return true; // Will respond asynchronously
-  //   }
-  // });
-
 }
 
 (() => {
