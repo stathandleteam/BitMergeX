@@ -55,8 +55,8 @@ const ConfirmTransaction: React.FC<ConfirmTransactionProps> = ({
     const [isModalOpen, setIsModalOpen] = useState(false);
     const hasMultipleAddresses = addresses.length > 1;
     const noOfRecipient =  addresses.length;
-    const usdAmount = (parseFloat(amount.toString()) * dollarToOneStx * noOfRecipient).toFixed(2);
-    const tokenAmount = (parseFloat(amount.toString()) * noOfRecipient).toFixed(2) ;
+    const usdAmount = (parseFloat(amount.toString()) * dollarToOneStx * noOfRecipient)?.toFixed(2) || '0';
+    const tokenAmount = (parseFloat(amount.toString()) * noOfRecipient)?.toFixed(2) || '0' ;
   
     const handleCopy = (text: string) => {
       navigator.clipboard.writeText(text);
@@ -170,7 +170,7 @@ const ConfirmTransaction: React.FC<ConfirmTransactionProps> = ({
       <FeeComponent label={'Per Address'} primaryValue={`${amount} STX`} secondaryValue={''} />
 
 
-      {isBulkMode && <FeeComponent label={'Total'} primaryValue={`${totalTransferAmount.toFixed(2)} STX`} secondaryValue={''} />}
+      {isBulkMode && <FeeComponent label={'Total'} primaryValue={`${totalTransferAmount?.toFixed(2) || '0'} STX`} secondaryValue={''} />}
 
         <FeeComponent label={'Miner Fee'} primaryValue={fee.stx} secondaryValue={fee.usd} />
 

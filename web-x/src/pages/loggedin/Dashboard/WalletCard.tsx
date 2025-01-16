@@ -33,7 +33,7 @@ const WalletCard = ({accountBalance}: Props) => {
       <div className={styles.header}>
         <div className={styles.totalBalanceContainer}>
           <span className={styles.totalBalance}>Total Balance</span>
-         { <div className={styles.balance}>{`$ ${accountBalance?.usdBalance.toFixed(2) || 0}`}</div>}
+         { <div className={styles.balance}>{`$ ${accountBalance?.usdBalance?.toFixed(2) || '0' || 0}`}</div>}
         </div>
        
       </div>

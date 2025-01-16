@@ -32,10 +32,10 @@ const TokenBalance: React.FC<TokenBalanceProps> = ({
       </div>
       <div className={styles.rightSection}>
         <span className={styles.balance}>
-          {balance.toFixed(6)}
+          {balance?.toFixed(6)}
         </span>
         <span className={styles.fiatValue}>
-          ${fiatValue.toFixed(2)}
+          ${fiatValue?.toFixed(2) || '0'}
         </span>
       </div>
     </div>

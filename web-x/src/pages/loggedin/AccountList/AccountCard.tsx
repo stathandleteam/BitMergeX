@@ -79,7 +79,7 @@ const AccountCard: React.FC<AccountCardProps> = ({
           </CustomDropdown>
         </span>
         <span className={styles.fiatValue}>
-          {/* ${fiatValue.toFixed(2)} */}
+          {/* ${fiatValue?.toFixed(2) || '0'} */}
         </span>
       </div>
     </div>

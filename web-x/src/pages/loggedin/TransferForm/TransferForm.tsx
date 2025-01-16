@@ -89,7 +89,7 @@
 //             />
 //             {formData.amount && (
 //                 <div className={styles.usdValue}>
-//                     ${(parseFloat(formData.amount) * 2).toFixed(2)}
+//                     ${(parseFloat(formData.amount) * 2)?.toFixed(2) || '0'}
 //                 </div>
 //             )}
 //             </div>

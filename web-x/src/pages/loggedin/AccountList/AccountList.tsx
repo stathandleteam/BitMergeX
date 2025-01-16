@@ -78,8 +78,8 @@ const AccountList = () => {
                                 key={index}
                                 symbol={`Account ${index + 1}`}
                                 name={shortenAddress(account.address)}
-                                balance={account.addressBalance.toFixed(2)}
-                                fiatValue={parseFloat((account.addressBalance * account.stxPriceInDollar).toFixed(2))}
+                                balance={account.addressBalance?.toFixed(2) || '0'}
+                                fiatValue={parseFloat((account.addressBalance * account.stxPriceInDollar)?.toFixed(2) || '0')}
                                 icon={<></>}
                                 selected={index === stxAccountIndex}
                             />

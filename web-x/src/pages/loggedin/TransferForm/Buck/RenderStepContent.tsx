@@ -240,14 +240,14 @@ const RenderStepContent = ({
                 
                 {formData.amount && (
                   <div className={styles.usdValue}>
-                   {`$ ${(parseFloat(formData.amount) * dollarToOneStx).toFixed(2)}`}
+                   {`$ ${(parseFloat(formData.amount) * dollarToOneStx)?.toFixed(2) || '0'}`}
                   </div>
                 )}
               </div>
              
               {isBulkMode && formData.amount && (
                 <div className={styles.totalAmount}>
-                  Total: {totalTransferAmount.toFixed(2)} STX (${(totalTransferAmount * 2).toFixed(2)})
+                  Total: {totalTransferAmount?.toFixed(2) || '0'} STX (${(totalTransferAmount * 2)?.toFixed(2) || '0'})
                 </div>
               )}
             </div>
@@ -284,7 +284,7 @@ const RenderStepContent = ({
         //       <div className={styles.reviewAmount}>
         //         <div>Per Address: {formData.amount} STX</div>
         //         {isBulkMode && (
-        //           <div>Total: {totalTransferAmount.toFixed(2)} STX</div>
+        //           <div>Total: {totalTransferAmount?.toFixed(2) || '0'} STX</div>
         //         )}
         //       </div>
         //     </div>

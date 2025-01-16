@@ -13,8 +13,8 @@ const Header = ({accountBalance}: Props) => {
         <img className={styles.logo} src={STXLogo} alt="" />
         <div className={styles.totalBalanceContainer}>
           <span className={styles.totalBalance}>Stacks Balance</span>
-            <div className={styles.balance}>{`${accountBalance.stxBalance} STX`}</div>
-            <span className={styles.address}>{`$${accountBalance.usdBalance.toFixed(2)} USD`}</span>
+            <div className={styles.balance}>{`${accountBalance?.stxBalance||0} STX`}</div>
+            <span className={styles.address}>{`$${accountBalance?.usdBalance?.toFixed(2) || '0'} USD`}</span>
         </div>
     </div>
   )

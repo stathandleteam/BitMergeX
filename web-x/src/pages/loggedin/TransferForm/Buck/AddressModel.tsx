@@ -38,7 +38,7 @@ const AddressesModal = ({totalTransferAmount, setShowAddressesModal, addresses}
           ))}
           <div className={styles.modalTotal}>
             <span>Total Amount:</span>
-            <span>{totalTransferAmount.toFixed(2)} STX (${(totalTransferAmount * dollarToOneStx).toFixed(2)})</span>
+            <span>{totalTransferAmount?.toFixed(2) || '0'} STX (${(totalTransferAmount * dollarToOneStx)?.toFixed(2) || '0'})</span>
           </div>
         </div>
       </div>

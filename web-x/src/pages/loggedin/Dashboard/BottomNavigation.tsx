@@ -86,8 +86,8 @@ const WalletSection: React.FC<WalletSectionProps> = ({onClick}) => {
         <TokenBalance
           symbol="STX"
           name="Stacks"
-          balance={parseInt(accountBalance.stxBalance.toFixed(0))}
-          fiatValue={parseInt(accountBalance.usdBalance.toFixed(2))}
+          balance={parseInt(accountBalance.stxBalance?.toFixed(0) || '0')}
+          fiatValue={parseInt(accountBalance.usdBalance?.toFixed(2) || '0')}
           icon={<img className={styles.logo} src={STXLogo} alt="" />}
           onClick={()=>handleNavigation(ROUTES.STX_DETAILS)}  
         />
