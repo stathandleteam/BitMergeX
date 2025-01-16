@@ -1,0 +1,95 @@
+// src/pages/SettingsPage.module.scss
+$primary-black-500: #141414 !default;
+$text-primary: #ffffff;
+$text-secondary: #6b7280;//#a0a0a0;
+$border-color: #2c2c2c;
+$hover-background: #1e1e1e;
+
+.heading{
+    font-size: 1rem;
+}
+
+.sub-heading{
+    font-size: 1rem;
+}
+
+.settingsContainer {
+  background-color: $primary-black-500;
+  min-height: 100vh;
+  color: $text-primary;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  .headerIcon {
+    font-size: 24px;
+    margin-right: 15px;
+    color: $text-secondary;
+  }
+
+  .h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.settingsItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: darken($primary-black-500, 3%);
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $hover-background;
+  }
+
+  .settingsItemContent {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .settingsItemIcon {
+    font-size: 1rem;
+    color: $text-secondary;
+  }
+
+  .settingsItemText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    .h3 {
+      margin: 0 0 5px 0;
+      font-size: 0.875rem;
+    }
+
+    p {
+      margin: 0;
+      color: $text-secondary;
+    //   font-size: 12px;
+    
+    }
+  }
+
+  .settingsItemChevron {
+    color: $text-secondary;
+    font-size: 24px;
+  }
+}

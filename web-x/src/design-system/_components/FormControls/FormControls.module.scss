@@ -1,0 +1,106 @@
+// FormControls.module.scss
+.checkboxContainer,
+.radioContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+  font-size: 14px;
+
+  &:hover:not(.disabled) {
+    .checkbox,
+    .radio {
+      border-color: #ff4444;
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    .checkbox,
+    .radio {
+    //   background: #1A1A1A;
+      border-color: #2A2A2A;
+    }
+
+    .label {
+      color: #666;
+    }
+  }
+
+  &.error {
+    .checkbox,
+    .radio {
+      border-color: #ff4444;
+    }
+  }
+}
+
+.hiddenInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  &:focus-visible + .checkbox,
+  &:focus-visible + .radio {
+    box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
+  }
+
+  &:checked + .checkbox,
+  &:checked + .radio {
+    background: #ff4444;
+    border-color: #ff4444;
+  }
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3A3A3A;
+  border-radius: 4px;
+//   background: #2A2A2A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3A3A3A;
+  border-radius: 50%;
+//   background: #2A2A2A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.radioInner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+//   background: #fff;
+}
+
+.checkIcon {
+  width: 16px;
+  height: 16px;
+  color: #fff;
+}
+
+.label {
+  a {
+    color: #ff4444;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

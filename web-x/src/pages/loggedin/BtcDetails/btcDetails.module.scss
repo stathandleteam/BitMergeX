@@ -1,0 +1,49 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+    --body-background: #{$primary-black-500};
+    --onboarding-subtitle-color: #{$neutral-gray-500};
+}
+
+.home-page{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0;
+    height: 100vh;
+}
+
+.body{
+    // padding-top: rem(200);
+    height: rem(600);
+    width: rem(350);
+    background-color: var(--body-background);
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.top-layer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 70px
+}
+
+.back-icon{
+    @extend %back-click;
+}
+
+.walletSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;    
+  }

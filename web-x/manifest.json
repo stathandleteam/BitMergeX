@@ -1,0 +1,33 @@
+{
+  "name": "Bitmergex Wallet Extension",
+  "description": "A Stacks wallet Chrome extension",
+  "icons": {
+      "32": "vite.svg"
+  },
+  "version": "1.0.0",
+  "manifest_version":3,
+  "action": {
+      "default_popup": "index.html",
+      "default_icon": "vite.svg"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://blankk.org/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "src/content-script/index.tsx"  
+      ]
+    }
+  ],
+  "permissions": [
+      "scripting",
+      "storage"
+  ],
+  "host_permissions": [
+    "https://pro-api.coinmarketcap.com/*"
+  ],
+  "background": {
+  "service_worker": "./src/background/background.ts"
+}}

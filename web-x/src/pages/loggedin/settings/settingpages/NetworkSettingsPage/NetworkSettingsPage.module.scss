@@ -1,0 +1,166 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+// src/pages/NetworkSettingsPage.module.scss
+$primary-black-500: #141414 !default;
+$text-primary: #ffffff;
+$text-secondary: #6b7280;
+$border-color: #2c2c2c;
+$hover-background: #1e1e1e;
+$accent-color: #4a90e2;
+
+.networkSettingsContainer {
+  background-color: $primary-black-500;
+  min-height: 100vh;
+  color: $text-primary;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  .headerIcon {
+    font-size: 24px;
+    margin-right: 15px;
+    color: $text-secondary;
+  }
+
+  .h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    padding-left: 2.2rem;
+    padding-top: 0.1rem;
+  }
+}
+
+.networkSection, .networkDetailsSection, .networkWarning {
+  background-color: darken($primary-black-500, 3%);
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  .h2 {
+    margin: 0 0 10px 0;
+    // font-size: 1rem;
+    color: $text-primary;
+  }
+
+  p {
+    color: $text-secondary;
+    margin: 0 0 15px 0;
+    // font-size: 14px;
+  }
+}
+
+.networkList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.networkItem {
+  display: flex;
+  align-items: center;
+  background-color: darken($primary-black-500, 5%);
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $hover-background;
+  }
+
+  &.networkItemActive {
+    border-color: $accent-orange-500;
+    background-color: rgba($accent-orange-500, 0.1);
+  }
+
+  .networkItemContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+    position: relative;
+  }
+
+  .networkItemIcon {
+    font-size: 24px;
+    color: $text-secondary;
+  }
+
+  .networkItemText {
+    flex-grow: 1;
+
+    .h3 {
+      margin: 0 0 5px 0;
+      font-size: 0.875rem;
+    }
+
+    p {
+      margin: 0;
+      color: $text-secondary;
+      font-size: 12px;
+    }
+
+    .rpcUrl {
+      display: block;
+      color: darken($text-secondary, 10%);
+      font-size: 10px;
+      margin-top: 5px;
+    }
+  }
+
+  .activeNetworkIcon {
+    color: $accent-color;
+    font-size: 24px;
+  }
+}
+
+.networkDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .networkDetailItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    span {
+      color: $text-secondary;
+      font-size: 14px;
+    }
+
+    strong {
+      color: $text-primary;
+      font-size: 14px;
+    }
+  }
+}
+
+.networkWarning {
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: rgba(255, 165, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+//   gap: 5px;
+
+  .h2 {
+    color: orange;
+  }
+
+  p {
+    color: $text-secondary;
+  }
+}
+
+
+.back-icon{
+    @extend %back-click;
+}

@@ -1,0 +1,50 @@
+
+// responsive form design
+.responsive_form {
+    margin: auto;
+    width: 40rem;
+        
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
+
+}
+
+
+.scrollable {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+
+    // Mobile
+    touch-action: pan-y; // to allow vertical scrolling touch gestures.
+    -webkit-overflow-scrolling: touch; // to enable momentum based scrolling on iOS.
+
+    // Desktop
+    -ms-overflow-style: none;
+    overscroll-behavior-y: contain; // to prevent the scroll position from skipping around.
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #ddd;
+}
+
+.scrollable:hover {
+    overflow-y: scroll;
+}
+
+.scrollable:active::-webkit-scrollbar-thumb,
+.scrollable:focus::-webkit-scrollbar-thumb,
+.scrollable:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    visibility: hidden;
+
+}
+
+.scrollable::-webkit-scrollbar {
+    width: calc(5/16);
+    height: calc(4/16);
+}

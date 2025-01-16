@@ -1,0 +1,23 @@
+
+  .nameInput {
+    // font-weight: 500;
+    // font-size: 1rem;
+    max-width: 6rem;
+    color: #ffffff;
+    // padding: 0.2rem 0.4rem;
+    border: none; /* Remove border */
+    outline: none; /* Ensures no outline on input */
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  .truncate{
+    max-width: 8rem; /* Set the maximum width as needed */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis when text is too long */
+    white-space: nowrap; /* Prevents wrapping to a new line */
+  
+  }
+

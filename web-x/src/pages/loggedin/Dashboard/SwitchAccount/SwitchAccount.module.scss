@@ -1,0 +1,54 @@
+.switchAccountContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 100%;
+    align-items: center;
+    position: relative;
+
+
+    .rightSection {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      
+    
+    .accountType{
+        font-size: 0.5rem;
+        font-weight: 400;
+        color: #6b7280;
+    }
+
+    .accountNameContainer{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        &:hover{
+
+            .arrow svg{
+                color: #b2b7c1;
+            }
+
+            .accountName{
+                color: #b2b7c1;
+            }
+        }
+        
+        .arrow svg{
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+
+        .accountName{
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #ffffff;
+
+        }
+    }
+
+
+    
+}

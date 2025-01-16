@@ -1,0 +1,344 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root {
+  --background-dark: #1a1b1e;
+  --background-light: #2c2e33;
+  --background-hover: #3a3d42;
+  --text-primary: #e6e6e6;
+  --text-secondary: #a1a1a1;
+  --text-tertiary: #737373;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --token-color: #3b82f6;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
+  gap:0.2rem;
+//   height: 100%;
+}
+
+.amount {
+  border: 1px solid rgba($primary-black-400, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  // margin-bottom: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; // Reduced the gap for consistency
+
+  .token-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; // Align items at the bottom
+
+    .value {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: $neutral-light-500;
+    }
+
+    .token-value {
+      color: $neutral-gray-500;
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+
+    .token-value-1 {
+      color: $neutral-gray-500;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .usd {
+      color: $neutral-gray-500;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem; // Consistent gap
+      align-items: center;
+    
+
+      .token-name {
+        font-size: 0.7rem;
+        color: white;
+        display: flex;
+        gap: 0.2rem;
+      }
+    }
+  }
+}
+
+.recipient {
+  // Removed background and padding for a cleaner look, but you can uncomment if needed
+  // background-color: rgba($primary-black-400, 0.5);
+  // padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.2rem;
+
+  .label {
+    font-size: 0.875rem;
+    color: $neutral-gray-500;
+    margin-bottom: 0.5rem;
+  }
+
+  .address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem; // Added margin for spacing between addresses
+    color: $neutral-light-500;
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+
+      .iconButton {
+        background: none;
+        border: none;
+        padding: 0.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: $neutral-gray-500;
+      }
+    }
+  }
+}
+
+// // styles.module.scss
+// .recipientSection {
+//   margin-bottom: 1.5rem;
+//   position: relative;
+
+//   .sectionTitle {
+//     font-size: 0.875rem;
+//     color: var(--text-secondary);
+//     margin-bottom: 0.5rem;
+//   }
+
+//   .addressList {
+//     position: relative;
+//     max-height: 80px; // Height for approximately one item
+//     overflow: hidden;
+
+//     &.expanded {
+//       max-height: none;
+//     }
+
+//     &::after {
+//       content: '';
+//       position: absolute;
+//       bottom: 0;
+//       left: 0;
+//       right: 0;
+//       height: 40px;
+//       background: linear-gradient(to bottom, transparent, var(--background-dark));
+//       pointer-events: none;
+//     }
+
+//     &.expanded::after {
+//       display: none;
+//     }
+//   }
+
+//   .viewAllButton {
+//     width: 100%;
+//     padding: 0.5rem;
+//     margin-top: 0.5rem;
+//     background-color: var(--background-light);
+//     border: 1px solid var(--border-color);
+//     border-radius: 0.375rem;
+//     color: var(--text-primary);
+//     font-size: 0.875rem;
+//     cursor: pointer;
+//     transition: background-color 0.2s;
+
+//     &:hover {
+//       background-color: var(--background-hover);
+//     }
+//   }
+// }
+
+.fee-container {
+    border-radius: 0.5rem; // Rounded corners for the container
+    margin-bottom: 1.2rem; // Spacing from adjacent components
+    display: flex;
+    justify-content: space-between; // Align label and details on opposite sides
+  
+    .fee-label {
+      // font-size: 0.875rem; // Equivalent to 14px
+      color: $neutral-gray-500; // Generic color variable
+      margin-bottom: 0.5rem;
+    }
+  
+    .fee-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .fee-values {
+      display: flex;
+      flex-direction: column; // Align fee amounts vertically
+      text-align: right;
+      .fee-primary {
+        color: $neutral-light-500; // Main fee color
+        // font-size: 1rem; // Equivalent to 16px
+        margin-bottom: 0.2rem;
+      }
+  
+      .fee-secondary {
+        color: $neutral-gray-500; // Secondary fee color
+        font-size: 0.65rem; // Equivalent to 10.4px
+      }
+    }
+  }
+  
+
+
+
+
+
+
+
+  .recipientSection {
+    margin-bottom: 1.5rem;
+  
+    .sectionTitle {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+  
+    // .addressList {
+    //   display: flex;
+    //   flex-direction: column;
+    //   gap: 0.75rem;
+    // }
+
+    .addressList {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      max-height: 80px; // Height for approximately one item
+      overflow: hidden;
+
+      &.expanded {
+        max-height: none;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: linear-gradient(to bottom, transparent, var(--background-dark));
+        pointer-events: none;
+      }
+
+      &.expanded::after {
+        display: none;
+      }
+    }
+
+    .viewAllButton {
+      width: 100%;
+      padding: 0.5rem;
+      // margin-top: 0.5rem;
+      background-color: var(--background-light);
+      border: 1px solid var(--border-color);
+      border-radius: 0.375rem;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--background-hover);
+      }
+
+    }
+
+    .addressItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background-color: var(--background-light);
+      border-radius: 0.5rem;
+  
+      .address {
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        color: var(--text-primary);
+        max-width: 240px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+  
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+  
+  .feeSection {
+    padding: 1rem;
+    background-color: var(--background-light);
+    border-radius: 0.5rem;
+  
+    .feeContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .feeLabel {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+  
+    .feeInfo {
+      text-align: right;
+  
+      .primaryFee {
+        font-size: 0.875rem;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+      }
+  
+      .secondaryFee {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+      }
+    }
+  }
+  
+  .iconButton {
+    padding: 0.25rem;
+    background: none;
+    border: none;
+    border-radius: 0.25rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background-color: var(--background-hover);
+    }
+  
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }

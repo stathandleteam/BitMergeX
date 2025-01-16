@@ -1,0 +1,184 @@
+// TransferForm.module.scss
+@import '@/design-system/globalStyles/index.global.scss';
+
+:root{
+    --accent-color: #{$accent-orange-500};
+}
+
+$primary-black-500: #141414 !default;
+$white: #FFFFFF;
+// $orange: ;
+$gray: #6B7280;
+$border-color: #2C2C2C;
+
+.transactionSentContainer{
+  background-color: $primary-black-500;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 480px;
+  width: 100%;
+  color: $white;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  // margin-top:80px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: auto 0;
+}
+
+.sent-to{
+  font-size: 0.6rem;
+  color: $gray;
+}
+
+.actions{
+   padding: 0 1rem;
+}
+
+.successIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: $accent-orange-500;
+  color: $white;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  font-size: 40px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  // margin-bottom: 4rem;
+
+}
+
+.transactionDetails {
+  background-color: darken($primary-black-500, 3%);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.label {
+  color: $gray;
+  font-size: 14px;
+}
+
+.value {
+  font-weight: 500;
+  text-align: right;
+}
+
+.txIdContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.txId {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.copyButton,
+.explorerButton,
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+//   padding: 8px 16px;
+  transition: all 0.3s ease;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+}
+
+.copyButton {
+  background: none;
+  color: $gray;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.explorerButton {
+  background-color: $accent-orange-500;
+  color: $white;
+  border: none;
+  width: 100%;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($accent-orange-500, 10%);
+  }
+}
+
+.closeButton {
+  background: none;
+  border: 1px solid $border-color;
+  color: $white;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lighten($primary-black-500, 10%);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .transactionSentContainer {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .successIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+  }
+}
+
+.view-explorer{
+  cursor: pointer;
+  text-decoration: underline;
+  color: $accent-orange-500;
+
+  :hover{
+    cursor: pointer;
+    // text-decoration-color: white;
+  }
+}
+
+
+.onboarding-title {
+  @extend %h3-medium; //typography
+  color: $white;
+}

@@ -1,0 +1,120 @@
+// TokenBalance.module.scss
+.avatarGroupContainer{
+    position: relative;
+  }
+
+  .container {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 1rem 1rem 0.5rem; 
+      background: #d3d5d9;
+      border-radius: 0.75rem;
+      position: relative;
+
+
+      &:hover {
+        background: white;//rgba(0, 0, 0, 0.02);
+  
+        .name, .fiatValue {
+          color: #6b7280;
+        }
+  
+        .iconWrapper {
+          svg {
+            color: #6b7280;
+          }
+        }
+  
+        .symbol {
+          color: black;
+  
+        }
+    
+      }
+  
+    }
+    
+    .leftSection {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .iconWrapper {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: black;
+      }
+    }
+    
+    .tokenInfo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 0rem;
+    }
+    
+    .symbol {
+      font-weight: 500;
+      // color: #1f2937;
+      color: darken(#ff5733, 5%);
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+    
+    .name {
+      color: black;// darken(#ff5733, 5%);
+      font-size: 0.875rem;
+    }
+    
+    .rightSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    
+    .balance {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 1rem;
+    }
+    
+    .fiatValue {
+      color: white;
+      font-size: 0.875rem;
+    }
+    
+    @media (max-width: 640px) {
+      .container {
+        padding: 0.75rem;
+      }
+      
+      .symbol, .balance {
+        font-size: 0.875rem;
+      }
+      
+      .name, .fiatValue {
+        font-size: 0.75rem;
+      }
+      
+      .iconWrapper {
+        width: 1.75rem;
+        height: 1.75rem;
+        
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+    }

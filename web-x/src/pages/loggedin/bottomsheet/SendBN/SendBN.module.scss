@@ -1,0 +1,21 @@
+
+.tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+  cursor: pointer;
+  padding-bottom: 0.1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+}
+
+.title{
+  color: #636b76;
+  font-size: small;
+  text-decoration: solid;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 0.4rem;
+}

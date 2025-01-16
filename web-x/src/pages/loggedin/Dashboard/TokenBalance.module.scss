@@ -1,0 +1,118 @@
+@import '@/design-system/globalStyles/index.global.scss';
+
+// TokenBalance.module.scss
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 1rem 0.5rem; 
+    // background: #FE5630;
+    // background-color: rgba(254, 86, 48, 0.03);;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    &:hover {
+      // background-color: darken(#ff5733, 5%);
+
+      .name, .fiatValue {
+        // color: #fff;
+      }
+
+      .iconWrapper {
+        svg {
+          // color: white;
+        }
+      }
+  
+    }
+
+  }
+  
+  .leftSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .iconWrapper {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      // color: black;
+      color: white;
+    }
+  }
+  
+  .tokenInfo {
+    display: flex;
+    flex-direction: column;
+
+   
+
+  }
+  
+  .symbol {
+    font-weight: 600;
+    // color: #1f2937;
+    color:white;
+
+    font-size: 1rem;
+  }
+  
+  .name {
+    color: #6b7280;
+    font-size: 0.875rem;
+
+  }
+  
+  .rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .balance {
+    font-weight: 600;
+    // color: #1f2937;
+    font-size: 1rem;
+    color:white;
+
+  }
+  
+  .fiatValue {
+    // color: white;
+    color: #6b7280;
+
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 640px) {
+    .container {
+      padding: 0.75rem;
+    }
+    
+    .symbol, .balance {
+      font-size: 0.875rem;
+    }
+    
+    .name, .fiatValue {
+      font-size: 0.75rem;
+    }
+    
+    .iconWrapper {
+      width: 1.75rem;
+      height: 1.75rem;
+      
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
