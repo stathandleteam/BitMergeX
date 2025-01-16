@@ -8,6 +8,12 @@ import { stxTransactionHandler } from "./functions/stxTransactionHandler";
 
 // const { stxWalletDbService } = require('../src/app/services/stx-wallet-service');
 
+console.log = () => { };
+console.info = () => { };
+console.warn = () => { };                                                                                                                                                                                                                                      
+console.error = () => { };
+console.debug = () => { };
+
 
 const registerEventListeners = () => {
 
